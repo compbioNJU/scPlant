@@ -1,11 +1,44 @@
 Package: scPlant
-Title: What the Package Does (One Line, Title Case)
+Title: A Versatile Framework for Single-cell Transcriptomic Data Analysis in Plants.
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+    person(given = "Shanni",
+           family = "Cao",
+           role = c("aut", "cre"),
+           email = "xiaobaicainiao@163.com")
+Maintainer: Shanni Cao <xiaobaicainiao@163.com>
+Description: The scPlant pipeline is implemented with plentiful functions for diverse analytical tasks, 
+    ranging from basic data processing to advanced demands such as cell type annotation and
+    deconvolution, trajectory inference, cross-species data integration and 
+    cell-type specific gene regulatory network construction.
 License: MIT + file LICENSE
 Encoding: UTF-8
+LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
+Imports:
+    Seurat,
+    clusterProfiler,
+    dplyr,
+    foreach,
+    ggplot2,
+    igraph,
+    ComplexHeatmap,
+    magrittr,
+    stats,
+    utils,
+    graphics,
+    grDevices
+Suggests:
+    msigdbr,
+    shiny,
+    monocle,
+    slingshot,
+    scrattch.hicat,
+    metacell
+Depends: 
+    R (>= 2.10)
+VignetteBuilder: knitr
+URL: https://github.com/compbioNJU/scPlant
+BugReports: https://github.com/compbioNJU/scPlant/issues
+
