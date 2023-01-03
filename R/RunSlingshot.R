@@ -10,7 +10,6 @@
 #' @param save_plot save plots to pdf or not.
 #' @param return_object return object or not.
 #'
-#' @importFrom slingshot slingshot SlingshotDataSet
 #' @importFrom SingleCellExperiment reducedDims
 #' @importFrom stats heatmap
 #'
@@ -25,7 +24,7 @@ RunSlingshot <- function(SeuratObj,
                          return_object = TRUE) {
 
   sce <- Seurat::as.SingleCellExperiment(SeuratObj)
-  sce <- slingshot(sce, clusterLabels = clusterlabel, reducedDim = reduction)
+  sce <- slingshot::slingshot(sce, clusterLabels = clusterlabel, reducedDim = reduction)
 
   if (save_plot) {
     if (!dir.exists(paths = "./output/plots/RunSlingshot")) {
@@ -35,12 +34,12 @@ RunSlingshot <- function(SeuratObj,
     colors <- grDevices::colorRampPalette(pals::brewer.spectral(11)[-6])(100)
     plotcol <- colors[cut(sce$slingPseudotime_1, breaks=100)]
     plot(reducedDims(sce)[[reduction]], col = plotcol, pch=16, asp = 1)
-    lines(SlingshotDataSet(sce), lwd=2, col='black')
+    lines(slingshot::SlingshotDataSet(sce), lwd=2, col='black')
     dev.off()
     pdf(file = "./output/plots/RunSlingshot/RunSlingshot_2.pdf", width = 10, height = 10)
     clustercolors <- setNames(CellFunTopic::scPalette2(length(unique(sce[[clusterlabel]]))), unique(sce[[clusterlabel]]))
     plot(reducedDims(sce)[[reduction]], col = clustercolors[as.character(sce[[clusterlabel]])], pch=16, asp = 1)
-    lines(SlingshotDataSet(sce), lwd=2, type = 'lineages', col = 'black')
+    lines(slingshot::SlingshotDataSet(sce), lwd=2, type = 'lineages', col = 'black')
     dev.off()
   }
 

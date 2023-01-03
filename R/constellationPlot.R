@@ -4,11 +4,10 @@
 #' @param SeuratObj Seurat object
 #' @param cluster_label one column of \code{SeuratObj@meta.data}, used for cluster annotation to display in the plot.
 #' @param out.dir location to write plotting files to
-#' @param k K for KNN algorithm. 
+#' @param k K for KNN algorithm.
 #' @param knn.outlier.th  Threshold to determine if a nearest neighbor is too far
-#' @param outlier.frac.th Threshold to determine if a cell is a outlier if it is too far away from most of its neighbors. 
-#' 
-#' @importFrom scrattch.hicat get_knn_graph plot_constellation
+#' @param outlier.frac.th Threshold to determine if a cell is a outlier if it is too far away from most of its neighbors.
+#'
 #'
 #' @return
 #' @export
@@ -19,17 +18,17 @@
 #' Seurat::Idents(SeuratObj) <- SeuratObj$seurat_clusters
 #' constellationPlot(SeuratObj, cluster_label = "seurat_annotations", out.dir = "Constellation_plots")
 #' }
-#' 
+#'
 constellationPlot <- function(SeuratObj, cluster_label = "cell_type", out.dir = "Constellation_plots",
                               k=15, knn.outlier.th=2, outlier.frac.th=0.5) {
   # get output of KNN.graph
   rd.dat <- Seurat::Embeddings(SeuratObj, reduction = 'pca')
   cl <- setNames(as.character(Seurat::Idents(SeuratObj)), names(Seurat::Idents(SeuratObj)))
-  cl.df <- unique(data.frame(cluster=cl, 
+  cl.df <- unique(data.frame(cluster=cl,
                              cluster_label=as.character(SeuratObj@meta.data[names(Seurat::Idents(SeuratObj)), cluster_label]),
                              stringsAsFactors = F))
   rownames(cl.df) <- cl.df$cluster
-  knnResult <- get_knn_graph(rd.dat, cl, cl.df, k=k, knn.outlier.th=knn.outlier.th, outlier.frac.th=outlier.frac.th)
+  knnResult <- scrattch.hicat::get_knn_graph(rd.dat, cl, cl.df, k=k, knn.outlier.th=knn.outlier.th, outlier.frac.th=outlier.frac.th)
   knn.cl.df <- knnResult[['knn.cl.df']]
   knn.cl.df$cl.from <- as.character(knn.cl.df$cl.from)
   knn.cl.df$cl.to <- as.character(knn.cl.df$cl.to)
@@ -43,9 +42,9 @@ constellationPlot <- function(SeuratObj, cluster_label = "cell_type", out.dir = 
   nn <- tibble::deframe(cl.df)
   cl.center.df$cluster_label <- nn[as.character(cl.center.df$cl)]
   cl.center.df$cluster_size <- as.numeric(table(cl)[as.character(cl.center.df$cl)])
-  
-  plotting.constellation <- plot_constellation(knn.cl.df = knn.cl.df, cl.center.df = cl.center.df, 
-                                               out.dir = out.dir, node.dodge=TRUE) 
+
+  plotting.constellation <- scrattch.hicat::plot_constellation(knn.cl.df = knn.cl.df, cl.center.df = cl.center.df,
+                                                               out.dir = out.dir, node.dodge=TRUE)
 }
 
 

@@ -16,7 +16,7 @@ decomposeBulk(
 \arguments{
 \item{SeuratObj}{A Seurat object.}
 
-\item{exprs}{A data frame or matrix of raw read counts of \epmh{bulk} RNA-seq samples. Column names correspond to sample names, row names to genes.}
+\item{exprs}{A data frame or matrix of raw read counts of bulk RNA-seq samples. Column names correspond to sample names, row names to genes.}
 
 \item{meta}{A data frame of 2 columns with Sample and Class, correlate sample names with sample class.}
 
@@ -30,7 +30,9 @@ decomposeBulk(
 A data frame in long format, indicating the fraction of cell types in each bulk RNA-seq sample.
 }
 \description{
-CIBERSORT is an algorithm (Newman et al. Nautre Methods 12:453-457) for estimating the cell type composition of a bulk sample,
+CIBERSORT is an algorithm (Newman et al. Nature Methods 12:453-457) for estimating the cell type composition of a bulk sample,
 given a gene expression profile of the sample and a known gene expression profile for each cell type potentially contributing to the sample.
 Here, we wrap runCIBERSORT function from RNAMagnet R package to decompose bulk RNA-seq samples.
+To install RNAMagnet R package, see https://github.com/veltenlab/rnamagnet. Note that MAGIC is an important requirement of RNAMagnet package,
+an needs to be installed as a python package, see https://github.com/KrishnaswamyLab/MAGIC/tree/master/Rmagic#installation.
 }

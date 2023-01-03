@@ -9,7 +9,7 @@ crossSpecies_integrate(matrices, species, resolution = 0.5)
 \arguments{
 \item{matrices}{List of single-cell expression matrices of different species.}
 
-\item{species}{species of matrices. Charactor vector, such as \code{c('Ath', 'Osa')} or \code{c('Ath', 'Osa', 'Zma')},
+\item{species}{species of matrices. Character vector, such as \code{c('Ath', 'Osa')} or \code{c('Ath', 'Osa', 'Zma')},
 whose order must match order of matrices..}
 
 \item{resolution}{resolution parameter for \code{FindClusters}, use a value above (below) 1.0 if you want to obtain a larger (smaller) number of communities.}

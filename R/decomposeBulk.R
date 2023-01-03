@@ -2,19 +2,18 @@
 
 #' Decompose bulk RNA-seq samples using a single cell reference
 #'
-#' CIBERSORT is an algorithm (Newman et al. Nautre Methods 12:453-457) for estimating the cell type composition of a bulk sample,
+#' CIBERSORT is an algorithm (Newman et al. Nature Methods 12:453-457) for estimating the cell type composition of a bulk sample,
 #' given a gene expression profile of the sample and a known gene expression profile for each cell type potentially contributing to the sample.
 #' Here, we wrap runCIBERSORT function from RNAMagnet R package to decompose bulk RNA-seq samples.
+#' To install RNAMagnet R package, see https://github.com/veltenlab/rnamagnet. Note that MAGIC is an important requirement of RNAMagnet package,
+#' an needs to be installed as a python package, see https://github.com/KrishnaswamyLab/MAGIC/tree/master/Rmagic#installation.
 #'
 #' @param SeuratObj A Seurat object.
-#' @param exprs A data frame or matrix of raw read counts of \epmh{bulk} RNA-seq samples. Column names correspond to sample names, row names to genes.
+#' @param exprs A data frame or matrix of raw read counts of bulk RNA-seq samples. Column names correspond to sample names, row names to genes.
 #' @param meta A data frame of 2 columns with Sample and Class, correlate sample names with sample class.
 #' @param mc.cores Number of cores used
 #' @param slot Which slot to use to calculate mean expression per cell type
 #' @param assay Which assays to use to calculate mean expression per cell type
-#'
-#' @importFrom RNAMagnet CIBERSORT
-#' @importFrom Seurat AverageExpression
 #'
 #' @return A data frame in long format, indicating the fraction of cell types in each bulk RNA-seq sample.
 #' @export
@@ -30,7 +29,7 @@ decomposeBulk <- function(SeuratObj, exprs, meta, mc.cores = 1, slot = "counts",
   usegenes <- Allmarkers %>% dplyr::group_by(cluster) %>% dplyr::slice_max(order_by = avg_log2FC, n = 20, with_ties = F) %>%
     dplyr::pull(gene) %>% unique
   # 2. compute mean expression per cell type
-  mean_by_cluster <- AverageExpression(SeuratObj, features = usegenes, slot = slot, assay = assay)[[assay]]
+  mean_by_cluster <- Seurat::AverageExpression(SeuratObj, features = usegenes, slot = slot, assay = assay)[[assay]]
   mean_by_cluster <- as.matrix(mean_by_cluster)
   # 3. Create a vector that maps samples to biological class
   meta <- meta[, c("Sample", "Class")] %>% tibble::deframe()
@@ -49,7 +48,7 @@ runCIBERSORT <- function(exprs, base, design, markergenes = intersect(rownames(b
   for (i in 1:ncol(exprs)) {
     x <- exprs[,i]
     names(x) <- rownames(exprs)
-    res[[i]] <- CIBERSORT(x, features=base, transform=transform, usegenes = intersect(markergenes, rownames(exprs)), nu=nu, optim.nu = optim.nu, mc.cores = mc.cores, ...)
+    res[[i]] <- RNAMagnet::CIBERSORT(x, features=base, transform=transform, usegenes = intersect(markergenes, rownames(exprs)), nu=nu, optim.nu = optim.nu, mc.cores = mc.cores, ...)
   }
   #out <- apply(exprs,2, CIBERSORT, features=mean_by_cluster, kernel=kernel, cost =cost, method = method,alpha=alpha, gamma=gamma, transform=transform, usegenes = intersect(markergenes, rownames(exprs)), norm=norm, nu=nu)
   pvals <- data.frame(
@@ -97,7 +96,7 @@ fractionHmp <- function(CIBER, meta) {
 #' Heatmap showing mean expression of top 20 markers of each cell type in each sample.
 #'
 #' @param SeuratObj A Seurat object.
-#' @param exprs A data frame or matrix of raw read counts of \epmh{bulk} RNA-seq samples. Column names correspond to sample names, row names to genes.
+#' @param exprs A data frame or matrix of raw read counts of bulk RNA-seq samples. Column names correspond to sample names, row names to genes.
 #' @param meta A data frame of 2 columns with Sample and Class, correlate sample names with sample class.
 #'
 #' @importFrom ComplexHeatmap Heatmap rowAnnotation draw

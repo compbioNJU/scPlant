@@ -5,7 +5,7 @@
 #' currently integration of three species \code{Arabidopsis thaliana} and \code{Oryza sativa} and \code{Zea mays} are supported.
 #'
 #' @param matrices List of single-cell expression matrices of different species.
-#' @param species species of matrices. Charactor vector, such as \code{c('Ath', 'Osa')} or \code{c('Ath', 'Osa', 'Zma')},
+#' @param species species of matrices. Character vector, such as \code{c('Ath', 'Osa')} or \code{c('Ath', 'Osa', 'Zma')},
 #' whose order must match order of matrices..
 #' @param resolution resolution parameter for \code{FindClusters}, use a value above (below) 1.0 if you want to obtain a larger (smaller) number of communities.
 #'
@@ -80,4 +80,41 @@ filterMat <- function(counts, min.cells = 3, min.features = 200) {
   }
   return(counts)
 }
+
+
+#' Bar plot showing the percentage of cells from different species.
+#'
+#' Bar plot showing the percentage of cells from different species after cross-species integration.
+#'
+#' @param SeuratObj Seurat object.
+#' @param group_by column of \code{SeuratObj@meta.data}.
+#'
+#' @importFrom ggplot2 ggplot aes geom_bar theme_classic xlab theme element_text
+#'
+#' @return a ggplot ibject.
+#' @export
+#'
+species_percentage <- function(SeuratObj, group_by = 'seurat_clusters') {
+  mm <- table(as.character(SeuratObj[[group_by]]), SeuratObj$species)
+  pp <- as.data.frame(mm) %>% magrittr::set_colnames(c('group', 'species', 'cellnumber')) %>%
+    ggplot(aes(x=cellnumber, y=group, fill=species)) + geom_bar(stat = 'identity', position = 'fill') +
+    theme_classic() + xlab('Percentage(%)') + theme(axis.text = element_text(color='black'))
+  return(pp)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

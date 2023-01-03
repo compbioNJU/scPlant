@@ -1,0 +1,60 @@
+---
+title: "Automatic cell-type annotation"
+date: '`r Sys.Date()`'
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Automatic cell-type annotation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  tidy = FALSE,
+  message = FALSE,
+  # error = FALSE,
+  warning = FALSE,
+  eval = FALSE,
+  fig.align = "center"
+)
+options(width = 80)
+```
+
+**scPlant** have implemented several different solutions for automatic cell-type annotation that are based on popular tools, including [SingleR](https://doi.org/10.1038/s41590-018-0276-y), [Garnett](https://doi.org/10.1038/s41592-019-0535-3), [scCATCH](https://doi.org/10.1016/j.isci.2020.100882), [Celaref](https://www.bioconductor.org/packages/release/bioc/html/celaref.html) and [CellAssign](https://doi.org/10.1038/s41592-019-0529-1).
+
+```{r}
+library(scPlant)
+```
+
+`SingleR`, `Celaref` and `CellFunTopic` need reference data to perform automatic cell-type annotation.
+
+```{r}
+AutoAnnotate_SingleR(SeuratObj, ref, ref_type = "single-cell")
+```
+
+```{r}
+AutoAnnotate_Celaref(SeuratObj, counts_ref, cellinfo_ref)
+```
+
+```{r}
+result <- CellFunTopic::predictFun(SeuratObj, reference_SeuratObj)
+```
+
+`scCATCH`, `Garnett` and `CellAssign` need marker genes to perform automatic cell-type annotation.
+
+Please view the help document of these functions for the required format of marker genes, such as `?AutoAnnotate_scCATCH`.
+
+```{r}
+AutoAnnotate_scCATCH(SeuratObj, marker_custom)
+```
+
+```{r}
+AutoAnnotate_Garnett(SeuratObj, marker_file_path, gene_id_type, species = 'Ath')
+```
+
+```{r}
+AutoAnnotate_CellAssign(SeuratObj, marker_list)
+```
+
+
+

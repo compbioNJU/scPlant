@@ -1,0 +1,30 @@
+---
+title: "Gene regulatory network construction"
+date: '`r Sys.Date()`'
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Gene regulatory network construction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  tidy = FALSE,
+  message = FALSE,
+  # error = FALSE,
+  warning = FALSE,
+  fig.align = "center"
+)
+options(width = 80)
+```
+
+Gene regulatory networks (GRNs), consisting of the interaction between transcription factors (TFs) and their target genes, orchestrate cell-specific gene expression patterns and in turn determine the function of the cell. To construct cell-type specific GRNs using single-cell data, we have incorporated the widely used single-cell GRN analysis tool SCENIC ([Aibar et al., 2017](https://www.nature.com/articles/nmeth.4463)) into the scPlant pipeline, and prepared required cis-Target databases in order to support SCENIC for data analysis in plants. What's more, we have provided various visualization tools to display single-cell GRN results in different ways. Three plant species (Arabidopsis thaliana, Oryza sativa, Zea mays) are supported for now, and more plant species will be supported soon.
+
+```{r, eval = FALSE}
+library(scPlant)
+```
+
+
+
+

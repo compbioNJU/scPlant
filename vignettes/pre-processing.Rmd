@@ -1,0 +1,68 @@
+---
+title: "Pre-processing"
+date: '`r Sys.Date()`'
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Pre-processing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  tidy = FALSE,
+  message = FALSE,
+  # error = FALSE,
+  warning = FALSE,
+  eval = FALSE,
+  fig.align = "center"
+)
+options(width = 80)
+```
+
+
+We recommend **CellFunTopic** package to perform data pre-processing for convenience. The **CellFunTopic** package provides a convenient workflow for data pre-processing (quality control, normalization, dimension reduction, clustering, differential expression analysis, etc.) by integrating methods of `Seurat` package.
+
+```{r}
+devtools::install_github("compbioNJU/CellFunTopic")
+library(CellFunTopic)
+```
+
+
+## Load in the data
+
+CellFunTopic allows various types of input, including CellRanger outputs, raw gene expression matrix, and popular R objects used for single cell analysis such as `SingleCellExperiment`, `Seurat`, `CellDataSet`. CellFunTopic will transform different input data into a `Seurat` object.
+
+Let us use a randomly generated tiny single-cell expression matrix of Arabidopsis thaliana as a toy example. 
+
+```{r}
+dim(example_Ath) # an internal example data of scPlant 
+SeuratObj <- readData(data = example_Ath, type = 'expMatrix', species = "Arabidopsis thaliana")
+```
+
+You can also take CellRanger outputs as input:
+
+```{r}
+SeuratObj <- readData(data = "filtered_gene_bc_matrices/TAIR/", type = '10X', species = "Arabidopsis thaliana")
+```
+
+
+## Standard pre-processing workflow
+
+Then we can perform pre-processing conveniently. If users provide a pre-processed data, this step can be skipped.
+
+```{r}
+SeuratObj <- QCfun(SeuratObj)
+SeuratObj <- RunSeurat(SeuratObj, nPCs = 10, resolution = 1)
+unique(Seurat::Idents(SeuratObj)) # see how many clusters we got.
+```
+
+
+
+
+
+
+
+
+

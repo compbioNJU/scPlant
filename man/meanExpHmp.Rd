@@ -9,7 +9,7 @@ meanExpHmp(SeuratObj, exprs, meta)
 \arguments{
 \item{SeuratObj}{A Seurat object.}
 
-\item{exprs}{A data frame or matrix of raw read counts of \epmh{bulk} RNA-seq samples. Column names correspond to sample names, row names to genes.}
+\item{exprs}{A data frame or matrix of raw read counts of bulk RNA-seq samples. Column names correspond to sample names, row names to genes.}
 
 \item{meta}{A data frame of 2 columns with Sample and Class, correlate sample names with sample class.}
 }

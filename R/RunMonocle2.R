@@ -10,7 +10,7 @@
 #' @param return_object return CellDataSet object or not.
 #'
 #' @importFrom Seurat GetAssayData
-#' @importFrom monocle newCellDataSet estimateSizeFactors estimateDispersions setOrderingFilter
+#' @importFrom monocle newCellDataSet setOrderingFilter
 #' @importFrom monocle reduceDimension orderCells differentialGeneTest dispersionTable BEAM
 #' @importFrom monocle plot_cell_trajectory plot_pseudotime_heatmap plot_genes_branched_heatmap
 #'

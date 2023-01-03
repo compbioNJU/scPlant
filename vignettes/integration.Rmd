@@ -1,0 +1,64 @@
+---
+title: "Cross-species integration"
+date: '`r Sys.Date()`'
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Cross-species integration}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  tidy = FALSE,
+  message = FALSE,
+  # error = FALSE,
+  eval = F,
+  warning = FALSE,
+  fig.align = "center"
+)
+options(width = 80)
+```
+
+
+We have provided tools in the **scPlant** framework for cross-species integration of single-cell data in matched organs/tissues using one-by-one orthologous genes as anchors. Note that scPlant mainly uses the strategy of canonical correlation analysis (CCA) and reciprocal PCA (RPCA) for data integration as described in [Stuart\*, Butler\* et al, 2019](https://www.cell.com/cell/fulltext/S0092-8674(19)30559-8). What's more, scPlant normalizes each dataset with SCTransform ([Hafemeister and Satija, 2019](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1874-1)) before integration.
+
+```{r}
+library(scPlant)
+```
+
+Here, we take 3 toy example data to demonstrate how to perform a cross-species integration.
+
+```{r}
+dim(example_Ath) # toy example data of Arabidopsis thaliana
+dim(example_Osa) # toy example data of Oryza sativa
+dim(example_Zma) # toy example data of Zea mays
+```
+
+```{r}
+integratedObj <- crossSpecies_integrate(matrices = list(example_Ath, example_Osa, example_Zma), 
+                                        species = c('Ath', 'Osa', 'Zma'), resolution = 0.5)
+```
+
+Visualize integration result:
+
+```{r}
+library(Seurat)
+DimPlot(integratedObj, reduction = "umap", group.by = "species") + NoAxes()
+```
+
+```{r}
+DimPlot(integratedObj, reduction = "umap", group.by = "seurat_clusters", label = F,
+                repel = TRUE, split.by = "species") + NoAxes()
+```
+
+Bar plot showing the percentage of cells from different species:
+
+```{r}
+species_percentage(integratedObj, group_by = 'seurat_clusters')
+```
+
+
+
+

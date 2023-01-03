@@ -1,0 +1,11 @@
+pandoc: 2.17.1.1
+pkgdown: 2.0.6
+pkgdown_sha: ~
+articles:
+  auto-annotation: auto-annotation.html
+  integration: integration.html
+  pre-processing: pre-processing.html
+  regulatory_network: regulatory_network.html
+  scPlant: scPlant.html
+last_built: 2023-01-03T15:45Z
+
