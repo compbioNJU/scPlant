@@ -9,7 +9,6 @@ vignette: >
 
 We provide a series of vignettes to help users to get started with scPlant.
 
-To quickly show how to use our **scPlant** pipeline, we use a randomly generated tiny single-cell expression matrix of Arabidopsis thaliana as a toy example. Please note that the output carries no biological meanings, if you want to view scPlant's performance on true single-cell RNA-seq data, please read our paper.
 
 ## [Pre-processing](pre-processing.html)
 
