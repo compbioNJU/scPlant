@@ -76,7 +76,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Automatic cell-type annotation</h1>
             
-            <h4 data-toc-skip class="date">2023-01-03</h4>
+            <h4 data-toc-skip class="date">2023-01-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/compbioNJU/scPlant/blob/HEAD/vignettes/auto-annotation.Rmd" class="external-link"><code>vignettes/auto-annotation.Rmd</code></a></small>
       <div class="d-none name"><code>auto-annotation.Rmd</code></div>
@@ -90,27 +90,36 @@ including <a href="https://doi.org/10.1038/s41590-018-0276-y" class="external-li
 and <a href="https://doi.org/10.1038/s41592-019-0529-1" class="external-link">CellAssign</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/compbioNJU/scPlant" class="external-link">scPlant</a></span><span class="op">)</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="reference-based-tools">Reference based tools<a class="anchor" aria-label="anchor" href="#reference-based-tools"></a>
+</h2>
 <p><code>SingleR</code>, <code>Celaref</code> and
 <code>CellFunTopic</code> need reference data to perform automatic
 cell-type annotation.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/AutoAnnotate_SingleR.html">AutoAnnotate_SingleR</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">ref</span>, ref_type <span class="op">=</span> <span class="st">"single-cell"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">SeuratObj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutoAnnotate_SingleR.html">AutoAnnotate_SingleR</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">ref</span>, ref_type <span class="op">=</span> <span class="st">"single-cell"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/AutoAnnotate_Celaref.html">AutoAnnotate_Celaref</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">counts_ref</span>, <span class="va">cellinfo_ref</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutoAnnotate_Celaref.html">AutoAnnotate_Celaref</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">counts_ref</span>, <span class="va">cellinfo_ref</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">CellFunTopic</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/CellFunTopic/man/predictFun.html" class="external-link">predictFun</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">reference_SeuratObj</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="marker-based-tools">Marker based tools<a class="anchor" aria-label="anchor" href="#marker-based-tools"></a>
+</h2>
 <p><code>scCATCH</code>, <code>Garnett</code> and
 <code>CellAssign</code> need marker genes to perform automatic cell-type
 annotation.</p>
 <p>Please view the help document of these functions for the required
 format of marker genes, such as <code><a href="../reference/AutoAnnotate_scCATCH.html">?AutoAnnotate_scCATCH</a></code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/AutoAnnotate_scCATCH.html">AutoAnnotate_scCATCH</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">marker_custom</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutoAnnotate_scCATCH.html">AutoAnnotate_scCATCH</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">marker_custom</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/AutoAnnotate_Garnett.html">AutoAnnotate_Garnett</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">marker_file_path</span>, <span class="va">gene_id_type</span>, species <span class="op">=</span> <span class="st">'Ath'</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">SeuratObj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutoAnnotate_Garnett.html">AutoAnnotate_Garnett</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">marker_file_path</span>, <span class="va">gene_id_type</span>, species <span class="op">=</span> <span class="st">'Ath'</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/AutoAnnotate_CellAssign.html">AutoAnnotate_CellAssign</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">marker_list</span><span class="op">)</span></span></code></pre></div>
-  </main>
+<code class="sourceCode R"><span><span class="va">SeuratObj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutoAnnotate_CellAssign.html">AutoAnnotate_CellAssign</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">marker_list</span><span class="op">)</span></span></code></pre></div>
+</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 

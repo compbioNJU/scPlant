@@ -6,8 +6,10 @@
 #'
 #' @param matrices List of single-cell expression matrices of different species.
 #' @param species species of matrices. Character vector, such as \code{c('Ath', 'Osa')} or \code{c('Ath', 'Osa', 'Zma')},
-#' whose order must match order of matrices..
+#' whose order must match order of matrices. Each word corresponds to each matrix.
 #' @param resolution resolution parameter for \code{FindClusters}, use a value above (below) 1.0 if you want to obtain a larger (smaller) number of communities.
+#' @param min.cells Filter the expression matrices before integration. Filter genes based on the minimum number of cells.
+#' @param min.features Filter the expression matrices before integration. Filter cells based on minimum number of features.
 #'
 #' @importFrom Seurat CreateSeuratObject SCTransform SelectIntegrationFeatures PrepSCTIntegration FindIntegrationAnchors
 #' @importFrom Seurat IntegrateData RunPCA RunUMAP FindNeighbors FindClusters
@@ -15,10 +17,10 @@
 #' @return
 #' @export
 #'
-crossSpecies_integrate <- function(matrices, species, resolution = 0.5) {
+crossSpecies_integrate <- function(matrices, species, resolution = 0.5, min.cells = 3, min.features = 200) {
 
   # filter the expression matrices
-  matrices <- lapply(matrices, filterMat)
+  matrices <- lapply(matrices, filterMat, min.cells = min.cells, min.features = min.features)
   # transform genes to orthologous gene in Arabidopsis thaliana and create Seurat object
   athlist <- osalist <- zmalist <- NULL
   if ('Ath' %in% species) {
@@ -50,6 +52,10 @@ crossSpecies_integrate <- function(matrices, species, resolution = 0.5) {
     })
   }
   obj_list <- c(athlist, osalist, zmalist)
+  genes <- Reduce(intersect, lapply(obj_list, rownames))
+  obj_list <- lapply(obj_list, function(x){
+    subset(x, features = genes)
+  })
   # Performing integration on datasets normalized with SCTransform
   obj_list <- lapply(X = obj_list, FUN = SCTransform)
   features <- SelectIntegrationFeatures(object.list = obj_list, nfeatures = 1000)
@@ -68,12 +74,12 @@ crossSpecies_integrate <- function(matrices, species, resolution = 0.5) {
 
 
 filterMat <- function(counts, min.cells = 3, min.features = 200) {
-  # Filter based on min.features
+  # Filter cells based on minimum number of features
   if (min.features > 0) {
     nfeatures <- Matrix::colSums(x = counts > 0)
     counts <- counts[, which(x = nfeatures >= min.features)]
   }
-  # filter genes on the number of cells expressing
+  # Filter genes based on the minimum number of cells
   if (min.cells > 0) {
     num.cells <- Matrix::rowSums(x = counts > 0)
     counts <- counts[which(x = num.cells >= min.cells), ]
@@ -95,7 +101,7 @@ filterMat <- function(counts, min.cells = 3, min.features = 200) {
 #' @export
 #'
 species_percentage <- function(SeuratObj, group_by = 'seurat_clusters') {
-  mm <- table(as.character(SeuratObj[[group_by]]), SeuratObj$species)
+  mm <- table(as.character(SeuratObj@meta.data[[group_by]]), SeuratObj$species)
   pp <- as.data.frame(mm) %>% magrittr::set_colnames(c('group', 'species', 'cellnumber')) %>%
     ggplot(aes(x=cellnumber, y=group, fill=species)) + geom_bar(stat = 'identity', position = 'fill') +
     theme_classic() + xlab('Percentage(%)') + theme(axis.text = element_text(color='black'))

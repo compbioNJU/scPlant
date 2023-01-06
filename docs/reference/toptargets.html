@@ -60,7 +60,15 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">toptargets</span><span class="op">(</span><span class="va">tf_target</span>, topn <span class="op">=</span> <span class="fl">5</span>, regulons <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">toptargets</span><span class="op">(</span></span>
+<span>  <span class="va">tf_target</span>,</span>
+<span>  topn <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  regulons <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tf.size <span class="op">=</span> <span class="fl">7</span>,</span>
+<span>  target.size <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>  tf.label.cex <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  target.label.cex <span class="op">=</span> <span class="fl">0.7</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -75,6 +83,22 @@
 
 <dt>regulons</dt>
 <dd><p>regulons to show. If NULL, show all regulons.</p></dd>
+
+
+<dt>tf.size</dt>
+<dd><p>size of TF nodes</p></dd>
+
+
+<dt>target.size</dt>
+<dd><p>size of target nodes</p></dd>
+
+
+<dt>tf.label.cex</dt>
+<dd><p>label size of TF nodes</p></dd>
+
+
+<dt>target.label.cex</dt>
+<dd><p>label size of target nodes</p></dd>
 
 </dl></div>
 

@@ -14,11 +14,11 @@ knitr::opts_chunk$set(
   tidy = FALSE,
   message = FALSE,
   # error = FALSE,
-  eval = F,
+  # eval = F,
   warning = FALSE,
   fig.align = "center"
 )
-options(width = 80)
+# options(width = 80)
 ```
 
 
@@ -28,7 +28,7 @@ We have provided tools in the **scPlant** framework for cross-species integratio
 library(scPlant)
 ```
 
-Here, we take 3 toy example data to demonstrate how to perform a cross-species integration.
+Here, we take 3 toy example data (expression matrix) to demonstrate how to perform a cross-species integration.
 
 ```{r}
 dim(example_Ath) # toy example data of Arabidopsis thaliana
@@ -36,21 +36,38 @@ dim(example_Osa) # toy example data of Oryza sativa
 dim(example_Zma) # toy example data of Zea mays
 ```
 
-```{r}
+
+## Cross-species integration
+
+Multiple expression matrices can be provided, as long as the parameter `species` is specified.
+
+```{r, eval = FALSE}
 integratedObj <- crossSpecies_integrate(matrices = list(example_Ath, example_Osa, example_Zma), 
                                         species = c('Ath', 'Osa', 'Zma'), resolution = 0.5)
 ```
 
-Visualize integration result:
 
-```{r}
-library(Seurat)
-DimPlot(integratedObj, reduction = "umap", group.by = "species") + NoAxes()
+```{r, echo = FALSE}
+integratedObj <- readRDS(file = "../vignette_data/integratedObj.rds")
 ```
 
+We finally got an integrated Seurat object `integratedObj`, which we can perform downstream analysis on.
+
 ```{r}
-DimPlot(integratedObj, reduction = "umap", group.by = "seurat_clusters", label = F,
-                repel = TRUE, split.by = "species") + NoAxes()
+Seurat::DefaultAssay(integratedObj) <- 'SCT'
+dim(integratedObj)
+```
+
+
+## Visualize integration result
+
+```{r}
+Seurat::DimPlot(integratedObj, reduction = "umap", group.by = "species") + Seurat::NoAxes()
+```
+
+```{r, fig.height=5, fig.width=10}
+Seurat::DimPlot(integratedObj, reduction = "umap", group.by = "seurat_clusters", label = F,
+                repel = TRUE, split.by = "species") + Seurat::NoAxes()
 ```
 
 Bar plot showing the percentage of cells from different species:

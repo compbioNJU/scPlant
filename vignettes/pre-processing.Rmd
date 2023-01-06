@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
   message = FALSE,
   # error = FALSE,
   warning = FALSE,
-  eval = FALSE,
+  # eval = FALSE,
   fig.align = "center"
 )
 options(width = 80)
@@ -24,11 +24,10 @@ options(width = 80)
 
 We recommend **CellFunTopic** package to perform data pre-processing for convenience. The **CellFunTopic** package provides a convenient workflow for data pre-processing (quality control, normalization, dimension reduction, clustering, differential expression analysis, etc.) by integrating methods of `Seurat` package.
 
-```{r}
+```{r, eval = FALSE}
 devtools::install_github("compbioNJU/CellFunTopic")
 library(CellFunTopic)
 ```
-
 
 ## Load in the data
 
@@ -37,27 +36,42 @@ CellFunTopic allows various types of input, including CellRanger outputs, raw ge
 Let us use a randomly generated tiny single-cell expression matrix of Arabidopsis thaliana as a toy example. 
 
 ```{r}
+library(scPlant)
 dim(example_Ath) # an internal example data of scPlant 
-SeuratObj <- readData(data = example_Ath, type = 'expMatrix', species = "Arabidopsis thaliana")
 ```
 
-You can also take CellRanger outputs as input:
+```{r, eval = FALSE}
+SeuratObj <- readData(data = example_Ath, 
+                      type = 'expMatrix', 
+                      species = "Arabidopsis thaliana")
+```
 
-```{r}
-SeuratObj <- readData(data = "filtered_gene_bc_matrices/TAIR/", type = '10X', species = "Arabidopsis thaliana")
+You can also take CellRanger outputs as input, for example:
+
+```{r, eval = FALSE}
+SeuratObj <- readData(data = "filtered_gene_bc_matrices/TAIR/", 
+                      type = '10X', 
+                      species = "Arabidopsis thaliana")
 ```
 
 
 ## Standard pre-processing workflow
 
-Then we can perform pre-processing conveniently. If users provide a pre-processed data, this step can be skipped.
+Then we can perform pre-processing conveniently. If users provide a pre-processed Seurat object, this step can be skipped.
 
-```{r}
-SeuratObj <- QCfun(SeuratObj)
-SeuratObj <- RunSeurat(SeuratObj, nPCs = 10, resolution = 1)
-unique(Seurat::Idents(SeuratObj)) # see how many clusters we got.
+```{r, echo = FALSE}
+SeuratObj <- readRDS(file = "../vignette_data/SeuratObj.rds")
 ```
 
+```{r, eval = FALSE}
+SeuratObj <- QCfun(SeuratObj)
+SeuratObj <- RunSeurat(SeuratObj, resolution = 0.3)
+```
+
+```{r}
+unique(Seurat::Idents(SeuratObj)) # see how many clusters we got.
+Seurat::DimPlot(SeuratObj, reduction = "umap")
+```
 
 
 

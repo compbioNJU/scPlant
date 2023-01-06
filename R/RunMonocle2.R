@@ -9,11 +9,6 @@
 #' @param save_plot save plots to pdf or not.
 #' @param return_object return CellDataSet object or not.
 #'
-#' @importFrom Seurat GetAssayData
-#' @importFrom monocle newCellDataSet setOrderingFilter
-#' @importFrom monocle reduceDimension orderCells differentialGeneTest dispersionTable BEAM
-#' @importFrom monocle plot_cell_trajectory plot_pseudotime_heatmap plot_genes_branched_heatmap
-#'
 #' @export
 #'
 RunMonocle2 <- function(SeuratObj,
@@ -26,14 +21,14 @@ RunMonocle2 <- function(SeuratObj,
                         return_object = TRUE) {
 
   #### create CellDataSet object
-  data <- GetAssayData(SeuratObj, slot = "counts")
+  data <- Seurat::GetAssayData(SeuratObj, slot = "counts")
   pd <- SeuratObj@meta.data
   pd$cds_cluster <- unname(Idents(SeuratObj)[rownames(pd)])
   fData <- data.frame(gene_short_name = rownames(data), geneID=rownames(data), row.names = rownames(data))
-  mycds <- newCellDataSet(data,
-                          phenoData = new('AnnotatedDataFrame', data = pd),
-                          featureData = new('AnnotatedDataFrame', data = fData),
-                          expressionFamily = negbinomial.size())
+  mycds <- monocle::newCellDataSet(data,
+                                   phenoData = new('AnnotatedDataFrame', data = pd),
+                                   featureData = new('AnnotatedDataFrame', data = fData),
+                                   expressionFamily = negbinomial.size())
   #### run Monocle2 pipeline
   mycds <- estimateSizeFactors(mycds)
   mycds <- estimateDispersions(mycds, relative_expr = TRUE)
@@ -42,9 +37,9 @@ RunMonocle2 <- function(SeuratObj,
   sig_diff.genes <- subset(diff.genes, p_val_adj<0.01 & abs(avg_logFC)>0.5)$gene
   sig_diff.genes <- unique(as.character(sig_diff.genes))
 
-  mycds <- setOrderingFilter(mycds, sig_diff.genes)
-  mycds <- reduceDimension(mycds, max_components = max_components, method = 'DDRTree')
-  mycds <- orderCells(mycds)
+  mycds <- monocle::setOrderingFilter(mycds, sig_diff.genes)
+  mycds <- monocle::reduceDimension(mycds, max_components = max_components, method = 'DDRTree')
+  mycds <- monocle::orderCells(mycds)
   # select root state
   if (!is.null(root_clusters)) {
     root_state <- function(mycds){
@@ -60,16 +55,16 @@ RunMonocle2 <- function(SeuratObj,
   }
 
   #### differential genes across pseudotime
-  diff_test <- differentialGeneTest(mycds[sig_diff.genes,], cores = 1,
-                                    fullModelFormulaStr = "~sm.ns(Pseudotime)")
+  diff_test <- monocle::differentialGeneTest(mycds[sig_diff.genes,], cores = 1,
+                                             fullModelFormulaStr = "~sm.ns(Pseudotime)")
 
   #### BEAM analysis
   if (BEAM_analysis) {
-    disp_table <- dispersionTable(mycds)
+    disp_table <- monocle::dispersionTable(mycds)
     disp.genes <- subset(disp_table, mean_expression >= 0.5 & dispersion_empirical >= 1*dispersion_fit)
     disp.genes <- as.character(disp.genes$gene_id)
     mycds_sub <- mycds[disp.genes,]
-    beam_result <- BEAM(mycds_sub, branch_point = BEAM_branch_point, cores = 1)
+    beam_result <- monocle::BEAM(mycds_sub, branch_point = BEAM_branch_point, cores = 1)
   }
 
   #### save plots
@@ -78,14 +73,14 @@ RunMonocle2 <- function(SeuratObj,
       dir.create("./output/plots/RunMonocle2", recursive = TRUE)
     }
     # visualization
-    p1 <- plot_cell_trajectory(mycds, color_by = "State", cell_size = point_size)
-    p2 <- plot_cell_trajectory(mycds, color_by = "cds_cluster", cell_size = point_size)
-    p3 <- plot_cell_trajectory(mycds, color_by = "Pseudotime", cell_size = point_size)
-    p4 <- plot_cell_trajectory(mycds, color_by = "State", cell_size = point_size) + facet_wrap(~State, ncol = 2)
-    p5 <- plot_cell_trajectory(mycds, color_by = "cds_cluster", cell_size = point_size) + facet_wrap(~cds_cluster, ncol = 4)
+    p1 <- monocle::plot_cell_trajectory(mycds, color_by = "State", cell_size = point_size)
+    p2 <- monocle::plot_cell_trajectory(mycds, color_by = "cds_cluster", cell_size = point_size)
+    p3 <- monocle::plot_cell_trajectory(mycds, color_by = "Pseudotime", cell_size = point_size)
+    p4 <- monocle::plot_cell_trajectory(mycds, color_by = "State", cell_size = point_size) + facet_wrap(~State, ncol = 2)
+    p5 <- monocle::plot_cell_trajectory(mycds, color_by = "cds_cluster", cell_size = point_size) + facet_wrap(~cds_cluster, ncol = 4)
     sig_gene_names <- rownames(subset(diff_test, qval < 0.01))
-    p6 <- plot_pseudotime_heatmap(mycds[sig_gene_names,], num_clusters=3, use_gene_short_name = TRUE,
-                                  show_rownames=T, return_heatmap=T)
+    p6 <- monocle::plot_pseudotime_heatmap(mycds[sig_gene_names,], num_clusters=3, use_gene_short_name = TRUE,
+                                           show_rownames=T, return_heatmap=T)
     pdf(file = "./output/plots/RunMonocle2/cell_trajectory.pdf", width = 15, height = 13)
     print(p1)
     print(p2)
@@ -102,8 +97,8 @@ RunMonocle2 <- function(SeuratObj,
       beam_res <- beam_result[order(beam_result$qval),]
       beam_res <- beam_res[,c("gene_short_name", "pval", "qval")]
       mycds_sub_beam <- mycds_sub[rownames(subset(beam_res, qval < 1e-4)),]
-      p7 <- plot_genes_branched_heatmap(mycds_sub_beam,  branch_point = BEAM_branch_point, num_clusters = 3,
-                                        show_rownames = T, use_gene_short_name = TRUE, return_heatmap = TRUE)
+      p7 <- monocle::plot_genes_branched_heatmap(mycds_sub_beam,  branch_point = BEAM_branch_point, num_clusters = 3,
+                                                 show_rownames = T, use_gene_short_name = TRUE, return_heatmap = TRUE)
       pdf(file = "./output/plots/RunMonocle2/branched_heatmap.pdf", width = 10, height = 17)
       print(p7)
       dev.off()

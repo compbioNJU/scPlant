@@ -4,7 +4,15 @@
 \alias{toptargets}
 \title{Network diagram showing top targets of each regulon}
 \usage{
-toptargets(tf_target, topn = 5, regulons = NULL)
+toptargets(
+  tf_target,
+  topn = 5,
+  regulons = NULL,
+  tf.size = 7,
+  target.size = 4,
+  tf.label.cex = 1,
+  target.label.cex = 0.7
+)
 }
 \arguments{
 \item{tf_target}{TF and targets of each regulon. This information comes from post-processing of pyscenic.}
@@ -12,6 +20,14 @@ toptargets(tf_target, topn = 5, regulons = NULL)
 \item{topn}{number of top targets to draw}
 
 \item{regulons}{regulons to show. If NULL, show all regulons.}
+
+\item{tf.size}{size of TF nodes}
+
+\item{target.size}{size of target nodes}
+
+\item{tf.label.cex}{label size of TF nodes}
+
+\item{target.label.cex}{label size of target nodes}
 }
 \description{
 Network diagram showing top targets of each regulon according to importance score.

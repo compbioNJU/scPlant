@@ -60,7 +60,13 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">crossSpecies_integrate</span><span class="op">(</span><span class="va">matrices</span>, <span class="va">species</span>, resolution <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">crossSpecies_integrate</span><span class="op">(</span></span>
+<span>  <span class="va">matrices</span>,</span>
+<span>  <span class="va">species</span>,</span>
+<span>  resolution <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  min.cells <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  min.features <span class="op">=</span> <span class="fl">200</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -71,11 +77,19 @@
 
 <dt>species</dt>
 <dd><p>species of matrices. Character vector, such as <code>c('Ath', 'Osa')</code> or <code>c('Ath', 'Osa', 'Zma')</code>,
-whose order must match order of matrices..</p></dd>
+whose order must match order of matrices. Each word corresponds to each matrix.</p></dd>
 
 
 <dt>resolution</dt>
 <dd><p>resolution parameter for <code>FindClusters</code>, use a value above (below) 1.0 if you want to obtain a larger (smaller) number of communities.</p></dd>
+
+
+<dt>min.cells</dt>
+<dd><p>Filter the expression matrices before integration. Filter genes based on the minimum number of cells.</p></dd>
+
+
+<dt>min.features</dt>
+<dd><p>Filter the expression matrices before integration. Filter cells based on minimum number of features.</p></dd>
 
 </dl></div>
     <div class="section level2">

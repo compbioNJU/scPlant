@@ -60,7 +60,14 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">topRegulons</span><span class="op">(</span><span class="va">rssMat</span>, topn <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">topRegulons</span><span class="op">(</span></span>
+<span>  <span class="va">rssMat</span>,</span>
+<span>  topn <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  from.size <span class="op">=</span> <span class="fl">7</span>,</span>
+<span>  to.size <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>  from.label.cex <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  to.label.cex <span class="op">=</span> <span class="fl">0.7</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -71,6 +78,22 @@
 
 <dt>topn</dt>
 <dd><p>number of top regulons to draw</p></dd>
+
+
+<dt>from.size</dt>
+<dd><p>size of 'cluster' nodes</p></dd>
+
+
+<dt>to.size</dt>
+<dd><p>size of 'regulon' nodes</p></dd>
+
+
+<dt>from.label.cex</dt>
+<dd><p>label size of 'cluster' nodes</p></dd>
+
+
+<dt>to.label.cex</dt>
+<dd><p>label size of 'regulon' nodes</p></dd>
 
 </dl></div>
 

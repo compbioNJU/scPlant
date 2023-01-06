@@ -76,7 +76,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Gene regulatory network construction</h1>
             
-            <h4 data-toc-skip class="date">2023-01-03</h4>
+            <h4 data-toc-skip class="date">2023-01-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/compbioNJU/scPlant/blob/HEAD/vignettes/regulatory_network.Rmd" class="external-link"><code>vignettes/regulatory_network.Rmd</code></a></small>
       <div class="d-none name"><code>regulatory_network.Rmd</code></div>
@@ -90,15 +90,145 @@ cell-specific gene expression patterns and in turn determine the
 function of the cell. To construct cell-type specific GRNs using
 single-cell data, we have incorporated the widely used single-cell GRN
 analysis tool SCENIC (<a href="https://www.nature.com/articles/nmeth.4463" class="external-link">Aibar et al.,
-2017</a>) into the scPlant pipeline, and prepared required cis-Target
-databases in order to support SCENIC for data analysis in plants. What’s
-more, we have provided various visualization tools to display
-single-cell GRN results in different ways. Three plant species
-(Arabidopsis thaliana, Oryza sativa, Zea mays) are supported for now,
-and more plant species will be supported soon.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+2017</a>) into the <strong>scPlant</strong> pipeline, and prepared
+required cisTarget databases in order to support SCENIC for data
+analysis in plants. What’s more, we have provided various visualization
+tools to display single-cell GRN results in different ways. Three plant
+species (<em>Arabidopsis thaliana</em>, <em>Oryza sativa</em>, <em>Zea
+mays</em>) are supported for now, and more plant species will be
+supported soon.</p>
+<div class="section level2">
+<h2 id="download-databases-and-scripts">Download databases and scripts<a class="anchor" aria-label="anchor" href="#download-databases-and-scripts"></a>
+</h2>
+<p>The required cisTarget databases and scripts to construct gene
+regulatory network can be downloaded <a href="https://biobigdata.nju.edu.cn/scPlantDB/scPlantData.zip" class="external-link">here</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download in linux system:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://biobigdata.nju.edu.cn/scPlantDB/scPlantData.zip</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span> scPlantData.zip</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> scPlantData</span></code></pre></div>
+<p>We also provide a true scRNA-seq data of Arabidopsis thaliana as
+example data, download <a href="https://biobigdata.nju.edu.cn/scPlantDB/SeuratObj.rds" class="external-link">here</a></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://biobigdata.nju.edu.cn/scPlantDB/SeuratObj.rds</span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<div class="section level4">
+<h4 id="install-dependent-python-packages">Install dependent Python packages<a class="anchor" aria-label="anchor" href="#install-dependent-python-packages"></a>
+</h4>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> pyscenic_12_1 python=3.7</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate pyscenic_12_1 </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install pyscenic==0.12.1</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">pyscenic</span> <span class="at">-h</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install pandas</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install loompy</span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="install-dependent-r-packages">Install dependent R packages<a class="anchor" aria-label="anchor" href="#install-dependent-r-packages"></a>
+</h4>
+<p>Dependent R packages includes <code>optparse</code>,
+<code>Seurat</code>, <code>SCopeLoomR</code>, <code>data.table</code>,
+<code>pbapply</code>, <code>philentropy</code>, <code>dplyr</code>, if
+you have not installed them, start “R” and enter:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"optparse"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"Seurat"</span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"aertslab/SCopeLoomR"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"data.table"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pbapply"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"philentropy"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"dplyr"</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="gene-regulatory-network-construction">Gene regulatory network construction<a class="anchor" aria-label="anchor" href="#gene-regulatory-network-construction"></a>
+</h2>
+<div class="section level4">
+<h4 id="help-information">Help information:<a class="anchor" aria-label="anchor" href="#help-information"></a>
+</h4>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> RunGRN.sh <span class="at">-h</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">USAGE:</span> RunGRN [options]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Run</span> pyscenic and perform post-processing.</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">-o</span> <span class="op">&lt;</span>output_directory<span class="op">&gt;</span> : Output directory for results.</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">-f</span> <span class="op">&lt;</span>Seurat_file<span class="op">&gt;</span>        : Seurat object, saved as .rds format.</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">-s</span> <span class="op">&lt;</span>species<span class="op">&gt;</span>  : Species. Currently At <span class="er">(</span><span class="ex">Arabidopsis</span> thaliana<span class="kw">)</span><span class="ex">,</span> Os <span class="er">(</span><span class="ex">Oryza</span> sativa<span class="kw">)</span><span class="ex">,</span> Zm <span class="er">(</span><span class="ex">Zea</span> mays<span class="kw">)</span> <span class="ex">are</span> supported. For other species, you need to provide your own cisTarget_databases.</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="ex">-t</span> <span class="op">&lt;</span>threads<span class="op">&gt;</span> : threads. 1 as default.</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="ex">-d</span> <span class="op">&lt;</span>cisTarget_databases<span class="op">&gt;</span> : directory containing files required to run pyscenic .</span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="run-the-script">Run the script<a class="anchor" aria-label="anchor" href="#run-the-script"></a>
+</h4>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> RunGRN.sh <span class="at">-f</span> SeuratObj.rds <span class="at">-s</span> At <span class="at">-t</span> 2 <span class="at">-d</span> cisTarget_databases <span class="at">-o</span> output</span></code></pre></div>
+<details><summary><strong>output files</strong>
+</summary><p>Once the program has run successfully, you can find results files in
+the output directory. You can ignore most of the output files, because
+only several ones of them are needed for visualization.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> output</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># finally output files</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pyscenicOutput.loom</span>  <span class="co"># loom file containing the original expression matrix and the calculated AUC values</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">AUCell.txt</span>  <span class="co"># Regulon activity score (RAS) matrix</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ex">rasMat.rds</span> <span class="co"># Regulon activity score (RAS) matrix, R object file</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="ex">rssMat.rds</span> <span class="co"># Regulon Specificity Score (RSS) matrix</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="ex">tf_target.rds</span> <span class="co"># TF and their targets in each regulon</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="ex">regulons.gmt</span>  <span class="co"># regulons</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="ex">regulons.txt</span> <span class="co"># regulons</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="ex">binary_mtx.txt</span>   <span class="co"># binary regulon activity matrix</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># intermediate files</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="ex">adj.tsv</span>  <span class="co">#  a table of TF-target genes</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="ex">reg.tsv</span>  <span class="co"># a table of enriched motifs and target genes</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="ex">exprMat.loom</span>  <span class="co"># loom file of expression matrix</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="ex">cellmeta.rds</span>  <span class="co"># SeuratObj@meta.data</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="ex">auc_thresholds.txt</span>  <span class="co"># thresholds to create binary regulon activity matrix</span></span></code></pre></div>
+</details>
+</div>
+</div>
+<div class="section level2">
+<h2 id="visualize-the-gene-regulatory-network">Visualize the gene regulatory network<a class="anchor" aria-label="anchor" href="#visualize-the-gene-regulatory-network"></a>
+</h2>
+<p>We provide various visualization tools to display single-cell GRN
+results in different ways.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/compbioNJU/scPlant" class="external-link">scPlant</a></span><span class="op">)</span></span></code></pre></div>
-  </main>
+<p>Load output files and Seurat object:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">rasMat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"output/rasMat.rds"</span><span class="op">)</span></span>
+<span><span class="va">rssMat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"output/rssMat.rds"</span><span class="op">)</span></span>
+<span><span class="va">tf_target</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"output/tf_target.rds"</span><span class="op">)</span></span>
+<span><span class="va">SeuratObj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"SeuratObj.rds"</span><span class="op">)</span></span></code></pre></div>
+<p>Heatmaps showing mean regulon activity and TF expression of each
+cluster.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ras_exp_hmp.html">ras_exp_hmp</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">rasMat</span>, group.by <span class="op">=</span> <span class="st">"cellType"</span>, assay <span class="op">=</span> <span class="st">'SCT'</span><span class="op">)</span></span></code></pre></div>
+<p><img src="regulatory_network_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;"></p>
+<p>Dimension reduction plot showing regulon activity and TF
+expression.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ras_exp_scatter.html">ras_exp_scatter</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">rasMat</span>, gene <span class="op">=</span> <span class="st">'AT1G75390'</span>, reduction <span class="op">=</span> <span class="st">'umap'</span><span class="op">)</span></span></code></pre></div>
+<p><img src="regulatory_network_files/figure-html/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;"></p>
+<p>Network diagram showing top regulons of each cluster according to
+regulon specificity score(RSS).</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/topRegulons.html">topRegulons</a></span><span class="op">(</span><span class="va">rssMat</span>, topn <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
+<p><img src="regulatory_network_files/figure-html/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;"></p>
+<p>Network diagram showing top targets of each regulon according to
+importance score.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/toptargets.html">toptargets</a></span><span class="op">(</span><span class="va">tf_target</span>, topn <span class="op">=</span> <span class="fl">5</span>, regulons <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">rasMat</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<p><img src="regulatory_network_files/figure-html/unnamed-chunk-16-1.png" width="768" style="display: block; margin: auto;"></p>
+<p>Network diagram showing top targets of top regulons of each
+cluster.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ToptargetsofTopregulons.html">ToptargetsofTopregulons</a></span><span class="op">(</span><span class="va">rssMat</span>, <span class="va">tf_target</span>, Topregulons <span class="op">=</span> <span class="fl">5</span>, Toptargets <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
+<p><img src="regulatory_network_files/figure-html/unnamed-chunk-17-1.png" width="960" style="display: block; margin: auto;"></p>
+<p>Dot plot showing top regulons of each cluster according to regulon
+specificity score(RSS).</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/SpecificityRank.html">SpecificityRank</a></span><span class="op">(</span><span class="va">rssMat</span>, cluster <span class="op">=</span> <span class="fl">23</span>, topn <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<p><img src="regulatory_network_files/figure-html/unnamed-chunk-18-1.png" width="480" style="display: block; margin: auto;"></p>
+</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 

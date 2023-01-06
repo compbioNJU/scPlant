@@ -19,11 +19,169 @@ knitr::opts_chunk$set(
 options(width = 80)
 ```
 
-Gene regulatory networks (GRNs), consisting of the interaction between transcription factors (TFs) and their target genes, orchestrate cell-specific gene expression patterns and in turn determine the function of the cell. To construct cell-type specific GRNs using single-cell data, we have incorporated the widely used single-cell GRN analysis tool SCENIC ([Aibar et al., 2017](https://www.nature.com/articles/nmeth.4463)) into the scPlant pipeline, and prepared required cis-Target databases in order to support SCENIC for data analysis in plants. What's more, we have provided various visualization tools to display single-cell GRN results in different ways. Three plant species (Arabidopsis thaliana, Oryza sativa, Zea mays) are supported for now, and more plant species will be supported soon.
+Gene regulatory networks (GRNs), consisting of the interaction between transcription factors (TFs) and their target genes, orchestrate cell-specific gene expression patterns and in turn determine the function of the cell. To construct cell-type specific GRNs using single-cell data, we have incorporated the widely used single-cell GRN analysis tool SCENIC ([Aibar et al., 2017](https://www.nature.com/articles/nmeth.4463)) into the **scPlant** pipeline, and prepared required cisTarget databases in order to support SCENIC for data analysis in plants. What's more, we have provided various visualization tools to display single-cell GRN results in different ways. Three plant species (*Arabidopsis thaliana*, *Oryza sativa*, *Zea mays*) are supported for now, and more plant species will be supported soon.
+
+
+## Download databases and scripts
+
+The required cisTarget databases and scripts to construct gene regulatory network can be downloaded [here](https://biobigdata.nju.edu.cn/scPlantDB/scPlantData.zip).
+
+```{bash, eval = FALSE}
+# Download in linux system:
+wget https://biobigdata.nju.edu.cn/scPlantDB/scPlantData.zip
+unzip scPlantData.zip
+cd scPlantData
+```
+
+We also provide a true scRNA-seq data of Arabidopsis thaliana as example data, download [here](https://biobigdata.nju.edu.cn/scPlantDB/SeuratObj.rds)
+
+```{bash, eval = FALSE}
+wget https://biobigdata.nju.edu.cn/scPlantDB/SeuratObj.rds
+```
+
+
+## Installation
+
+#### Install dependent Python packages
+
+```{bash, eval = FALSE}
+conda create -n pyscenic_12_1 python=3.7
+conda activate pyscenic_12_1 
+pip install pyscenic==0.12.1
+pyscenic -h
+pip install pandas
+pip install loompy
+```
+
+#### Install dependent R packages
+
+Dependent R packages includes `optparse`, `Seurat`, `SCopeLoomR`, `data.table`, `pbapply`, `philentropy`, `dplyr`, if you have not installed them, start "R" and enter:
 
 ```{r, eval = FALSE}
+install.packages("optparse")
+install.packages("Seurat")
+devtools::install_github("aertslab/SCopeLoomR")
+install.packages("data.table")
+install.packages("pbapply")
+install.packages("philentropy")
+install.packages("dplyr")
+```
+
+
+## Gene regulatory network construction
+
+#### Help information:
+
+```{bash, eval = FALSE}
+bash RunGRN.sh -h
+```
+
+```{bash, eval = FALSE}
+USAGE: RunGRN [options]
+Run pyscenic and perform post-processing.
+
+-o <output_directory> : Output directory for results.
+-f <Seurat_file>        : Seurat object, saved as .rds format.
+-s <species>  : Species. Currently At (Arabidopsis thaliana), Os (Oryza sativa), Zm (Zea mays) are supported. For other species, you need to provide your own cisTarget_databases.
+-t <threads> : threads. 1 as default.
+-d <cisTarget_databases> : directory containing files required to run pyscenic .
+```
+
+#### Run the script
+
+```{bash, eval = FALSE}
+source RunGRN.sh -f SeuratObj.rds -s At -t 2 -d cisTarget_databases -o output
+```
+
+<details>
+  <summary>**output files**</summary>
+Once the program has run successfully, you can find results files in the output directory. You can ignore most of the output files, because only several ones of them are needed for visualization.
+
+```{bash, eval = FALSE}
+ls output
+```
+
+```{bash, eval = FALSE}
+# finally output files
+pyscenicOutput.loom  # loom file containing the original expression matrix and the calculated AUC values
+AUCell.txt  # Regulon activity score (RAS) matrix
+rasMat.rds # Regulon activity score (RAS) matrix, R object file
+rssMat.rds # Regulon Specificity Score (RSS) matrix
+tf_target.rds # TF and their targets in each regulon
+regulons.gmt  # regulons
+regulons.txt # regulons
+binary_mtx.txt   # binary regulon activity matrix
+# intermediate files
+adj.tsv  #  a table of TF-target genes
+reg.tsv  # a table of enriched motifs and target genes
+exprMat.loom  # loom file of expression matrix
+cellmeta.rds  # SeuratObj@meta.data
+auc_thresholds.txt  # thresholds to create binary regulon activity matrix
+```
+</details>
+
+
+## Visualize the gene regulatory network
+
+We provide various visualization tools to display single-cell GRN results in different ways.
+
+```{r}
 library(scPlant)
 ```
+
+Load output files and Seurat object:
+
+```{r, eval=FALSE}
+rasMat <- readRDS("output/rasMat.rds")
+rssMat <- readRDS("output/rssMat.rds")
+tf_target <- readRDS("output/tf_target.rds")
+SeuratObj <- readRDS("SeuratObj.rds")
+```
+
+```{r, echo = FALSE}
+SeuratObj <- readRDS(file = "../vignette_data/ath.rds")
+rasMat <- readRDS(file = "../vignette_data/rasMat.rds")
+rssMat <- readRDS(file = "../vignette_data/rssMat.rds")
+tf_target <- readRDS(file = "../vignette_data/tf_target.rds")
+```
+
+Heatmaps showing mean regulon activity and TF expression of each cluster.
+
+```{r, fig.height=7, fig.width=7}
+ras_exp_hmp(SeuratObj, rasMat, group.by = "cellType", assay = 'SCT')
+```
+
+Dimension reduction plot showing regulon activity and TF expression.
+
+```{r, fig.height=5, fig.width=10}
+ras_exp_scatter(SeuratObj, rasMat, gene = 'AT1G75390', reduction = 'umap')
+```
+
+Network diagram showing top regulons of each cluster according to regulon specificity score(RSS).
+
+```{r, fig.height=10, fig.width=10}
+topRegulons(rssMat, topn = 5)
+```
+
+Network diagram showing top targets of each regulon according to importance score.
+
+```{r, fig.height=8, fig.width=8}
+toptargets(tf_target, topn = 5, regulons = colnames(rasMat)[1:5])
+```
+
+Network diagram showing top targets of top regulons of each cluster.
+
+```{r, fig.height=10, fig.width=10}
+ToptargetsofTopregulons(rssMat, tf_target, Topregulons = 5, Toptargets = 5)
+```
+
+Dot plot showing top regulons of each cluster according to regulon specificity score(RSS).
+
+```{r, fig.height=7, fig.width=5}
+SpecificityRank(rssMat, cluster = 23, topn = 10)
+```
+
+
 
 
 
