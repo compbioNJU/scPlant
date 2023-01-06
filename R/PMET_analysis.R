@@ -1,7 +1,7 @@
 
 #' pre-process original PMET output and filter with PPI information
 #'
-#' @param PMETresult original PMET output
+#' @param PMETresult path of original PMET output
 #' @param PPIinfo protein-protein interaction (PPI) information
 #' @param species species; currently \code{Arabidopsis thaliana} or \code{Oryza sativa} or \code{Zea mays} are supported.
 #'
@@ -11,23 +11,19 @@
 #'
 #' @examples
 #' \dontrun{
-#' data(PPIinfo_At)
-#' PMETresult <- read.table(file = "output.txt", header = T, sep = "\t", stringsAsFactors = F)
-#' PMETresult <- processPMET(PMETresult, PPIinfo = PPIinfo_At)
+#' PMETresult <- processPMET(PMETresult = "output.txt")
 #' }
 #'
 processPMET <- function(PMETresult, PPIinfo = NULL, species = 'Arabidopsis thaliana') {
   if (species == 'Arabidopsis thaliana') {
     motif2TF <- motif2TF_At
-    genename <- genename_At
   } else if (species == 'Oryza sativa') {
     motif2TF <- motif2TF_Os
-    genename <- genename_Os
   } else if (species == 'Zea mays') {
     motif2TF <- motif2TF_Zm
-    genename <- genename_Zm
   }
   # motif-to-TF mapping
+  PMETresult <- read.table(file = PMETresult, header = T, sep = "\t", stringsAsFactors = F)
   PMETresult %<>% dplyr::mutate(TF1 = unname(motif2TF[Motif1]), TF2 = unname(motif2TF[Motif2]))
   if (!is.null(PPIinfo)) {
     PPIinfo <- PPIinfo[, 2:3]
@@ -42,10 +38,7 @@ processPMET <- function(PMETresult, PPIinfo = NULL, species = 'Arabidopsis thali
   PMETresult$pair <- apply(PMETresult, 1, FUN = function(x){paste(sort(c(x[5], x[6])), collapse = "_")})
   PMETresult %<>% dplyr::group_by(Module, pair) %>% dplyr::slice_min(order_by = AdjustedpvalueBH, n=1, with_ties=F) %>%
     dplyr::ungroup()
-  PMETresult %<>% dplyr::mutate(logFDR=log1p(-log10(AdjustedpvalueBH)),
-                                TF1symbol=unname(genename[TF1]), TF2symbol=unname(genename[TF2]))
-  ii <- stringr::str_split(PMETresult$pair, pattern = '_', simplify = T)
-  PMETresult$TFpair <- paste(unname(genename[ii[,1]]), unname(genename[ii[,2]]), sep = "_")
+  PMETresult %<>% dplyr::mutate(logFDR=log1p(-log10(AdjustedpvalueBH)))
   return(PMETresult)
 }
 
@@ -54,12 +47,14 @@ processPMET <- function(PMETresult, PPIinfo = NULL, species = 'Arabidopsis thali
 #'
 #' @param PMETresult PMET result
 #' @param topn show top highly enriched pairs of each cluster
+#' @param rownames.size font size of row names
+#' @param colnames.size font size of column names
 #'
 #' @importFrom ComplexHeatmap Heatmap draw
 #'
 #' @export
 #'
-PMEThmp <- function(PMETresult, topn = NULL) {
+PMEThmp <- function(PMETresult, topn = NULL, rownames.size = 5, colnames.size = 5) {
 
   mm <- reshape2::acast(PMETresult, Module~pair, value.var='logFDR')
   mm <- mm[, colSums(mm) > 0]
@@ -71,7 +66,9 @@ PMEThmp <- function(PMETresult, topn = NULL) {
   mm <- t(mm)
   col_fun = circlize::colorRamp2(seq(min(mm), max(mm), length.out = 10), c("white", pals::brewer.greens(9)))
   mm <- t(scale(t(mm), center = T, scale=T))
-  ht <- Heatmap(mm, name = "log1p(-log10(P.adjust))", col = col_fun, column_names_rot = 0, row_names_gp = gpar(fontsize = 5),
+  ht <- Heatmap(mm, name = "log1p(-log10(P.adjust))", col = col_fun,
+                column_names_rot = 45, row_names_gp = gpar(fontsize = rownames.size),
+                column_names_gp = gpar(fontsize = colnames.size),
                 cluster_rows = T, cluster_columns = T, column_names_centered = T, border = TRUE)
   draw(ht)
 }
@@ -82,17 +79,20 @@ PMEThmp <- function(PMETresult, topn = NULL) {
 #' @param PMETresult PMET result
 #' @param clus cluster
 #'
+#' @importFrom grDevices colorRampPalette
+#' @importFrom ggplot2 geom_tile scale_fill_gradientn theme_classic coord_fixed scale_x_discrete labs
+#'
 #' @export
 #'
 triHmp <- function(PMETresult, clus) {
   df <- PMETresult[PMETresult$Module == clus, ]
   # only show top pairs of high enrichment
   dff <- df %>% dplyr::slice_max(order_by = logFDR, prop=0.1)
-  tfs <- unique(c(dff$TF1symbol, dff$TF2symbol))
-  dff <- df %>% dplyr::filter((TF1symbol %in% tfs) & (TF2symbol %in% tfs))
-  dff <- data.table::rbindlist(list(dff[, c("Module",  "TF1symbol","TF2symbol", "logFDR")],
-                                    dff[, c("Module",  "TF2symbol","TF1symbol", "logFDR")]), use.names = F) %>% unique()
-  mat <- reshape2::acast(dff, TF1symbol~TF2symbol, value.var = "logFDR")
+  tfs <- unique(c(dff$TF1, dff$TF2))
+  dff <- df %>% dplyr::filter((TF1 %in% tfs) & (TF2 %in% tfs))
+  dff <- data.table::rbindlist(list(dff[, c("Module",  "TF1","TF2", "logFDR")],
+                                    dff[, c("Module",  "TF2","TF1", "logFDR")]), use.names = F) %>% unique()
+  mat <- reshape2::acast(dff, TF1~TF2, value.var = "logFDR")
   mat[is.na(mat)] <- 0
 
   colss <- c("#FFFFFF", colorRampPalette(c("#FFFFCC", "#EF3B2C", "#9932CC", "#000000"))(100))
@@ -102,16 +102,15 @@ triHmp <- function(PMETresult, clus) {
   melted_mat <- reshape2::melt(mat, na.rm = TRUE)
 
   pp <- ggplot(data = melted_mat, aes(Var2, Var1, fill = value))+
-    geom_tile()+
-    scale_fill_gradientn(colours = colss,
-                         name="log1p(-log10(padj))")
+    geom_tile() + coord_fixed(ratio=1) +
+    scale_fill_gradientn(colours = colss, name="log1p(-log10(padj))") +
     theme_classic()+
     theme(axis.text.x = element_text(angle = 90, vjust = 1, size = 5, hjust = 1),
           axis.text.y = element_text(size = 5),
           axis.ticks = element_blank(),
           axis.title = element_blank(),
           axis.line = element_blank(),
-          plot.title = element_text(hjust = 0.5)) + coord_fixed(ratio=1) +
+          plot.title = element_text(hjust = 0.5)) +
     scale_x_discrete(limits=rev(levels(melted_mat$Var2))) +
     labs(title = as.character(clus))
   return(pp)
@@ -124,6 +123,8 @@ triHmp <- function(PMETresult, clus) {
 #' @param clus cluster
 #' @param topn number of top highly enriched pairs of the cluster to draw, 20 as default.
 #' @param nodeColor color of nodes
+#'
+#' @importFrom igraph graph_from_data_frame incident_edges
 #'
 #' @export
 #'

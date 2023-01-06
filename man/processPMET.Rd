@@ -7,7 +7,7 @@
 processPMET(PMETresult, PPIinfo = NULL, species = "Arabidopsis thaliana")
 }
 \arguments{
-\item{PMETresult}{original PMET output}
+\item{PMETresult}{path of original PMET output}
 
 \item{PPIinfo}{protein-protein interaction (PPI) information}
 
@@ -18,9 +18,7 @@ pre-process original PMET output and filter with PPI information
 }
 \examples{
 \dontrun{
-data(PPIinfo_At)
-PMETresult <- read.table(file = "output.txt", header = T, sep = "\t", stringsAsFactors = F)
-PMETresult <- processPMET(PMETresult, PPIinfo = PPIinfo_At)
+PMETresult <- processPMET(PMETresult = "output.txt")
 }
 
 }

@@ -31,7 +31,7 @@ We recommend **CellFunTopic** package to perform data pre-processing (quality co
 
 **scPlant** pipeline have incorporated the widely used single-cell GRN analysis tool SCENIC ([Aibar et al., 2017](https://www.nature.com/articles/nmeth.4463)), and prepared required cisTarget databases to apply SCENIC in plants such as Arabidopsis thaliana, Oryza sativa, Zea mays.
 
-## [Paired motif enrichment](pmet.html)
+## [Paired motif enrichment](paired_motif_enrichment.html)
 
 **scPlant** pipeline have adapted the Paired Motif Enrichment Tool (PMET) ([Rich-Griffin et al., 2020](https://academic.oup.com/plcell/article/32/9/2742/6118120)) to predict pairs of TF binding motifs within the promoter regions of cell-type specific marker genes.
 

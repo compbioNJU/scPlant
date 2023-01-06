@@ -33,7 +33,7 @@ unzip scPlantData.zip
 cd scPlantData
 ```
 
-We also provide a true scRNA-seq data of Arabidopsis thaliana as example data, download [here](https://biobigdata.nju.edu.cn/scPlantDB/SeuratObj.rds)
+We also provide a true scRNA-seq data of Arabidopsis thaliana ([Zhang et al., 2019](https://www.sciencedirect.com/science/article/pii/S1674205219301339)) as example data, download [here](https://biobigdata.nju.edu.cn/scPlantDB/SeuratObj.rds)
 
 ```{bash, eval = FALSE}
 wget https://biobigdata.nju.edu.cn/scPlantDB/SeuratObj.rds

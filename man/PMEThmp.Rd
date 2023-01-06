@@ -4,12 +4,16 @@
 \alias{PMEThmp}
 \title{Heatmap of PMET result}
 \usage{
-PMEThmp(PMETresult, topn = NULL)
+PMEThmp(PMETresult, topn = NULL, rownames.size = 5, colnames.size = 5)
 }
 \arguments{
 \item{PMETresult}{PMET result}
 
 \item{topn}{show top highly enriched pairs of each cluster}
+
+\item{rownames.size}{font size of row names}
+
+\item{colnames.size}{font size of column names}
 }
 \description{
 Heatmap of PMET result

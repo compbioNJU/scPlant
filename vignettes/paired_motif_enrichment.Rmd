@@ -1,0 +1,167 @@
+---
+title: "Paired Motif Enrichment"
+date: '`r Sys.Date()`'
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Paired Motif Enrichment}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  tidy = FALSE,
+  message = FALSE,
+  # error = FALSE,
+  warning = FALSE,
+  fig.align = "center"
+)
+options(width = 80)
+```
+
+
+**scPlant** pipeline have adapted the Paired Motif Enrichment Tool (PMET) ([Rich-Griffin et al., 2020](https://academic.oup.com/plcell/article/32/9/2742/6118120)) to predict pairs of TF binding motifs within the promoter regions of cell-type specific marker genes. Three plant species (*Arabidopsis thaliana*, *Oryza sativa*, *Zea mays*) are supported for now, and more plant species will be supported soon.
+
+## Download and installation
+
+### Download databases and scripts
+
+The required databases and scripts to perform Paired Motif Enrichment analysis can be downloaded [here](https://biobigdata.nju.edu.cn/scPlantDB/scPlantData.zip).
+
+```{bash, eval = FALSE}
+# Download in linux system:
+wget https://biobigdata.nju.edu.cn/scPlantDB/scPlantData.zip
+unzip scPlantData.zip
+cd scPlantData
+```
+
+### Download genome files
+
+Please download the genome and gff3 files suitable for your scRNA-seq data. If you already have these files, please copy them to the path `scPlantData/PMET/`.
+
+For example, download Arabidopsis thaliana's **TAIR10** [genome](https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-55/fasta/arabidopsis_thaliana/dna/Arabidopsis_thaliana.TAIR10.dna.toplevel.fa.gz) and [gff3](https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-55/gff3/arabidopsis_thaliana/Arabidopsis_thaliana.TAIR10.55.gff3.gz):
+
+```{bash, eval = FALSE}
+# To make the program works, we recommend downloading the files to the directory scPlantData/PMET/
+wget -O PMET/arabidopsis_thaliana.fa.gz 'https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-55/fasta/arabidopsis_thaliana/dna/Arabidopsis_thaliana.TAIR10.dna.toplevel.fa.gz'
+wget -O PMET/arabidopsis_thaliana.gff3.gz 'https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-55/gff3/arabidopsis_thaliana/Arabidopsis_thaliana.TAIR10.55.gff3.gz'
+gunzip PMET/arabidopsis_thaliana.fa.gz
+gunzip PMET/arabidopsis_thaliana.gff3.gz
+```
+
+<details>
+  <summary>**Download other species's genome and gff3 files**</summary>
+Users can download other plant organism's genome and gff3 files in [EnsemblPlants](https://plants.ensembl.org/index.html) and [Phytozome](https://phytozome-next.jgi.doe.gov/).
+For example, download Zea mays's **Zm-B73-REFERENCE-NAM-5.0** [genome](https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-55/fasta/zea_mays/dna/Zea_mays.Zm-B73-REFERENCE-NAM-5.0.dna.toplevel.fa.gz) and [gff3](https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-55/gff3/zea_mays/Zea_mays.Zm-B73-REFERENCE-NAM-5.0.55.gff3.gz):
+
+```{bash, eval = FALSE}
+wget -O PMET/zea_mays.fa.gz 'https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-55/fasta/zea_mays/dna/Zea_mays.Zm-B73-REFERENCE-NAM-5.0.dna.toplevel.fa.gz'
+wget -O PMET/zea_mays.gff3.gz 'https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-55/gff3/zea_mays/Zea_mays.Zm-B73-REFERENCE-NAM-5.0.55.gff3.gz'
+gunzip PMET/zea_mays.fa.gz
+gunzip PMET/zea_mays.gff3.gz
+```
+</details>
+
+
+### Install dependent softwares
+
+Please make sure several dependent softwares have been installed, including `samtools`, `bedtools`, `meme`, `parallel`.
+
+
+## Paired Motif Enrichment analysis
+
+#### Help information:
+
+```{bash, eval = FALSE}
+bash RunPMET.sh -h
+```
+
+```{bash, eval = FALSE}
+USAGE: RunPMET [options]
+Perform Paired Motif Enrichment Test.
+
+-r <PMET_path>  : Full path of directory where PMET scripts exist. Required.
+-o <output_directory> : Output directory for results.
+-m <gene_inputs>        : File containing genes to be tested. Required. A 2 column tab-delimited text file containing cluster ID in column 1 and genes in column 2.
+-s <species>  : Species. currently At (Arabidopsis thaliana), Os (Oryza sativa), Zm (Zea mays) are supported.
+```
+
+#### Prepare gene input file
+
+Take a true scRNA-seq data of Arabidopsis thaliana ([Zhang et al., 2019](https://www.sciencedirect.com/science/article/pii/S1674205219301339)) as example data (download [here](https://biobigdata.nju.edu.cn/scPlantDB/SeuratObj.rds)), you can use the R codes below to prepare gene input file:
+
+```{r, eval = FALSE}
+library(dplyr)
+DEG <- SeuratObj@misc$topMarker %>% dplyr::filter((pct.1>pct.2) & (p_val <0.05) & (pct.1>0.25) & avg_logFC>0.25) %>% dplyr::select(cluster, gene)
+write.table(DEG, file = "DEG.txt", quote = F, sep = "\t", row.names = F, col.names = F)
+```
+
+#### Run the script
+
+Note: Running the shell script could be time-consuming, particularly step 2.
+
+```{bash, eval = FALSE}
+source RunPMET.sh -r ./PMET -o output -m DEG.txt -s At
+```
+
+Once the program has run successfully, you can find result files in the output directory `output/output.txt`.
+
+
+## Process the result and visualization
+
+```{r}
+library(scPlant)
+```
+
+Pre-process original PMET output：
+
+```{r, eval = FALSE}
+PMETresult <- processPMET("output/output.txt")
+```
+
+```{r, echo = FALSE}
+PMETresult <- readRDS(file = "../vignette_data/PMETresult.rds")
+```
+
+Heatmap of PMET result：
+
+```{r}
+PMEThmp(PMETresult, topn = 5)
+```
+
+Draw triangle heatmap of PMET result:
+
+```{r}
+triHmp(PMETresult, clus = unique(PMETresult$Module)[1])
+```
+
+Network diagram showing top pairs of a cluster:
+
+```{r, fig.height=7, fig.width=7}
+topPairsNet(PMETresult, clus = unique(PMETresult$Module)[1], topn = 20)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
