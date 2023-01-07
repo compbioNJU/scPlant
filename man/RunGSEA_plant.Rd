@@ -4,7 +4,13 @@
 \alias{RunGSEA_plant}
 \title{Perform Gene Set Enrichment Analysis (GSEA) on Seurat object}
 \usage{
-RunGSEA_plant(SeuratObj, by = "GO", TERM2GENE = NULL, GeneIDtype = "TAIR")
+RunGSEA_plant(
+  SeuratObj,
+  by = "GO",
+  TERM2GENE = NULL,
+  GeneIDtype = "TAIR",
+  minpct = 0
+)
 }
 \arguments{
 \item{SeuratObj}{Seurat object}
@@ -14,6 +20,8 @@ RunGSEA_plant(SeuratObj, by = "GO", TERM2GENE = NULL, GeneIDtype = "TAIR")
 \item{TERM2GENE}{Customized terms. Annotation of TERM TO GENE mapping, a data.frame of 2 column with term and gene. NULL by default. If not NULL, parameter "by" will be ignored.}
 
 \item{GeneIDtype}{Gene ID type in Seurat object. \code{TAIR} for \code{Arabidopsis thaliana}, for example.}
+
+\item{minpct}{minimum expression percent in each cluster, parameter used to filter Differential expression genes to run GSEA. 0 as default.}
 }
 \value{
 Seurat object
@@ -25,6 +33,6 @@ This function is only for three plant species: \code{Arabidopsis thaliana} or \c
 \examples{
 \dontrun{
 SeuratObj <- RunGSEA_plant(SeuratObj, by = 'GO', GeneIDtype = 'TAIR')
-} 
+}
 
 }

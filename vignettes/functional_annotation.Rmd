@@ -1,0 +1,90 @@
+---
+title: "Functional annotation"
+date: '`r Sys.Date()`'
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Functional annotation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  tidy = FALSE,
+  message = FALSE,
+  # error = FALSE,
+  # eval = F,
+  warning = FALSE,
+  fig.align = "center"
+)
+options(width = 80)
+```
+
+
+**scPlant** provides methods for Gene Set Enrichment Analysis (GSEA) in model plants. We recommend [CellFunTopic](https://github.com/compbioNJU/CellFunTopic) package to visualize the GSEA result and perform topic modelling, revealing cellular programs shared across cell types or exclusive to a particular cell type.
+
+We provide a true scRNA-seq data of Arabidopsis thaliana ([Zhang et al., 2019](https://www.sciencedirect.com/science/article/pii/S1674205219301339)) as example data, download [here](https://biobigdata.nju.edu.cn/scPlantDB/SeuratObj.rds)
+
+
+```{r, echo = FALSE}
+SeuratObj <- readRDS(file = "../vignette_data/ath.rds")
+```
+
+
+## Gene Set Enrichment Analysis (GSEA)
+
+```{r, eval=FALSE}
+library(scPlant)
+SeuratObj <- RunGSEA_plant(SeuratObj, by = 'GO', GeneIDtype = 'TAIR', minpct = 0.25)
+```
+
+#### Visualize the GSEA result
+
+Refer to https://compbioNJU.github.io/CellFunTopic for more visualization of GSEA result.
+
+```{r, fig.height=10, fig.width=10}
+library(CellFunTopic)
+pathway_unique_shared(SeuratObj, by = "GO", fontsize_row = 4, scale = "row")
+hierarchyplot_tree(SeuratObj, by = "GO", topaths = 4, cluster_cutree_k = 14, pathway_cutree_k = 14,
+                   vertex.label.cex=0.5, edge.max.width=1, vertex.size.cex=0.7)
+```
+
+
+## Topic modelling
+
+```{r, eval=FALSE}
+SeuratObj <- runLDA(SeuratObj, k = 23)
+```
+
+#### Visualize the topic modelling result
+
+Refer to https://compbioNJU.github.io/CellFunTopic for more visualization of topic modelling result.
+
+```{r}
+ldaOut <- SeuratObj@misc$ldaOut
+betaDF <- tidytext::tidy(ldaOut, matrix = "beta")
+pws <- ID2Description(SeuratObj, by = "GO")
+betaDF <- dplyr::mutate(betaDF, descrip=unname(pws[term]))
+gammaDF <- tidytext::tidy(ldaOut, matrix = "gamma")
+```
+
+```{r}
+cluster_topic_hmp(ldaOut)
+plot_sankey(gammaDF, topn=1, plotHeight = 600)
+```
+
+```{r, fig.height=10, fig.width=10}
+topicNW3(betaDF, topn=10, pws = pws)
+```
+
+```{r}
+topicProb(SeuratObj, topic=21, pointSize=0.1) + Seurat::NoAxes()
+Topterms_Topic(betaDF, Topic = 21, topn = 20)
+```
+
+```{r, fig.height=10, fig.width=10}
+cosine_network_term(SeuratObj, radius = 0.2)
+```
+
+
+

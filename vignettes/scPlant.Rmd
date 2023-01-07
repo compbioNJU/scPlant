@@ -10,39 +10,39 @@ vignette: >
 We provide a series of vignettes to help users to get started with scPlant.
 
 
-## [Pre-processing](pre-processing.html)
+### [Pre-processing](pre-processing.html)
 
 We recommend **CellFunTopic** package to perform data pre-processing (quality control, normalization, dimension reduction, clustering, differential expression analysis, etc.) for convenience.
 
-## [Automatic cell-type annotation](auto-annotation.html)
+### [Automatic cell-type annotation](auto-annotation.html)
 
 **scPlant** have implemented several different solutions for automatic cell-type annotation that are based on popular tools, including [SingleR](https://doi.org/10.1038/s41590-018-0276-y), [Garnett](https://doi.org/10.1038/s41592-019-0535-3), [scCATCH](https://doi.org/10.1016/j.isci.2020.100882), [Celaref](https://www.bioconductor.org/packages/release/bioc/html/celaref.html) and [CellAssign](https://doi.org/10.1038/s41592-019-0529-1).
 
-## [Cross-species integration](integration.html)
+### [Cross-species integration](integration.html)
 
 **scPlant** allows cross-species integration of single-cell data in matched organs/tissues using one-by-one orthologous genes as anchors.
 
-## [Functional annotation](functional_annotation.html)
+### [Functional annotation](functional_annotation.html)
 
-**scPlant** mainly relies on **CellFunTopic** package to perform functional annotation, including Gene Set Enrichment Analysis (GSEA) and topic modelling, revealing cellular programs shared across cell types or exclusive to a particular cell type.
+**scPlant** provides methods for Gene Set Enrichment Analysis (GSEA) in model plants. We recommend **CellFunTopic** package to visualize the GSEA result and perform topic modelling, revealing cellular programs shared across cell types or exclusive to a particular cell type.
 
-## [Gene regulatory network construction](regulatory_network.html)
+### [Gene regulatory network construction](regulatory_network.html)
 
 **scPlant** pipeline have incorporated the widely used single-cell GRN analysis tool SCENIC ([Aibar et al., 2017](https://www.nature.com/articles/nmeth.4463)), and prepared required cisTarget databases to apply SCENIC in plants such as Arabidopsis thaliana, Oryza sativa, Zea mays.
 
-## [Paired motif enrichment](paired_motif_enrichment.html)
+### [Paired motif enrichment](paired_motif_enrichment.html)
 
 **scPlant** pipeline have adapted the Paired Motif Enrichment Tool (PMET) ([Rich-Griffin et al., 2020](https://academic.oup.com/plcell/article/32/9/2742/6118120)) to predict pairs of TF binding motifs within the promoter regions of cell-type specific marker genes.
 
-## [Estimating the cell type composition of bulk samples](deconvolution.html)
+### [Estimating the cell type composition of bulk samples](deconvolution.html)
 
 **scPlant** helps estimating the cell type composition of bulk samples using a single cell reference. Cell-type deconvolution was implemented based on the [CIBERSORT](https://www.nature.com/articles/nmeth.3337) algorithm.
 
-## [Pseudotime trajectory inference](pseudotime.html)
+### [Pseudotime trajectory inference](pseudotime.html)
 
 **scPlant** offers convenient implementation of pseudotime trajectory inference by incorporating two public tools, Monocle and Slingshot.
 
-## [Visualize in Shiny app](shiny_app.html)
+### [Visualize in Shiny app](shiny_app.html)
 
 The gene regulatory network, differentially expressed genes, and functional annotation can be explored interactively in the built-in Shiny web application.
 
