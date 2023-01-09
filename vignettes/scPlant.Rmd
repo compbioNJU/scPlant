@@ -14,10 +14,6 @@ We provide a series of vignettes to help users to get started with scPlant.
 
 We recommend **CellFunTopic** package to perform data pre-processing (quality control, normalization, dimension reduction, clustering, differential expression analysis, etc.) for convenience.
 
-### [Automatic cell-type annotation](auto-annotation.html)
-
-**scPlant** have implemented several different solutions for automatic cell-type annotation that are based on popular tools, including [SingleR](https://doi.org/10.1038/s41590-018-0276-y), [Garnett](https://doi.org/10.1038/s41592-019-0535-3), [scCATCH](https://doi.org/10.1016/j.isci.2020.100882), [Celaref](https://www.bioconductor.org/packages/release/bioc/html/celaref.html) and [CellAssign](https://doi.org/10.1038/s41592-019-0529-1).
-
 ### [Cross-species integration](integration.html)
 
 **scPlant** allows cross-species integration of single-cell data in matched organs/tissues using one-by-one orthologous genes as anchors.
@@ -34,6 +30,10 @@ We recommend **CellFunTopic** package to perform data pre-processing (quality co
 
 **scPlant** pipeline have adapted the Paired Motif Enrichment Tool (PMET) ([Rich-Griffin et al., 2020](https://academic.oup.com/plcell/article/32/9/2742/6118120)) to predict pairs of TF binding motifs within the promoter regions of cell-type specific marker genes.
 
+### [Automatic cell-type annotation](auto-annotation.html)
+
+**scPlant** have implemented several different solutions for automatic cell-type annotation that are based on popular tools, including [SingleR](https://doi.org/10.1038/s41590-018-0276-y), [Garnett](https://doi.org/10.1038/s41592-019-0535-3), [scCATCH](https://doi.org/10.1016/j.isci.2020.100882), [Celaref](https://www.bioconductor.org/packages/release/bioc/html/celaref.html) and [CellAssign](https://doi.org/10.1038/s41592-019-0529-1).
+
 ### [Estimating the cell type composition of bulk samples](deconvolution.html)
 
 **scPlant** helps estimating the cell type composition of bulk samples using a single cell reference. Cell-type deconvolution was implemented based on the [CIBERSORT](https://www.nature.com/articles/nmeth.3337) algorithm.
@@ -42,7 +42,7 @@ We recommend **CellFunTopic** package to perform data pre-processing (quality co
 
 **scPlant** offers convenient implementation of pseudotime trajectory inference by incorporating two public tools, Monocle and Slingshot.
 
-### [Visualize in Shiny app](shiny_app.html)
+### [Explore in Built-in Shiny APP](shiny_app.html)
 
 The gene regulatory network, differentially expressed genes, and functional annotation can be explored interactively in the built-in Shiny web application.
 

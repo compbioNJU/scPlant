@@ -1,0 +1,47 @@
+---
+title: "Pseudotime trajectory inference"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Pseudotime trajectory inference}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  tidy = FALSE,
+  message = FALSE,
+  # error = FALSE,
+  eval = FALSE,
+  warning = FALSE,
+  fig.align = "center"
+)
+options(width = 80)
+```
+
+**scPlant** offers convenient implementation of pseudotime trajectory inference by incorporating two public tools, Monocle and Slingshot.
+
+
+```{r}
+library(scPlant)
+```
+
+### Monolce2
+
+If `save_plot = TRUE`, output plots will be stored in `./output/plots/RunMonocle2`.
+
+```{r}
+result <- RunMonocle2(SeuratObj, save_plot = TRUE)
+```
+
+### Slingshot
+
+If `save_plot = TRUE`, output plots will be stored in `./output/plots/RunSlingshot`.
+
+```{r}
+result <- RunSlingshot(SeuratObj, save_plot = TRUE)
+```
+
+
+
+

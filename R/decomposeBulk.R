@@ -6,7 +6,7 @@
 #' given a gene expression profile of the sample and a known gene expression profile for each cell type potentially contributing to the sample.
 #' Here, we wrap runCIBERSORT function from RNAMagnet R package to decompose bulk RNA-seq samples.
 #' To install RNAMagnet R package, see https://github.com/veltenlab/rnamagnet. Note that MAGIC is an important requirement of RNAMagnet package,
-#' an needs to be installed as a python package, see https://github.com/KrishnaswamyLab/MAGIC/tree/master/Rmagic#installation.
+#' and needs to be installed as a python package, see https://github.com/KrishnaswamyLab/MAGIC/tree/master/Rmagic#installation.
 #'
 #' @param SeuratObj A Seurat object.
 #' @param exprs A data frame or matrix of raw read counts of bulk RNA-seq samples. Column names correspond to sample names, row names to genes.

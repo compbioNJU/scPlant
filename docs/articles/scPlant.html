@@ -45,9 +45,12 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/auto-annotation.html">Automatic cell-type annotation</a>
+    <a class="dropdown-item" href="../articles/deconvolution.html">Cell type decomposition of bulk samples</a>
+    <a class="dropdown-item" href="../articles/functional_annotation.html">Functional annotation</a>
     <a class="dropdown-item" href="../articles/integration.html">Cross-species integration</a>
     <a class="dropdown-item" href="../articles/paired_motif_enrichment.html">Paired Motif Enrichment</a>
     <a class="dropdown-item" href="../articles/pre-processing.html">Pre-processing</a>
+    <a class="dropdown-item" href="../articles/pseudotime.html">Pseudotime trajectory inference</a>
     <a class="dropdown-item" href="../articles/regulatory_network.html">Gene regulatory network construction</a>
   </div>
 </li>
@@ -95,16 +98,6 @@ pre-processing (quality control, normalization, dimension reduction,
 clustering, differential expression analysis, etc.) for convenience.</p>
 </div>
 <div class="section level3">
-<h3 id="automatic-cell-type-annotation">
-<a href="auto-annotation.html">Automatic cell-type
-annotation</a><a class="anchor" aria-label="anchor" href="#automatic-cell-type-annotation"></a>
-</h3>
-<p><strong>scPlant</strong> have implemented several different solutions
-for automatic cell-type annotation that are based on popular tools,
-including <a href="https://doi.org/10.1038/s41590-018-0276-y" class="external-link">SingleR</a>, <a href="https://doi.org/10.1038/s41592-019-0535-3" class="external-link">Garnett</a>, <a href="https://doi.org/10.1016/j.isci.2020.100882" class="external-link">scCATCH</a>, <a href="https://www.bioconductor.org/packages/release/bioc/html/celaref.html" class="external-link">Celaref</a>
-and <a href="https://doi.org/10.1038/s41592-019-0529-1" class="external-link">CellAssign</a>.</p>
-</div>
-<div class="section level3">
 <h3 id="cross-species-integration">
 <a href="integration.html">Cross-species integration</a><a class="anchor" aria-label="anchor" href="#cross-species-integration"></a>
 </h3>
@@ -116,11 +109,11 @@ genes as anchors.</p>
 <h3 id="functional-annotation">
 <a href="functional_annotation.html">Functional annotation</a><a class="anchor" aria-label="anchor" href="#functional-annotation"></a>
 </h3>
-<p><strong>scPlant</strong> mainly relies on
-<strong>CellFunTopic</strong> package to perform functional annotation,
-including Gene Set Enrichment Analysis (GSEA) and topic modelling,
-revealing cellular programs shared across cell types or exclusive to a
-particular cell type.</p>
+<p><strong>scPlant</strong> provides methods for Gene Set Enrichment
+Analysis (GSEA) in model plants. We recommend
+<strong>CellFunTopic</strong> package to visualize the GSEA result and
+perform topic modelling, revealing cellular programs shared across cell
+types or exclusive to a particular cell type.</p>
 </div>
 <div class="section level3">
 <h3 id="gene-regulatory-network-construction">
@@ -143,6 +136,16 @@ et al., 2020</a>) to predict pairs of TF binding motifs within the
 promoter regions of cell-type specific marker genes.</p>
 </div>
 <div class="section level3">
+<h3 id="automatic-cell-type-annotation">
+<a href="auto-annotation.html">Automatic cell-type
+annotation</a><a class="anchor" aria-label="anchor" href="#automatic-cell-type-annotation"></a>
+</h3>
+<p><strong>scPlant</strong> have implemented several different solutions
+for automatic cell-type annotation that are based on popular tools,
+including <a href="https://doi.org/10.1038/s41590-018-0276-y" class="external-link">SingleR</a>, <a href="https://doi.org/10.1038/s41592-019-0535-3" class="external-link">Garnett</a>, <a href="https://doi.org/10.1016/j.isci.2020.100882" class="external-link">scCATCH</a>, <a href="https://www.bioconductor.org/packages/release/bioc/html/celaref.html" class="external-link">Celaref</a>
+and <a href="https://doi.org/10.1038/s41592-019-0529-1" class="external-link">CellAssign</a>.</p>
+</div>
+<div class="section level3">
 <h3 id="estimating-the-cell-type-composition-of-bulk-samples">
 <a href="deconvolution.html">Estimating the cell type composition of
 bulk samples</a><a class="anchor" aria-label="anchor" href="#estimating-the-cell-type-composition-of-bulk-samples"></a>
@@ -161,8 +164,8 @@ pseudotime trajectory inference by incorporating two public tools,
 Monocle and Slingshot.</p>
 </div>
 <div class="section level3">
-<h3 id="visualize-in-shiny-app">
-<a href="shiny_app.html">Visualize in Shiny app</a><a class="anchor" aria-label="anchor" href="#visualize-in-shiny-app"></a>
+<h3 id="explore-in-built-in-shiny-app">
+<a href="shiny_app.html">Explore in Built-in Shiny APP</a><a class="anchor" aria-label="anchor" href="#explore-in-built-in-shiny-app"></a>
 </h3>
 <p>The gene regulatory network, differentially expressed genes, and
 functional annotation can be explored interactively in the built-in

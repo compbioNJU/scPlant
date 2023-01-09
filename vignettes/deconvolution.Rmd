@@ -1,0 +1,49 @@
+---
+title: "Cell type decomposition of bulk samples"
+date: '`r Sys.Date()`'
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Cell type decomposition of bulk samples}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  tidy = FALSE,
+  message = FALSE,
+  # error = FALSE,
+  eval = FALSE,
+  warning = FALSE,
+  fig.align = "center"
+)
+options(width = 80)
+```
+
+**scPlant** helps estimating the cell type composition of bulk samples using a single cell reference. Cell-type deconvolution was implemented based on the [CIBERSORT](https://www.nature.com/articles/nmeth.3337) algorithm. CIBERSORT is an algorithm for estimating the cell type composition of a bulk sample, given a gene expression profile of the sample and a known gene expression profile for each cell type potentially contributing to the sample. Here, we wrap `runCIBERSORT` function from `RNAMagnet` R package to decompose bulk RNA-seq samples.
+
+To install RNAMagnet R package, see https://github.com/veltenlab/rnamagnet. Note that MAGIC is an important requirement of RNAMagnet package, and needs to be installed as a python package, see https://github.com/KrishnaswamyLab/MAGIC/tree/master/Rmagic#installation.
+
+```{r}
+library(RNAMagnet)
+library(scPlant)
+```
+
+
+```{r}
+result <- decomposeBulk(SeuratObj, exprs, meta)
+```
+
+Heatmap showing the fraction of cell types in each bulk RNA-seq sample.
+
+```{r}
+fractionHmp(result, meta)
+```
+
+
+
+
+
+
+
+

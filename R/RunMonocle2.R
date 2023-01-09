@@ -9,13 +9,15 @@
 #' @param save_plot save plots to pdf or not.
 #' @param return_object return CellDataSet object or not.
 #'
+#' @return if parameter \code{return_object = TRUE}, CellDataSet object and differential genes across pseudotime will be returned.
+#'
 #' @export
 #'
 RunMonocle2 <- function(SeuratObj,
                         max_components = 2,
                         root_clusters = NULL,
                         point_size = 0.5,
-                        BEAM_analysis = TRUE,
+                        BEAM_analysis = FALSE,
                         BEAM_branch_point = 1,
                         save_plot = TRUE,
                         return_object = TRUE) {
@@ -105,7 +107,11 @@ RunMonocle2 <- function(SeuratObj,
     }
   }
   if (return_object) {
-    return(list(CellDataSet=mycds, Gene_acrossPseudotime=diff_test, beam_result=beam_result))
+    if (BEAM_analysis) {
+      return(list(CellDataSet=mycds, Gene_acrossPseudotime=diff_test, beam_result=beam_result))
+    } else {
+      return(list(CellDataSet=mycds, Gene_acrossPseudotime=diff_test))
+    }
   }
 }
 

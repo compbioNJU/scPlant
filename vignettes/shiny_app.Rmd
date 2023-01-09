@@ -1,0 +1,25 @@
+---
+title: "Explore in Built-in Shiny APP"
+date: '`r Sys.Date()`'
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Explore in Built-in Shiny APP}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+First, please make sure that you have previously performed the pre-processing, functional annotation, gene regulatory network construction steps, see [Pre-processing](pre-processing.html), [Functional annotation](functional_annotation.html), [Gene regulatory network construction](regulatory_network.html).
+
+The gene regulatory network, differentially expressed genes, and functional annotation can be explored interactively in the built-in Shiny web application.
+
+```{r, eval = FALSE}
+library(scPlant)
+load_shinyApp(SeuratObj)
+# It should be noted that an object named "SeuratObj" is needed in your global environment.
+```
+
+The Shiny app is demonstrated in the following image:
+
+<img src="images/shinyExample.gif" width="100%" />
+
+
