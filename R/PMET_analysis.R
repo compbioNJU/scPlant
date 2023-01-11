@@ -6,6 +6,7 @@
 #' @param species species; currently \code{Arabidopsis thaliana} or \code{Oryza sativa} or \code{Zea mays} are supported.
 #'
 #' @importFrom magrittr `%>%` `%<>%`
+#' @importFrom utils read.table
 #'
 #' @export
 #'

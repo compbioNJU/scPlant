@@ -26,9 +26,6 @@ constellationPlot(
 
 \item{outlier.frac.th}{Threshold to determine if a cell is a outlier if it is too far away from most of its neighbors.}
 }
-\value{
-
-}
 \description{
 Draw Constellation plot with scrattch.hicat package.
 }

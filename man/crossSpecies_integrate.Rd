@@ -25,7 +25,7 @@ whose order must match order of matrices. Each word corresponds to each matrix.}
 \item{min.features}{Filter the expression matrices before integration. Filter cells based on minimum number of features.}
 }
 \value{
-
+a Seurat object
 }
 \description{
 currently integration of three species \code{Arabidopsis thaliana} and \code{Oryza sativa} and \code{Zea mays} are supported.

@@ -14,7 +14,7 @@
 #' @importFrom Seurat CreateSeuratObject SCTransform SelectIntegrationFeatures PrepSCTIntegration FindIntegrationAnchors
 #' @importFrom Seurat IntegrateData RunPCA RunUMAP FindNeighbors FindClusters
 #'
-#' @return
+#' @return a Seurat object
 #' @export
 #'
 crossSpecies_integrate <- function(matrices, species, resolution = 0.5, min.cells = 3, min.features = 200) {

@@ -9,7 +9,6 @@
 #' @param outlier.frac.th Threshold to determine if a cell is a outlier if it is too far away from most of its neighbors.
 #'
 #'
-#' @return
 #' @export
 #'
 #' @examples

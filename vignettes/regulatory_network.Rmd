@@ -33,6 +33,19 @@ unzip scPlantData.zip
 cd scPlantData
 ```
 
+<details>
+  <summary>**Supported genome version**</summary>
+  Provided cisTarget databases were built based on the following genome version:
+  
+  Arabidopsis thaliana: **TAIR10**
+  
+  Oryza sativa: **V7.0**
+  
+  Zea mays: **Zm-B73-REFERENCE-NAM-5.0**
+  
+  Users can build their own cisTarget databases based on other genome version by following the protocol [create_cisTarget_databases](https://github.com/aertslab/create_cisTarget_databases).
+</details>
+
 We also provide a true scRNA-seq data of Arabidopsis thaliana ([Zhang et al., 2019](https://www.sciencedirect.com/science/article/pii/S1674205219301339)) as example data, download [here](https://biobigdata.nju.edu.cn/scPlantDB/SeuratObj.rds)
 
 ```{bash, eval = FALSE}

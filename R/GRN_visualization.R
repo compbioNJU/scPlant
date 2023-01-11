@@ -91,6 +91,7 @@ ras_exp_scatter <- function(SeuratObj, rasMat, gene, reduction = 'umap') {
 #' @param to.label.cex label size of 'regulon' nodes
 #'
 #' @importFrom igraph graph_from_data_frame E V `E<-` `V<-`
+#' @importFrom stats setNames
 #'
 #' @export
 #'

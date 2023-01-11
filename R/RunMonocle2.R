@@ -9,6 +9,8 @@
 #' @param save_plot save plots to pdf or not.
 #' @param return_object return CellDataSet object or not.
 #'
+#' @importFrom grDevices dev.off pdf
+#'
 #' @return if parameter \code{return_object = TRUE}, CellDataSet object and differential genes across pseudotime will be returned.
 #'
 #' @export

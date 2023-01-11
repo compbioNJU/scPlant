@@ -1,5 +1,5 @@
 Package: scPlant
-Title: A Versatile Framework for Single-cell Transcriptomic Data Analysis in Plants.
+Title: A Versatile Framework for Single-cell Transcriptomic Data Analysis in Plants
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Shanni",
@@ -24,19 +24,17 @@ Imports:
     ggplot2,
     igraph,
     ComplexHeatmap,
+    SingleCellExperiment,
     magrittr,
     stats,
     utils,
     graphics,
     grDevices
 Suggests:
-    msigdbr,
     shiny,
     monocle,
     slingshot,
     scrattch.hicat,
-    RNAMagnet,
-    metacell,
     CellFunTopic,
     knitr,
     rmarkdown
