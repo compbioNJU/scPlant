@@ -12,10 +12,25 @@ First, please make sure that you have previously performed the pre-processing, f
 
 The gene regulatory network, differentially expressed genes, and functional annotation can be explored interactively in the built-in Shiny web application.
 
+We provide a true scRNA-seq data of Arabidopsis thaliana ([Zhang et al., 2019](https://www.sciencedirect.com/science/article/pii/S1674205219301339)) as example data to show how to explore in built-in Shiny APP, download [here](https://biobigdata.nju.edu.cn/scPlantDB/exampleData.zip)
+
+```{bash, eval = FALSE}
+wget https://biobigdata.nju.edu.cn/scPlantDB/exampleData.zip
+unzip exampleData.zip
+```
+
+```{r, eval = FALSE}
+SeuratObj <- readRDS("exampleData/SeuratObj.rds")
+rssMat <- readRDS("exampleData/rssMat.rds")
+rasMat <- readRDS("exampleData/rasMat.rds")
+tf_target <- readRDS("exampleData/tf_target.rds")
+```
+
+
 ```{r, eval = FALSE}
 library(scPlant)
-load_shinyApp(SeuratObj)
-# It should be noted that an object named "SeuratObj" is needed in your global environment.
+load_shinyApp(SeuratObj, rasMat, rssMat, tf_target)
+# Note that objects named "SeuratObj", "rasMat", "rssMat", "tf_target" are needed in your global environment.
 ```
 
 The Shiny app is demonstrated in the following image:

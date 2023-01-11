@@ -9,7 +9,7 @@ RunMonocle2(
   max_components = 2,
   root_clusters = NULL,
   point_size = 0.5,
-  BEAM_analysis = TRUE,
+  BEAM_analysis = FALSE,
   BEAM_branch_point = 1,
   save_plot = TRUE,
   return_object = TRUE
@@ -31,6 +31,9 @@ RunMonocle2(
 \item{save_plot}{save plots to pdf or not.}
 
 \item{return_object}{return CellDataSet object or not.}
+}
+\value{
+if parameter \code{return_object = TRUE}, CellDataSet object and differential genes across pseudotime will be returned.
 }
 \description{
 Run monocle2 on Seurat object

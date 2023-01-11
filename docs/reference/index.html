@@ -27,10 +27,15 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/auto-annotation.html">Automatic cell-type annotation</a>
-    <a class="dropdown-item" href="../articles/integration.html">Cross-species integration</a>
     <a class="dropdown-item" href="../articles/pre-processing.html">Pre-processing</a>
+    <a class="dropdown-item" href="../articles/integration.html">Cross-species integration</a>
+    <a class="dropdown-item" href="../articles/functional_annotation.html">Functional annotation</a>
     <a class="dropdown-item" href="../articles/regulatory_network.html">Gene regulatory network construction</a>
+    <a class="dropdown-item" href="../articles/paired_motif_enrichment.html">Paired Motif Enrichment</a>
+    <a class="dropdown-item" href="../articles/auto-annotation.html">Automatic cell-type annotation</a>
+    <a class="dropdown-item" href="../articles/deconvolution.html">Cell type decomposition of bulk samples</a>
+    <a class="dropdown-item" href="../articles/pseudotime.html">Pseudotime trajectory inference</a>
+    <a class="dropdown-item" href="../articles/shiny_app.html">Explore in Built-in Shiny APP</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -53,7 +58,7 @@
     </div>
 
     <div class="section level2">
-      <h2 id="all-functions">All functions<a class="anchor" aria-label="anchor" href="#all-functions"></a></h2>
+      <h2 id="cross-species-integration">Cross-species integration<a class="anchor" aria-label="anchor" href="#cross-species-integration"></a></h2>
       
       
 
@@ -65,70 +70,42 @@
 
       <dl><dt>
           
-          <code><a href="AutoAnnotate_Celaref.html">AutoAnnotate_Celaref()</a></code> 
-        </dt>
-        <dd>Automatic annotation of Seurat object using Celaref package.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="AutoAnnotate_CellAssign.html">AutoAnnotate_CellAssign()</a></code> 
-        </dt>
-        <dd>Automatic annotation of Seurat object using CellAssign package.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="AutoAnnotate_Garnett.html">AutoAnnotate_Garnett()</a></code> 
-        </dt>
-        <dd>Automatic annotation of Seurat object using Garnett package.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="AutoAnnotate_scCATCH.html">AutoAnnotate_scCATCH()</a></code> 
-        </dt>
-        <dd>Automatic annotation of Seurat object using scCATCH package.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="AutoAnnotate_SingleR.html">AutoAnnotate_SingleR()</a></code> 
-        </dt>
-        <dd>Automatic annotation of Seurat object using SingleR package.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="constellationPlot.html">constellationPlot()</a></code> 
-        </dt>
-        <dd>Draw Constellation plot with scrattch.hicat package.</dd>
-      </dl><dl><dt>
-          
           <code><a href="crossSpecies_integrate.html">crossSpecies_integrate()</a></code> 
         </dt>
         <dd>Perform integration on datasets of different species with Seurat.</dd>
       </dl><dl><dt>
           
-          <code><a href="decomposeBulk.html">decomposeBulk()</a></code> 
+          <code><a href="species_percentage.html">species_percentage()</a></code> 
         </dt>
-        <dd>Decompose bulk RNA-seq samples using a single cell reference</dd>
-      </dl><dl><dt>
+        <dd>Bar plot showing the percentage of cells from different species.</dd>
+      </dl></div><div class="section level2">
+      <h2 id="functional-annotation">Functional annotation<a class="anchor" aria-label="anchor" href="#functional-annotation"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
           
-          <code><a href="fractionHmp.html">fractionHmp()</a></code> 
+          <code><a href="RunGSEA_plant.html">RunGSEA_plant()</a></code> 
         </dt>
-        <dd>Heatmap showing the fraction of cell types in each bulk RNA-seq sample.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="load_shinyApp.html">load_shinyApp()</a></code> 
-        </dt>
-        <dd>visualize the Seurat object in a built-in shiny app</dd>
-      </dl><dl><dt>
-          
-          <code><a href="meanExpHmp.html">meanExpHmp()</a></code> 
-        </dt>
-        <dd>Heatmap showing mean expression of top 20 markers of each cell type in each sample.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="PMEThmp.html">PMEThmp()</a></code> 
-        </dt>
-        <dd>Heatmap of PMET result</dd>
-      </dl><dl><dt>
-          
-          <code><a href="processPMET.html">processPMET()</a></code> 
-        </dt>
-        <dd>pre-process original PMET output and filter with PPI information</dd>
-      </dl><dl><dt>
+        <dd>Perform Gene Set Enrichment Analysis (GSEA) on Seurat object</dd>
+      </dl></div><div class="section level2">
+      <h2 id="gene-regulatory-network-construction">Gene regulatory network construction<a class="anchor" aria-label="anchor" href="#gene-regulatory-network-construction"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
           
           <code><a href="ras_exp_hmp.html">ras_exp_hmp()</a></code> 
         </dt>
@@ -138,46 +115,6 @@
           <code><a href="ras_exp_scatter.html">ras_exp_scatter()</a></code> 
         </dt>
         <dd>Dimension reduction plot showing regulon activity and TF expression</dd>
-      </dl><dl><dt>
-          
-          <code><a href="runCIBERSORT.html">runCIBERSORT()</a></code> 
-        </dt>
-        <dd>modified version of original code(https://rdrr.io/github/veltenlab/rnamagnet/src/R/CIBERSORT.R).</dd>
-      </dl><dl><dt>
-          
-          <code><a href="RunGSEA_plant.html">RunGSEA_plant()</a></code> 
-        </dt>
-        <dd>Perform Gene Set Enrichment Analysis (GSEA) on Seurat object</dd>
-      </dl><dl><dt>
-          
-          <code><a href="RunMetacell.html">RunMetacell()</a></code> 
-        </dt>
-        <dd>Run metacell on Seurat object</dd>
-      </dl><dl><dt>
-          
-          <code><a href="RunMonocle2.html">RunMonocle2()</a></code> 
-        </dt>
-        <dd>Run monocle2 on Seurat object</dd>
-      </dl><dl><dt>
-          
-          <code><a href="RunSlingshot.html">RunSlingshot()</a></code> 
-        </dt>
-        <dd>Run slingshot on Seurat object</dd>
-      </dl><dl><dt>
-          
-          <code><a href="species_percentage.html">species_percentage()</a></code> 
-        </dt>
-        <dd>Bar plot showing the percentage of cells from different species.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="SpecificityRank.html">SpecificityRank()</a></code> 
-        </dt>
-        <dd>Dot plot showing top regulons of each cluster according to regulon specificity score(RSS)</dd>
-      </dl><dl><dt>
-          
-          <code><a href="topPairsNet.html">topPairsNet()</a></code> 
-        </dt>
-        <dd>Network diagram showing top pairs of a cluster.</dd>
       </dl><dl><dt>
           
           <code><a href="topRegulons.html">topRegulons()</a></code> 
@@ -195,11 +132,189 @@
         <dd>Network diagram showing top targets of top regulons of each cluster</dd>
       </dl><dl><dt>
           
+          <code><a href="SpecificityRank.html">SpecificityRank()</a></code> 
+        </dt>
+        <dd>Dot plot showing top regulons of each cluster according to regulon specificity score(RSS)</dd>
+      </dl></div><div class="section level2">
+      <h2 id="paired-motif-enrichment">Paired motif enrichment<a class="anchor" aria-label="anchor" href="#paired-motif-enrichment"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="processPMET.html">processPMET()</a></code> 
+        </dt>
+        <dd>pre-process original PMET output and filter with PPI information</dd>
+      </dl><dl><dt>
+          
+          <code><a href="PMEThmp.html">PMEThmp()</a></code> 
+        </dt>
+        <dd>Heatmap of PMET result</dd>
+      </dl><dl><dt>
+          
           <code><a href="triHmp.html">triHmp()</a></code> 
         </dt>
         <dd>Draw triangle heatmap of PMET result</dd>
+      </dl><dl><dt>
+          
+          <code><a href="topPairsNet.html">topPairsNet()</a></code> 
+        </dt>
+        <dd>Network diagram showing top pairs of a cluster.</dd>
+      </dl></div><div class="section level2">
+      <h2 id="automatic-cell-type-annotation">Automatic cell-type annotation<a class="anchor" aria-label="anchor" href="#automatic-cell-type-annotation"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="AutoAnnotate_SingleR.html">AutoAnnotate_SingleR()</a></code> 
+        </dt>
+        <dd>Automatic annotation of Seurat object using SingleR package.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="AutoAnnotate_Celaref.html">AutoAnnotate_Celaref()</a></code> 
+        </dt>
+        <dd>Automatic annotation of Seurat object using Celaref package.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="AutoAnnotate_scCATCH.html">AutoAnnotate_scCATCH()</a></code> 
+        </dt>
+        <dd>Automatic annotation of Seurat object using scCATCH package.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="AutoAnnotate_Garnett.html">AutoAnnotate_Garnett()</a></code> 
+        </dt>
+        <dd>Automatic annotation of Seurat object using Garnett package.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="AutoAnnotate_CellAssign.html">AutoAnnotate_CellAssign()</a></code> 
+        </dt>
+        <dd>Automatic annotation of Seurat object using CellAssign package.</dd>
+      </dl></div><div class="section level2">
+      <h2 id="cell-type-decomposition-of-bulk-samples">Cell type decomposition of bulk samples<a class="anchor" aria-label="anchor" href="#cell-type-decomposition-of-bulk-samples"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="decomposeBulk.html">decomposeBulk()</a></code> 
+        </dt>
+        <dd>Decompose bulk RNA-seq samples using a single cell reference</dd>
+      </dl><dl><dt>
+          
+          <code><a href="fractionHmp.html">fractionHmp()</a></code> 
+        </dt>
+        <dd>Heatmap showing the fraction of cell types in each bulk RNA-seq sample.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="meanExpHmp.html">meanExpHmp()</a></code> 
+        </dt>
+        <dd>Heatmap showing mean expression of top 20 markers of each cell type in each sample.</dd>
+      </dl></div><div class="section level2">
+      <h2 id="pseudotime-trajectory-inference">Pseudotime trajectory inference<a class="anchor" aria-label="anchor" href="#pseudotime-trajectory-inference"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="RunMonocle2.html">RunMonocle2()</a></code> 
+        </dt>
+        <dd>Run monocle2 on Seurat object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="RunSlingshot.html">RunSlingshot()</a></code> 
+        </dt>
+        <dd>Run slingshot on Seurat object</dd>
+      </dl></div><div class="section level2">
+      <h2 id="built-in-shiny-app">Built-in Shiny APP<a class="anchor" aria-label="anchor" href="#built-in-shiny-app"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="load_shinyApp.html">load_shinyApp()</a></code> 
+        </dt>
+        <dd>visualize the analysis result in a built-in shiny app</dd>
+      </dl></div><div class="section level2">
+      <h2 id="other-visualizaiton">Other visualizaiton<a class="anchor" aria-label="anchor" href="#other-visualizaiton"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="constellationPlot.html">constellationPlot()</a></code> 
+        </dt>
+        <dd>Draw Constellation plot with scrattch.hicat package.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="RunMetacell.html">RunMetacell()</a></code> 
+        </dt>
+        <dd>Run metacell on Seurat object</dd>
+      </dl></div><div class="section level2">
+      <h2 id="internal-data">Internal data<a class="anchor" aria-label="anchor" href="#internal-data"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="example_Ath.html">example_Ath</a></code> 
+        </dt>
+        <dd>Toy example single-cell expression matrix of Arabidopsis thaliana.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="example_Osa.html">example_Osa</a></code> 
+        </dt>
+        <dd>Toy example single-cell expression matrix of Oryza sativa.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="example_Zma.html">example_Zma</a></code> 
+        </dt>
+        <dd>Toy example single-cell expression matrix of Zea mays.</dd>
       </dl></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">

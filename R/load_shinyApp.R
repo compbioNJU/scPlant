@@ -1,30 +1,33 @@
 
 
-#' visualize the Seurat object in a built-in shiny app
+#' visualize the analysis result in a built-in shiny app
 #'
 #' @param SeuratObj Seurat object
+#' @param rasMat matrix of regulon activity score(RAS) in each cell
+#' @param rssMat matrix of regulon specificity score(RSS) in each cluster
+#' @param tf_target TF and targets of each regulon. This information comes from post-processing of pyscenic.
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' if(interactive()) {
-#'     load_shinyApp(SeuratObj)
+#'     load_shinyApp(SeuratObj, rasMat, rssMat, tf_target)
 #' }
 #' }
 #'
 load_shinyApp <- function(SeuratObj, rasMat, rssMat, tf_target) {
-  
+
   if (!inherits(x = SeuratObj, what = 'Seurat')) {
     stop("Seurat object is required, please provide a Seurat object.")
   }
-  
-  pkgs <- c('shiny', 'shinydashboard', 'data.table', 'DT', 'ggplot2', 'shinycssloaders', 'shinydashboardPlus', 'shinyWidgets',
+
+  pkgs <- c('shiny', 'shinydashboard', 'data.table', 'DT', 'ggplot2', 'shinycssloaders', 'shinyWidgets',
             'dplyr', 'plyr', 'magrittr', 'Seurat', 'RColorBrewer', 'pheatmap', 'igraph', 'ggraph', 'circlize', 'ggpubr', 'cowplot',
-            'factoextra', 'scatterpie', 'GO.db', 'grid', 'GOSemSim', 'ggplotify', 'GOfuncR', 'topicmodels', 'tidytext',
-            'ggwordcloud', 'wordcloud', 'wordcloud2', 'pals', 'networkD3', 'echarts4r', 'ggnewscale')
+            'factoextra', 'scatterpie',  'grid', 'topicmodels', 'tidytext',
+            'ggwordcloud', 'wordcloud', 'pals', 'networkD3', 'echarts4r', 'ggnewscale')
   check_pkgs(pkgs)
-  
+
   appDir <- system.file('shiny', package = "scPlant")
   shiny::runApp(appDir)
 }
@@ -51,7 +54,7 @@ check_pkgs <- function(pkgs) {
     }
     message("These packages are required but not installed: \n", paste(strwrap(paste(unavail, collapse = ", ")), collapse = "\n"))
     answer = readline("Do you want to install them? [y|n] ")
-    
+
     if(tolower(answer) %in% c("y", "yes")) {
       for (pkg in unavail) {
         tryCatch(install.packages(pkg),

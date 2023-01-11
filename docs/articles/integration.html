@@ -44,10 +44,15 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/auto-annotation.html">Automatic cell-type annotation</a>
-    <a class="dropdown-item" href="../articles/integration.html">Cross-species integration</a>
     <a class="dropdown-item" href="../articles/pre-processing.html">Pre-processing</a>
+    <a class="dropdown-item" href="../articles/integration.html">Cross-species integration</a>
+    <a class="dropdown-item" href="../articles/functional_annotation.html">Functional annotation</a>
     <a class="dropdown-item" href="../articles/regulatory_network.html">Gene regulatory network construction</a>
+    <a class="dropdown-item" href="../articles/paired_motif_enrichment.html">Paired Motif Enrichment</a>
+    <a class="dropdown-item" href="../articles/auto-annotation.html">Automatic cell-type annotation</a>
+    <a class="dropdown-item" href="../articles/deconvolution.html">Cell type decomposition of bulk samples</a>
+    <a class="dropdown-item" href="../articles/pseudotime.html">Pseudotime trajectory inference</a>
+    <a class="dropdown-item" href="../articles/shiny_app.html">Explore in Built-in Shiny APP</a>
   </div>
 </li>
       </ul>
@@ -76,7 +81,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Cross-species integration</h1>
             
-            <h4 data-toc-skip class="date">2023-01-05</h4>
+            <h4 data-toc-skip class="date">2023-01-11</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/compbioNJU/scPlant/blob/HEAD/vignettes/integration.Rmd" class="external-link"><code>vignettes/integration.Rmd</code></a></small>
       <div class="d-none name"><code>integration.Rmd</code></div>
@@ -125,11 +130,11 @@ on.</p>
 <h2 id="visualize-integration-result">Visualize integration result<a class="anchor" aria-label="anchor" href="#visualize-integration-result"></a>
 </h2>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Seurat/man/DimPlot.html" class="external-link">DimPlot</a></span><span class="op">(</span><span class="va">integratedObj</span>, reduction <span class="op">=</span> <span class="st">"umap"</span>, group.by <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Seurat/man/SeuratTheme.html" class="external-link">NoAxes</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/DimPlot.html" class="external-link">DimPlot</a></span><span class="op">(</span><span class="va">integratedObj</span>, reduction <span class="op">=</span> <span class="st">"umap"</span>, group.by <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/SeuratTheme.html" class="external-link">NoAxes</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="integration_files/figure-html/unnamed-chunk-6-1.png" width="700" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Seurat/man/DimPlot.html" class="external-link">DimPlot</a></span><span class="op">(</span><span class="va">integratedObj</span>, reduction <span class="op">=</span> <span class="st">"umap"</span>, group.by <span class="op">=</span> <span class="st">"seurat_clusters"</span>, label <span class="op">=</span> <span class="cn">F</span>,</span>
-<span>                repel <span class="op">=</span> <span class="cn">TRUE</span>, split.by <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Seurat/man/SeuratTheme.html" class="external-link">NoAxes</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/DimPlot.html" class="external-link">DimPlot</a></span><span class="op">(</span><span class="va">integratedObj</span>, reduction <span class="op">=</span> <span class="st">"umap"</span>, group.by <span class="op">=</span> <span class="st">"seurat_clusters"</span>, label <span class="op">=</span> <span class="cn">F</span>,</span>
+<span>                repel <span class="op">=</span> <span class="cn">TRUE</span>, split.by <span class="op">=</span> <span class="st">"species"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/SeuratTheme.html" class="external-link">NoAxes</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="integration_files/figure-html/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;"></p>
 <p>Bar plot showing the percentage of cells from different species:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">

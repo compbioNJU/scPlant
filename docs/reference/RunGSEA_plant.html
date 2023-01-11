@@ -29,10 +29,15 @@ This function is only for three plant species: Arabidopsis thaliana or Oryza sat
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/auto-annotation.html">Automatic cell-type annotation</a>
-    <a class="dropdown-item" href="../articles/integration.html">Cross-species integration</a>
     <a class="dropdown-item" href="../articles/pre-processing.html">Pre-processing</a>
+    <a class="dropdown-item" href="../articles/integration.html">Cross-species integration</a>
+    <a class="dropdown-item" href="../articles/functional_annotation.html">Functional annotation</a>
     <a class="dropdown-item" href="../articles/regulatory_network.html">Gene regulatory network construction</a>
+    <a class="dropdown-item" href="../articles/paired_motif_enrichment.html">Paired Motif Enrichment</a>
+    <a class="dropdown-item" href="../articles/auto-annotation.html">Automatic cell-type annotation</a>
+    <a class="dropdown-item" href="../articles/deconvolution.html">Cell type decomposition of bulk samples</a>
+    <a class="dropdown-item" href="../articles/pseudotime.html">Pseudotime trajectory inference</a>
+    <a class="dropdown-item" href="../articles/shiny_app.html">Explore in Built-in Shiny APP</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -63,7 +68,13 @@ This function is only for three plant species: <code>Arabidopsis thaliana</code>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">RunGSEA_plant</span><span class="op">(</span><span class="va">SeuratObj</span>, by <span class="op">=</span> <span class="st">"GO"</span>, TERM2GENE <span class="op">=</span> <span class="cn">NULL</span>, GeneIDtype <span class="op">=</span> <span class="st">"TAIR"</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">RunGSEA_plant</span><span class="op">(</span></span>
+<span>  <span class="va">SeuratObj</span>,</span>
+<span>  by <span class="op">=</span> <span class="st">"GO"</span>,</span>
+<span>  TERM2GENE <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  GeneIDtype <span class="op">=</span> <span class="st">"TAIR"</span>,</span>
+<span>  minpct <span class="op">=</span> <span class="fl">0</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -83,6 +94,10 @@ This function is only for three plant species: <code>Arabidopsis thaliana</code>
 <dt>GeneIDtype</dt>
 <dd><p>Gene ID type in Seurat object. <code>TAIR</code> for <code>Arabidopsis thaliana</code>, for example.</p></dd>
 
+
+<dt>minpct</dt>
+<dd><p>minimum expression percent in each cluster, parameter used to filter Differential expression genes to run GSEA. 0 as default.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -95,7 +110,7 @@ This function is only for three plant species: <code>Arabidopsis thaliana</code>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="va">SeuratObj</span> <span class="op">&lt;-</span> <span class="fu">RunGSEA_plant</span><span class="op">(</span><span class="va">SeuratObj</span>, by <span class="op">=</span> <span class="st">'GO'</span>, GeneIDtype <span class="op">=</span> <span class="st">'TAIR'</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> </span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

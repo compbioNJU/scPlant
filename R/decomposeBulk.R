@@ -40,7 +40,7 @@ decomposeBulk <- function(SeuratObj, exprs, meta, mc.cores = 1, slot = "counts",
   return(CIBER)
 }
 
-#' modified version of original code(https://rdrr.io/github/veltenlab/rnamagnet/src/R/CIBERSORT.R).
+# modified version of original code(https://rdrr.io/github/veltenlab/rnamagnet/src/R/CIBERSORT.R).
 runCIBERSORT <- function(exprs, base, design, markergenes = intersect(rownames(base), rownames(exprs)),
                          transform=function(x) x,nu = c(0.25,0.5,0.75), optim.nu = F, mc.cores= 3, ...) {
 

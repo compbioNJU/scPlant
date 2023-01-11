@@ -9,7 +9,7 @@ ras_exp_hmp(SeuratObj, rasMat, group.by = "seurat_clusters", assay = "SCT")
 \arguments{
 \item{SeuratObj}{Seurat object}
 
-\item{rasMat}{matrix of regulon activity in each cell}
+\item{rasMat}{matrix of regulon activity score(RAS) in each cell}
 
 \item{group.by}{Name of the metadata column to group cells by (for example, seurat_clusters)}
 

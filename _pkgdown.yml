@@ -2,3 +2,78 @@ url: ~
 template:
   bootstrap: 5
 
+reference:
+- title: Cross-species integration
+- contents:
+  - crossSpecies_integrate
+  - species_percentage
+- title: Functional annotation
+- contents:
+  - RunGSEA_plant
+- title: Gene regulatory network construction
+- contents:
+  - ras_exp_hmp
+  - ras_exp_scatter
+  - topRegulons
+  - toptargets
+  - ToptargetsofTopregulons
+  - SpecificityRank
+- title: Paired motif enrichment
+- contents:
+  - processPMET
+  - PMEThmp
+  - triHmp
+  - topPairsNet
+- title: Automatic cell-type annotation
+- contents:
+  - AutoAnnotate_SingleR
+  - AutoAnnotate_Celaref
+  - AutoAnnotate_scCATCH
+  - AutoAnnotate_Garnett
+  - AutoAnnotate_CellAssign
+- title: Cell type decomposition of bulk samples
+- contents:
+  - decomposeBulk
+  - fractionHmp
+  - meanExpHmp
+- title: Pseudotime trajectory inference
+- contents:
+  - RunMonocle2
+  - RunSlingshot
+- title: Built-in Shiny APP
+- contents:
+  - load_shinyApp
+- title: Other visualizaiton
+- contents:
+  - constellationPlot
+  - RunMetacell
+- title: Internal data
+- contents:
+  - example_Ath
+  - example_Osa
+  - example_Zma
+
+
+
+articles:
+- title: Get started
+  navbar: ~
+  contents:
+  - pre-processing
+  - integration
+  - functional_annotation
+  - regulatory_network
+  - paired_motif_enrichment
+  - auto-annotation
+  - deconvolution
+  - pseudotime
+  - shiny_app
+
+
+---
+title: My Document
+resource_files:
+  - images/shinyExample.gif
+---
+
+

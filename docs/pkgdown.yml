@@ -3,9 +3,14 @@ pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   auto-annotation: auto-annotation.html
+  deconvolution: deconvolution.html
+  functional_annotation: functional_annotation.html
   integration: integration.html
+  paired_motif_enrichment: paired_motif_enrichment.html
   pre-processing: pre-processing.html
+  pseudotime: pseudotime.html
   regulatory_network: regulatory_network.html
   scPlant: scPlant.html
-last_built: 2023-01-03T15:45Z
+  shiny_app: shiny_app.html
+last_built: 2023-01-11T10:01Z
 

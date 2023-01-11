@@ -4,7 +4,7 @@
 #' Heatmaps showing mean regulon activity and TF expression of each cluster.
 #'
 #' @param SeuratObj Seurat object
-#' @param rasMat matrix of regulon activity in each cell
+#' @param rasMat matrix of regulon activity score(RAS) in each cell
 #' @param group.by Name of the metadata column to group cells by (for example, seurat_clusters)
 #' @param assay assay to calculate mean expression
 #'
@@ -47,7 +47,7 @@ ras_exp_hmp <- function(SeuratObj, rasMat, group.by = "seurat_clusters", assay =
 #' Dimension reduction plot showing regulon activity and TF expression
 #'
 #' @param SeuratObj Seurat object
-#' @param rasMat matrix of regulon activity in each cell
+#' @param rasMat matrix of regulon activity score(RAS) in each cell
 #' @param gene TF to show
 #' @param reduction umap or tsne
 #'

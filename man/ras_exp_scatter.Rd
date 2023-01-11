@@ -9,7 +9,7 @@ ras_exp_scatter(SeuratObj, rasMat, gene, reduction = "umap")
 \arguments{
 \item{SeuratObj}{Seurat object}
 
-\item{rasMat}{matrix of regulon activity in each cell}
+\item{rasMat}{matrix of regulon activity score(RAS) in each cell}
 
 \item{gene}{TF to show}
 
