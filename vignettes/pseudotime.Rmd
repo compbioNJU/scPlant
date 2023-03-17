@@ -34,12 +34,29 @@ If `save_plot = TRUE`, output plots will be stored in `./output/plots/RunMonocle
 result <- RunMonocle2(SeuratObj, save_plot = TRUE)
 ```
 
+### Monolce3
+
+If `save_plot = TRUE`, output plots will be stored in `./output/plots/RunMonocle3`.
+
+```{r}
+result <- RunMonocle3(SeuratObj, save_plot = TRUE)
+```
+
+
 ### Slingshot
 
 If `save_plot = TRUE`, output plots will be stored in `./output/plots/RunSlingshot`.
 
 ```{r}
 result <- RunSlingshot(SeuratObj, save_plot = TRUE)
+```
+
+### CytoTRACE
+
+If `save_plot = TRUE`, output plots will be stored in `./CytoTRACEoutputt`.
+
+```{r}
+result <- RunCytoTRACE(SeuratObj, save_plot = TRUE)
 ```
 
 

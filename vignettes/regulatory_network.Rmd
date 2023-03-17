@@ -62,8 +62,6 @@ conda create -n pyscenic_12_1 python=3.7
 conda activate pyscenic_12_1 
 pip install pyscenic==0.12.1
 pyscenic -h
-pip install pandas
-pip install loompy
 ```
 
 #### Install dependent R packages

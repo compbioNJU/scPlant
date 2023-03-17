@@ -27,7 +27,7 @@ RunMonocle2 <- function(SeuratObj,
   #### create CellDataSet object
   data <- Seurat::GetAssayData(SeuratObj, slot = "counts")
   pd <- SeuratObj@meta.data
-  pd$cds_cluster <- unname(Idents(SeuratObj)[rownames(pd)])
+  pd$cds_cluster <- unname(Seurat::Idents(SeuratObj)[rownames(pd)])
   fData <- data.frame(gene_short_name = rownames(data), geneID=rownames(data), row.names = rownames(data))
   mycds <- monocle::newCellDataSet(data,
                                    phenoData = new('AnnotatedDataFrame', data = pd),
@@ -38,7 +38,7 @@ RunMonocle2 <- function(SeuratObj,
   mycds <- estimateDispersions(mycds, relative_expr = TRUE)
   # we use marker genes obtained from Seurat pipeline
   diff.genes <- slot(object = SeuratObj, name = 'misc')[["Allmarkers"]]
-  sig_diff.genes <- subset(diff.genes, p_val_adj<0.01 & abs(avg_logFC)>0.5)$gene
+  sig_diff.genes <- subset(diff.genes, p_val_adj<0.01 & abs(avg_log2FC)>0.5)$gene
   sig_diff.genes <- unique(as.character(sig_diff.genes))
 
   mycds <- monocle::setOrderingFilter(mycds, sig_diff.genes)
@@ -48,7 +48,7 @@ RunMonocle2 <- function(SeuratObj,
   if (!is.null(root_clusters)) {
     root_state <- function(mycds){
       if (length(unique(pData(mycds)$State)) > 1){
-        R_counts <- table(pData(mycds)$State, pData(mycds)$cds_cluster)[,as.character(root_clusters)] %>% rowSums()
+        R_counts <- table(pData(mycds)$State, pData(mycds)$cds_cluster)[,as.character(root_clusters), drop=F] %>% rowSums()
         # return(as.numeric(names(R_counts)[which(R_counts == max(R_counts))]))
         return(as.numeric(names(R_counts)[which.max(R_counts)]))
       } else {
