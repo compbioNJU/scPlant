@@ -54,7 +54,7 @@ result <- AutoAnnotate_scCATCH(SeuratObj, marker_custom)
 ```
 
 ```{r}
-SeuratObj <- AutoAnnotate_Garnett(SeuratObj, marker_file_path, gene_id_type, species = 'Ath')
+SeuratObj <- AutoAnnotate_Garnett(SeuratObj, marker_file_path)
 ```
 
 ```{r}

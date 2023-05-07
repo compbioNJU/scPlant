@@ -19,10 +19,15 @@ knitr::opts_chunk$set(
 options(width = 80)
 ```
 
-Gene regulatory networks (GRNs), consisting of the interaction between transcription factors (TFs) and their target genes, orchestrate cell-specific gene expression patterns and in turn determine the function of the cell. To construct cell-type specific GRNs using single-cell data, we have incorporated the widely used single-cell GRN analysis tool SCENIC ([Aibar et al., 2017](https://www.nature.com/articles/nmeth.4463)) into the **scPlant** pipeline, and prepared required cisTarget databases in order to support SCENIC for data analysis in plants. What's more, we have provided various visualization tools to display single-cell GRN results in different ways. Three plant species (*Arabidopsis thaliana*, *Oryza sativa*, *Zea mays*) are supported for now, and more plant species will be supported soon.
+Gene regulatory networks (GRNs), consisting of the interaction between transcription factors (TFs) and their target genes, orchestrate cell-specific gene expression patterns and in turn determine the function of the cell. To construct cell-type specific GRNs using single-cell data, we have incorporated the widely used single-cell GRN analysis tool SCENIC ([Aibar et al., 2017](https://www.nature.com/articles/nmeth.4463)) and a plant specific GRN inference tool MINI-EX ([Ferrari et al., 2022](https://doi.org/10.1016/j.molp.2022.10.016)) into the **scPlant** pipeline.
 
 
-## Download databases and scripts
+## Construct GRNs using SCENIC
+
+We have incorporated the widely used single-cell GRN analysis tool SCENIC ([Aibar et al., 2017](https://www.nature.com/articles/nmeth.4463)) into the **scPlant** pipeline, and prepared required cisTarget databases in order to support SCENIC for data analysis in plants. What's more, we have provided various visualization tools to display single-cell GRN results in different ways. Three plant species (*Arabidopsis thaliana*, *Oryza sativa*, *Zea mays*) are supported for now, and more plant species will be supported soon.
+
+
+### Download databases and scripts
 
 The required cisTarget databases and scripts to construct gene regulatory network can be downloaded [here](https://biobigdata.nju.edu.cn/scPlantDB/scPlantData.zip).
 
@@ -53,9 +58,7 @@ wget https://biobigdata.nju.edu.cn/scPlantDB/SeuratObj.rds
 ```
 
 
-## Installation
-
-#### Install dependent Python packages
+### Installation
 
 ```{bash, eval = FALSE}
 conda create -n pyscenic_12_1 python=3.7
@@ -63,8 +66,6 @@ conda activate pyscenic_12_1
 pip install pyscenic==0.12.1
 pyscenic -h
 ```
-
-#### Install dependent R packages
 
 Dependent R packages includes `optparse`, `Seurat`, `SCopeLoomR`, `data.table`, `pbapply`, `philentropy`, `dplyr`, if you have not installed them, start "R" and enter:
 
@@ -79,9 +80,9 @@ install.packages("dplyr")
 ```
 
 
-## Gene regulatory network construction
+### Gene regulatory network construction
 
-#### Help information:
+To read the help information:
 
 ```{bash, eval = FALSE}
 bash RunGRN.sh -h
@@ -98,10 +99,10 @@ Run pyscenic and perform post-processing.
 -d <cisTarget_databases> : directory containing files required to run pyscenic .
 ```
 
-#### Run the script
+Run the script:
 
 ```{bash, eval = FALSE}
-source RunGRN.sh -f SeuratObj.rds -s At -t 2 -d cisTarget_databases -o output
+bash RunGRN.sh -f SeuratObj.rds -s At -t 2 -d cisTarget_databases -o output
 ```
 
 <details>
@@ -132,7 +133,7 @@ auc_thresholds.txt  # thresholds to create binary regulon activity matrix
 </details>
 
 
-## Visualize the gene regulatory network
+### Visualize the GRNs inferred by SCENIC
 
 We provide various visualization tools to display single-cell GRN results in different ways.
 
@@ -191,6 +192,121 @@ Dot plot showing top regulons of each cluster according to regulon specificity s
 ```{r, fig.height=7, fig.width=5}
 SpecificityRank(rssMat, cluster = 23, topn = 10)
 ```
+
+
+## Construct GRNs using MINI-EX
+
+We have incorporated a recently published plant specific GRN inference tool MINI-EX ([Ferrari et al., 2022](https://doi.org/10.1016/j.molp.2022.10.016)) into the **scPlant** pipeline. In addition, we have provided various visualization methods to display single-cell GRN results inferred by MINI-EX.
+
+### Installation and pre-process
+
+First, we need to download [MINI-EX](https://github.com/VIB-PSB/MINI-EX) and install the requirements.
+
+```{bash, eval = FALSE}
+git clone https://github.com/VIB-PSB/MINI-EX.git
+```
+
+To make MINI-EX work properly, [Nextflow](https://www.nextflow.io/) and [Singularity](https://docs.sylabs.io/guides/3.0/user-guide/index.html) need to be installed. MINI-EX offers a Docker container, but if it doesn't work, you can create a conda environment and install the [requirements](https://github.com/VIB-PSB/MINI-EX/blob/main/requirements.txt) manually.
+
+Second, we need to produce the input files for MINI-EX.
+
+We provided a true scRNA-seq data of Arabidopsis thaliana ([Zhang et al., 2019](https://www.sciencedirect.com/science/article/pii/S1674205219301339)) as example data, download [here](https://biobigdata.nju.edu.cn/scPlantDB/SeuratObj.rds)
+
+```{bash, eval = FALSE}
+wget https://biobigdata.nju.edu.cn/scPlantDB/SeuratObj.rds
+```
+
+```{bash, eval = FALSE}
+# We have provided a script used to produce the input files for MINI-EX:
+wget https://biobigdata.nju.edu.cn/scPlantDB/scPlantData.zip
+unzip scPlantData.zip
+Rscript scPlantData/MINIEX_preprocess.R --seuratObj SeuratObj.rds --cluster seurat_clusters --celltype celltype -o INPUTS
+```
+
+Then, modify the *miniex.config* and change the paths to your own input files generated by the script above. You can modify the [parameters](https://github.com/VIB-PSB/MINI-EX/blob/main/docs/configuration.md) according to your particular needs.
+
+### Run MINI-EX
+
+Then we are ready to run  MINI-EX:
+
+```{bash, eval = FALSE}
+cd MINI-EX
+nextflow -C miniex.config run miniex.nf
+```
+
+
+### Visualize the GRNs inferred by MINI-EX
+
+We have provided various visualization methods to display the GRNs inferred by MINI-EX, which are similar as visualizing the GRNs inferred by SCENIC.
+
+```{r}
+library(scPlant)
+```
+
+Load the Seurat object and specify the path of output files:
+
+```{r, eval=FALSE}
+SeuratObj <- readRDS("SeuratObj.rds")
+MINIEXouputPath <- "/your_path/regulons_output"
+```
+
+```{r, echo = FALSE}
+SeuratObj <- readRDS(file = "../vignette_data/ath.rds")
+MINIEXouputPath <- "../vignette_data/regulons_output"
+```
+
+Heatmaps showing cluster enrichment and TF expression of each regulon in each cluster.
+
+```{r, fig.height=7, fig.width=7}
+enrich_exp_hmp(SeuratObj, MINIEXouputPath)
+```
+
+Dimension reduction plot showing cluster enrichment and TF expression.
+
+```{r, fig.height=5, fig.width=10}
+enrich_exp_scatter(SeuratObj, MINIEXouputPath, gene = 'AT1G75390')
+```
+
+Network diagram showing top regulons of each cluster according to Borda ranking.
+
+```{r, fig.height=10, fig.width=10}
+topRegulons_MINIEX(MINIEXouputPath, topn = 5)
+```
+
+Network diagram showing targets of each regulon.
+
+```{r, fig.height=8, fig.width=8}
+targets_MINIEX(MINIEXouputPath, cluster = 23, regulons = "AT3G16770")
+```
+
+Dot plot showing top regulons of each cluster according to Borda ranking.
+
+```{r, fig.height=7, fig.width=5}
+BordaRank_MINIEX(MINIEXouputPath, cluster=23, topn = 10)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

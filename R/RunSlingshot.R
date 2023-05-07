@@ -27,16 +27,16 @@ RunSlingshot <- function(SeuratObj,
   sce <- slingshot::slingshot(sce, clusterLabels = clusterlabel, reducedDim = reduction)
 
   if (save_plot) {
-    if (!dir.exists(paths = "./output/plots/RunSlingshot")) {
-      dir.create("./output/plots/RunSlingshot", recursive = TRUE)
+    if (!dir.exists(paths = "./output/RunSlingshot")) {
+      dir.create("./output/RunSlingshot", recursive = TRUE)
     }
-    pdf(file = "./output/plots/RunSlingshot/RunSlingshot_1.pdf", width = 10, height = 10)
+    pdf(file = "./output/RunSlingshot/RunSlingshot_1.pdf", width = 10, height = 10)
     colors <- grDevices::colorRampPalette(pals::brewer.spectral(11)[-6])(100)
     plotcol <- colors[cut(sce$slingPseudotime_1, breaks=100)]
     plot(reducedDims(sce)[[reduction]], col = plotcol, pch=16, asp = 1)
     lines(slingshot::SlingshotDataSet(sce), lwd=2, col='black')
     dev.off()
-    pdf(file = "./output/plots/RunSlingshot/RunSlingshot_2.pdf", width = 10, height = 10)
+    pdf(file = "./output/RunSlingshot/RunSlingshot_2.pdf", width = 10, height = 10)
     clustercolors <- setNames(CellFunTopic::scPalette2(length(unique(sce[[clusterlabel]]))), unique(sce[[clusterlabel]]))
     plot(reducedDims(sce)[[reduction]], col = clustercolors[as.character(sce[[clusterlabel]])], pch=16, asp = 1)
     lines(slingshot::SlingshotDataSet(sce), lwd=2, type = 'lineages', col = 'black')
@@ -50,7 +50,7 @@ RunSlingshot <- function(SeuratObj,
     ATres <- tradeSeq::associationTest(sce)
     if (save_plot) {
       # pick out the top 250 genes based on p-values and visualize their expression over developmental time with a heatmap.
-      pdf(file = "./output/plots/RunSlingshot/dynamic_genes.pdf", width = 10, height = 10)
+      pdf(file = "./output/RunSlingshot/dynamic_genes.pdf", width = 10, height = 10)
       topgenes <- rownames(ATres[order(ATres$pvalue), ])[1:250]
       pst.ord <- order(sce$slingPseudotime_1, na.last = NA)
       heatdata <- assays(sce)$counts[topgenes, pst.ord]

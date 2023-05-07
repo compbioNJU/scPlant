@@ -78,6 +78,108 @@
 "motif2TF_Zm"
 
 
+#' GO annotation of Oryza sativa (IRGSP-1.0).
+#'
+#' A dataset containing rice genes and their GO annotation.
+#'
+#' @format A data frame with 175728 rows and 3 variables:
+#' \describe{
+#'   \item{Gene.stable.ID}{gene id of rice}
+#'   \item{GO.term.accession}{accession number of GO terms}
+#'   \item{GO.term.name}{names of GO terms}
+#' }
+#' @source \url{https://plants.ensembl.org/index.html}
+"GO_rice_IRGSP_1_0"
+
+
+#' GO annotation of Oryza sativa (v7.0).
+#'
+#' A dataset containing rice genes and their GO annotation.
+#'
+#' @format A data frame with 70633  rows and 3 variables:
+#' \describe{
+#'   \item{Gene.Name}{gene id of rice}
+#'   \item{GO.ID}{accession number of GO terms}
+#'   \item{GO.Description}{names of GO terms}
+#' }
+#' @source \url{https://phytozome-next.jgi.doe.gov/}
+"GO_rice_V7"
+
+
+#' GO annotation of Zea mays (Zm-B73-REFERENCE-NAM-5.0).
+#'
+#' A dataset containing Zea mays genes and their GO annotation.
+#'
+#' @format A data frame with 291353 rows and 3 variables:
+#' \describe{
+#'   \item{Gene.stable.ID}{gene id of Zea mays}
+#'   \item{GO.term.accession}{accession number of GO terms}
+#'   \item{GO.term.name}{names of GO terms}
+#' }
+#' @source \url{https://plants.ensembl.org/index.html}
+"GO_zeamays_NAM_5"
+
+
+#' GO annotation of Zea mays (RefGen_V4).
+#'
+#' A dataset containing Zea mays genes and their GO annotation.
+#'
+#' @format A data frame with 233821 rows and 3 variables:
+#' \describe{
+#'   \item{Gene.Name}{gene id of Zea mays}
+#'   \item{GO.ID}{accession number of GO terms}
+#'   \item{GO.Description}{names of GO terms}
+#' }
+#' @source \url{https://phytozome-next.jgi.doe.gov/}
+"GO_zeamays_V4"
+
+
+#' KEGG annotation of Oryza sativa (v7.0).
+#'
+#' A dataset containing rice genes and their KEGG annotation.
+#'
+#' @format A data frame with 10186  rows and 3 variables:
+#' \describe{
+#'   \item{Gene.Name}{gene id of rice}
+#'   \item{KEGG.ID}{accession number of KEGG terms}
+#'   \item{KEGG.Description}{names of KEGG terms}
+#' }
+#' @source \url{https://phytozome-next.jgi.doe.gov/}
+"KEGG_rice_V7"
+
+#' KEGG annotation of Zea mays (Zm-B73-REFERENCE-NAM-5.0).
+#'
+#' A dataset containing Zea mays genes and their KEGG annotation.
+#'
+#' @format A data frame with 16073  rows and 3 variables:
+#' \describe{
+#'   \item{Gene.Name}{gene id of Zea mays}
+#'   \item{KEGG.ID}{accession number of KEGG terms}
+#'   \item{KEGG.Description}{names of KEGG terms}
+#' }
+#' @source \url{https://phytozome-next.jgi.doe.gov/}
+"KEGG_zeamays_NAM_5"
+
+#' KEGG annotation of Zea mays (RefGen_V4).
+#'
+#' A dataset containing Zea mays genes and their KEGG annotation.
+#'
+#' @format A data frame with 22136 rows and 3 variables:
+#' \describe{
+#'   \item{Gene.Name}{gene id of Zea mays}
+#'   \item{KEGG.ID}{accession number of KEGG terms}
+#'   \item{KEGG.Description}{names of KEGG terms}
+#' }
+#' @source \url{https://phytozome-next.jgi.doe.gov/}
+"KEGG_zeamays_V4"
+
+
+
+
+
+
+
+
 
 
 

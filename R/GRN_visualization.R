@@ -40,7 +40,7 @@ ras_exp_hmp <- function(SeuratObj, rasMat, group.by = "seurat_clusters", assay =
                  cluster_rows = F, cluster_columns = F,
                  column_names_gp = gpar(fontsize = 7), column_names_centered = F,  border = TRUE)
   ht_list = ht1 + ht2
-  draw(ht_list, ht_gap = unit(1, "cm"))
+  draw(ht_list, ht_gap = unit(1, "cm"), heatmap_legend_side = "left")
 }
 
 
@@ -145,8 +145,14 @@ toptargets <- function(tf_target, topn = 5, regulons = NULL,
                        tf.size = 7, target.size = 4,
                        tf.label.cex = 1, target.label.cex = 0.7) {
   # choose top targets of each regulon according to importance score
+  if (is.null(regulons)) {
+    regulons <- unique(tf_target$TF)
+  }
   edges <- tf_target %>% dplyr::filter(TF %in% regulons) %>% dplyr::group_by(TF) %>%
     dplyr::slice_max(order_by = importance_score, n=topn, with_ties = F) %>% dplyr::ungroup()
+  if (nrow(edges) < 1) {
+    stop("No result with the parameter regulons provided. Please check your parameter settings.")
+  }
   edges <- edges[,1:2] %>% magrittr::set_colnames(c("source", "target"))
 
   net <- graph_from_data_frame(d=edges, directed=T)
@@ -157,7 +163,7 @@ toptargets <- function(tf_target, topn = 5, regulons = NULL,
   V(net)$label.font <- 4
   V(net)$label.color <- "black"
   V(net)$frame.color <- NA
-  V(net)$color <- pals::brewer.greys(9)[3]
+  V(net)$color <- ifelse(V(net)$name %in% unique(edges$source), pals::brewer.blues(9)[4], pals::brewer.greys(9)[3])
   V(net)$size <- ifelse(V(net)$name %in% unique(edges$source), tf.size, target.size)
   V(net)$shape <- 'circle'
   set.seed(123)

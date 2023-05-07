@@ -97,7 +97,7 @@ AutoAnnotate_Celaref <- function(SeuratObj, counts_ref, cellinfo_ref, plot = TRU
   # Plot
   if (plot) {
     pdf(file = "AutoAnnotate_Celaref.pdf")
-    celaref::make_ranking_violin_plot(de_table.test=de_table.query, de_table.ref=de_table.ref)
+    print(celaref::make_ranking_violin_plot(de_table.test=de_table.query, de_table.ref=de_table.ref))
     dev.off()
   }
   # And get group labels
@@ -111,8 +111,6 @@ AutoAnnotate_Celaref <- function(SeuratObj, counts_ref, cellinfo_ref, plot = TRU
 #'
 #' @param SeuratObj Seurat object to annotate
 #' @param marker_file_path see https://cole-trapnell-lab.github.io/garnett/docs/ to construct a marker file
-#' @param gene_id_type gene ID type of Seurat object and marker file
-#' @param species \code{c('Ath', 'Osa', 'Zma')}. Currently three plant species are supported.
 #'
 #' @importFrom Seurat GetAssayData Idents
 #'
@@ -120,12 +118,7 @@ AutoAnnotate_Celaref <- function(SeuratObj, counts_ref, cellinfo_ref, plot = TRU
 #' @export
 #'
 AutoAnnotate_Garnett <- function(SeuratObj,
-                                 marker_file_path,
-                                 gene_id_type,
-                                 species = c('Ath', 'Osa', 'Zma')) {
-  # load the OrgDb
-  species <- match.arg(species)
-  orgdb <- get_orgDb(species)
+                                 marker_file_path) {
   # create CellDataSet object
   data <- Seurat::GetAssayData(SeuratObj, slot = "counts")
   pd <- SeuratObj@meta.data
@@ -140,16 +133,12 @@ AutoAnnotate_Garnett <- function(SeuratObj,
   set.seed(260)
   classifier <- garnett::train_cell_classifier(cds = mycds,
                                                marker_file = marker_file_path,
-                                               db = orgdb,
-                                               cds_gene_id_type = gene_id_type,
-                                               num_unknown = 5,
-                                               marker_file_gene_id_type = gene_id_type,
-                                               classifier_gene_id_type = gene_id_type)
+                                               db = "none",
+                                               num_unknown = 5)
   # Classifying your cells
   mycds <- garnett::classify_cells(mycds, classifier,
-                                   db = orgdb,
-                                   cluster_extend = F,
-                                   cds_gene_id_type = gene_id_type)
+                                   db = "none",
+                                   cluster_extend = F)
   SeuratObj$predicted_label <- pData(mycds)[Seurat::Cells(SeuratObj), 'cell_type']
   return(SeuratObj)
 }

@@ -28,7 +28,7 @@ library(scPlant)
 
 ### Monolce2
 
-If `save_plot = TRUE`, output plots will be stored in `./output/plots/RunMonocle2`.
+If `save_plot = TRUE`, output plots will be stored in `./output/RunMonocle2`.
 
 ```{r}
 result <- RunMonocle2(SeuratObj, save_plot = TRUE)
@@ -36,7 +36,7 @@ result <- RunMonocle2(SeuratObj, save_plot = TRUE)
 
 ### Monolce3
 
-If `save_plot = TRUE`, output plots will be stored in `./output/plots/RunMonocle3`.
+If `save_plot = TRUE`, output plots will be stored in `./output/RunMonocle3`.
 
 ```{r}
 result <- RunMonocle3(SeuratObj, save_plot = TRUE)
@@ -45,7 +45,7 @@ result <- RunMonocle3(SeuratObj, save_plot = TRUE)
 
 ### Slingshot
 
-If `save_plot = TRUE`, output plots will be stored in `./output/plots/RunSlingshot`.
+If `save_plot = TRUE`, output plots will be stored in `./output/RunSlingshot`.
 
 ```{r}
 result <- RunSlingshot(SeuratObj, save_plot = TRUE)
@@ -53,7 +53,7 @@ result <- RunSlingshot(SeuratObj, save_plot = TRUE)
 
 ### CytoTRACE
 
-If `save_plot = TRUE`, output plots will be stored in `./CytoTRACEoutputt`.
+If `save_plot = TRUE`, output plots will be stored in `./output/CytoTRACEoutput`.
 
 ```{r}
 result <- RunCytoTRACE(SeuratObj, save_plot = TRUE)

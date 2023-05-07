@@ -73,8 +73,8 @@ RunMonocle2 <- function(SeuratObj,
 
   #### save plots
   if (save_plot) {
-    if (!dir.exists(paths = "./output/plots/RunMonocle2")) {
-      dir.create("./output/plots/RunMonocle2", recursive = TRUE)
+    if (!dir.exists(paths = "./output/RunMonocle2")) {
+      dir.create("./output/RunMonocle2", recursive = TRUE)
     }
     # visualization
     p1 <- monocle::plot_cell_trajectory(mycds, color_by = "State", cell_size = point_size)
@@ -85,16 +85,16 @@ RunMonocle2 <- function(SeuratObj,
     sig_gene_names <- rownames(subset(diff_test, qval < 0.01))
     p6 <- monocle::plot_pseudotime_heatmap(mycds[sig_gene_names,], num_clusters=3, use_gene_short_name = TRUE,
                                            show_rownames=T, return_heatmap=T)
-    pdf(file = "./output/plots/RunMonocle2/cell_trajectory.pdf", width = 15, height = 13)
+    pdf(file = "./output/RunMonocle2/cell_trajectory.pdf", width = 15, height = 13)
     print(p1)
     print(p2)
     print(p3)
     dev.off()
-    pdf(file = "./output/plots/RunMonocle2/cell_trajectory_facet.pdf", width = 10, height = 20)
+    pdf(file = "./output/RunMonocle2/cell_trajectory_facet.pdf", width = 10, height = 20)
     print(p4)
     print(p5)
     dev.off()
-    pdf(file = "./output/plots/RunMonocle2/pseudotime_heatmap.pdf", width = 10, height = 17)
+    pdf(file = "./output/RunMonocle2/pseudotime_heatmap.pdf", width = 10, height = 17)
     print(p6)
     dev.off()
     if (BEAM_analysis) {
@@ -103,7 +103,7 @@ RunMonocle2 <- function(SeuratObj,
       mycds_sub_beam <- mycds_sub[rownames(subset(beam_res, qval < 1e-4)),]
       p7 <- monocle::plot_genes_branched_heatmap(mycds_sub_beam,  branch_point = BEAM_branch_point, num_clusters = 3,
                                                  show_rownames = T, use_gene_short_name = TRUE, return_heatmap = TRUE)
-      pdf(file = "./output/plots/RunMonocle2/branched_heatmap.pdf", width = 10, height = 17)
+      pdf(file = "./output/RunMonocle2/branched_heatmap.pdf", width = 10, height = 17)
       print(p7)
       dev.off()
     }
