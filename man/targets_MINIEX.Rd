@@ -34,7 +34,8 @@ Network diagram showing targets of each regulon inferred by MINI-EX.
 }
 \examples{
 \dontrun{
-targets_MINIEX(MINIEXouputPath="regulons_output", cluster = 1, regulons = c("AT4G25490", "AT3G58710"))
+targets_MINIEX(MINIEXouputPath="regulons_output", cluster = 1,
+               regulons = c("AT4G25490", "AT3G58710"))
 }
 
 

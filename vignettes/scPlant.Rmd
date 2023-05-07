@@ -24,7 +24,7 @@ We recommend **CellFunTopic** package to perform data pre-processing (quality co
 
 ### [Gene regulatory network construction](regulatory_network.html)
 
-**scPlant** pipeline have incorporated the widely used single-cell GRN analysis tool SCENIC ([Aibar et al., 2017](https://www.nature.com/articles/nmeth.4463)), and prepared required cisTarget databases to apply SCENIC in plants such as Arabidopsis thaliana, Oryza sativa, Zea mays.
+**scPlant** pipeline have incorporated the widely used single-cell GRN analysis tool SCENIC ([Aibar et al., 2017](https://www.nature.com/articles/nmeth.4463)), and prepared required cisTarget databases to apply SCENIC in plants such as Arabidopsis thaliana, Oryza sativa, Zea mays. A recently published plant specific GRN inference tool MINI-EX ([Ferrari et al., 2022](https://doi.org/10.1016/j.molp.2022.10.016)) has also been incorporated into the **scPlant** pipeline. 
 
 ### [Paired motif enrichment](paired_motif_enrichment.html)
 

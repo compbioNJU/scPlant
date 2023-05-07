@@ -18,6 +18,11 @@ reference:
   - toptargets
   - ToptargetsofTopregulons
   - SpecificityRank
+  - targets_MINIEX
+  - topRegulons_MINIEX
+  - enrich_exp_hmp
+  - enrich_exp_scatter
+  - BordaRank_MINIEX
 - title: Paired motif enrichment
 - contents:
   - processPMET

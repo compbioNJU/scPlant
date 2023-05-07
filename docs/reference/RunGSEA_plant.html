@@ -73,7 +73,8 @@ This function is only for three plant species: <code>Arabidopsis thaliana</code>
 <span>  by <span class="op">=</span> <span class="st">"GO"</span>,</span>
 <span>  TERM2GENE <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  GeneIDtype <span class="op">=</span> <span class="st">"TAIR"</span>,</span>
-<span>  minpct <span class="op">=</span> <span class="fl">0</span></span>
+<span>  minpct <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  release_version <span class="op">=</span> <span class="st">"TAIR10"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -92,11 +93,17 @@ This function is only for three plant species: <code>Arabidopsis thaliana</code>
 
 
 <dt>GeneIDtype</dt>
-<dd><p>Gene ID type in Seurat object. <code>TAIR</code> for <code>Arabidopsis thaliana</code>, for example.</p></dd>
+<dd><p>Gene ID type in Seurat object. <code>TAIR</code> for <code>Arabidopsis thaliana</code>, for example.
+This parameter only works when <code>SeuratObj@misc$species == 'Arabidopsis thaliana'</code>.</p></dd>
 
 
 <dt>minpct</dt>
 <dd><p>minimum expression percent in each cluster, parameter used to filter Differential expression genes to run GSEA. 0 as default.</p></dd>
+
+
+<dt>release_version</dt>
+<dd><p>Release version of genome annotation. 'IRGSP-1.0' or 'v7.0' for Oryza sativa.
+'Zm-B73-REFERENCE-NAM-5.0' or 'RefGen_V4' for Zea mays. This parameter will be ignored if <code>SeuratObj@misc$species == 'Arabidopsis thaliana'</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -109,7 +116,7 @@ This function is only for three plant species: <code>Arabidopsis thaliana</code>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="va">SeuratObj</span> <span class="op">&lt;-</span> <span class="fu">RunGSEA_plant</span><span class="op">(</span><span class="va">SeuratObj</span>, by <span class="op">=</span> <span class="st">'GO'</span>, GeneIDtype <span class="op">=</span> <span class="st">'TAIR'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">SeuratObj</span> <span class="op">&lt;-</span> <span class="fu">RunGSEA_plant</span><span class="op">(</span><span class="va">SeuratObj</span>, by <span class="op">=</span> <span class="st">'GO'</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

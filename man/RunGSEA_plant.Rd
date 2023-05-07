@@ -9,7 +9,8 @@ RunGSEA_plant(
   by = "GO",
   TERM2GENE = NULL,
   GeneIDtype = "TAIR",
-  minpct = 0
+  minpct = 0,
+  release_version = "TAIR10"
 )
 }
 \arguments{
@@ -19,9 +20,13 @@ RunGSEA_plant(
 
 \item{TERM2GENE}{Customized terms. Annotation of TERM TO GENE mapping, a data.frame of 2 column with term and gene. NULL by default. If not NULL, parameter "by" will be ignored.}
 
-\item{GeneIDtype}{Gene ID type in Seurat object. \code{TAIR} for \code{Arabidopsis thaliana}, for example.}
+\item{GeneIDtype}{Gene ID type in Seurat object. \code{TAIR} for \code{Arabidopsis thaliana}, for example.
+This parameter only works when \code{SeuratObj@misc$species == 'Arabidopsis thaliana'}.}
 
 \item{minpct}{minimum expression percent in each cluster, parameter used to filter Differential expression genes to run GSEA. 0 as default.}
+
+\item{release_version}{Release version of genome annotation. 'IRGSP-1.0' or 'v7.0' for Oryza sativa.
+'Zm-B73-REFERENCE-NAM-5.0' or 'RefGen_V4' for Zea mays. This parameter will be ignored if \code{SeuratObj@misc$species == 'Arabidopsis thaliana'}.}
 }
 \value{
 Seurat object
@@ -32,7 +37,7 @@ This function is only for three plant species: \code{Arabidopsis thaliana} or \c
 }
 \examples{
 \dontrun{
-SeuratObj <- RunGSEA_plant(SeuratObj, by = 'GO', GeneIDtype = 'TAIR')
+SeuratObj <- RunGSEA_plant(SeuratObj, by = 'GO')
 }
 
 }

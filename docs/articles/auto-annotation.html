@@ -81,7 +81,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Automatic cell-type annotation</h1>
             
-            <h4 data-toc-skip class="date">2023-01-11</h4>
+            <h4 data-toc-skip class="date">2023-05-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/compbioNJU/scPlant/blob/HEAD/vignettes/auto-annotation.Rmd" class="external-link"><code>vignettes/auto-annotation.Rmd</code></a></small>
       <div class="d-none name"><code>auto-annotation.Rmd</code></div>
@@ -119,7 +119,7 @@ format of marker genes, such as <code><a href="../reference/AutoAnnotate_scCATCH
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutoAnnotate_scCATCH.html">AutoAnnotate_scCATCH</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">marker_custom</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">SeuratObj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutoAnnotate_Garnett.html">AutoAnnotate_Garnett</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">marker_file_path</span>, <span class="va">gene_id_type</span>, species <span class="op">=</span> <span class="st">'Ath'</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">SeuratObj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutoAnnotate_Garnett.html">AutoAnnotate_Garnett</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">marker_file_path</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">SeuratObj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutoAnnotate_CellAssign.html">AutoAnnotate_CellAssign</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">marker_list</span><span class="op">)</span></span></code></pre></div>
 </div>

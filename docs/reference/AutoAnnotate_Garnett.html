@@ -65,12 +65,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">AutoAnnotate_Garnett</span><span class="op">(</span></span>
-<span>  <span class="va">SeuratObj</span>,</span>
-<span>  <span class="va">marker_file_path</span>,</span>
-<span>  <span class="va">gene_id_type</span>,</span>
-<span>  species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Ath"</span>, <span class="st">"Osa"</span>, <span class="st">"Zma"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">AutoAnnotate_Garnett</span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">marker_file_path</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -81,14 +76,6 @@
 
 <dt>marker_file_path</dt>
 <dd><p>see https://cole-trapnell-lab.github.io/garnett/docs/ to construct a marker file</p></dd>
-
-
-<dt>gene_id_type</dt>
-<dd><p>gene ID type of Seurat object and marker file</p></dd>
-
-
-<dt>species</dt>
-<dd><p><code>c('Ath', 'Osa', 'Zma')</code>. Currently three plant species are supported.</p></dd>
 
 </dl></div>
     <div class="section level2">

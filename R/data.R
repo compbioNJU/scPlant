@@ -82,6 +82,7 @@
 #'
 #' A dataset containing rice genes and their GO annotation.
 #'
+#' @keywords internal
 #' @format A data frame with 175728 rows and 3 variables:
 #' \describe{
 #'   \item{Gene.stable.ID}{gene id of rice}
@@ -96,6 +97,7 @@
 #'
 #' A dataset containing rice genes and their GO annotation.
 #'
+#' @keywords internal
 #' @format A data frame with 70633  rows and 3 variables:
 #' \describe{
 #'   \item{Gene.Name}{gene id of rice}
@@ -110,6 +112,7 @@
 #'
 #' A dataset containing Zea mays genes and their GO annotation.
 #'
+#' @keywords internal
 #' @format A data frame with 291353 rows and 3 variables:
 #' \describe{
 #'   \item{Gene.stable.ID}{gene id of Zea mays}
@@ -124,6 +127,7 @@
 #'
 #' A dataset containing Zea mays genes and their GO annotation.
 #'
+#' @keywords internal
 #' @format A data frame with 233821 rows and 3 variables:
 #' \describe{
 #'   \item{Gene.Name}{gene id of Zea mays}
@@ -138,6 +142,7 @@
 #'
 #' A dataset containing rice genes and their KEGG annotation.
 #'
+#' @keywords internal
 #' @format A data frame with 10186  rows and 3 variables:
 #' \describe{
 #'   \item{Gene.Name}{gene id of rice}
@@ -151,6 +156,7 @@
 #'
 #' A dataset containing Zea mays genes and their KEGG annotation.
 #'
+#' @keywords internal
 #' @format A data frame with 16073  rows and 3 variables:
 #' \describe{
 #'   \item{Gene.Name}{gene id of Zea mays}
@@ -164,6 +170,7 @@
 #'
 #' A dataset containing Zea mays genes and their KEGG annotation.
 #'
+#' @keywords internal
 #' @format A data frame with 22136 rows and 3 variables:
 #' \describe{
 #'   \item{Gene.Name}{gene id of Zea mays}

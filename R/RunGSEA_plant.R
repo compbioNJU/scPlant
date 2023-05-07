@@ -116,22 +116,22 @@ RunGSEA_plant <- function(SeuratObj,
         }
       }
     } else {
-      if (species == 'Oryza sativa' & release_version = 'IRGSP-1.0' & by == 'GO') {
+      if (species == 'Oryza sativa' & release_version == 'IRGSP-1.0' & by == 'GO') {
         anno_info <- GO_rice_IRGSP_1_0
-      } else if (species == 'Oryza sativa' & release_version = 'v7.0' & by == 'GO') {
+      } else if (species == 'Oryza sativa' & release_version == 'v7.0' & by == 'GO') {
         anno_info <- GO_rice_V7
-      } else if (species == 'Oryza sativa' & release_version = 'v7.0' & by == 'KEGG') {
+      } else if (species == 'Oryza sativa' & release_version == 'v7.0' & by == 'KEGG') {
         anno_info <- KEGG_rice_V7
-      } else if (species == 'Zea mays' & release_version = 'Zm-B73-REFERENCE-NAM-5.0' & by == 'GO') {
+      } else if (species == 'Zea mays' & release_version == 'Zm-B73-REFERENCE-NAM-5.0' & by == 'GO') {
         anno_info <- GO_zeamays_NAM_5
-      } else if (species == 'Zea mays' & release_version = 'RefGen_V4' & by == 'GO') {
+      } else if (species == 'Zea mays' & release_version == 'RefGen_V4' & by == 'GO') {
         anno_info <- GO_zeamays_V4
-      } else if (species == 'Zea mays' & release_version = 'Zm-B73-REFERENCE-NAM-5.0' & by == 'KEGG') {
+      } else if (species == 'Zea mays' & release_version == 'Zm-B73-REFERENCE-NAM-5.0' & by == 'KEGG') {
         anno_info <- KEGG_zeamays_NAM_5
-      } else if (species == 'Zea mays' & release_version = 'RefGen_V4' & by == 'KEGG') {
+      } else if (species == 'Zea mays' & release_version == 'RefGen_V4' & by == 'KEGG') {
         anno_info <- KEGG_zeamays_V4
       } else {
-        stop(by, " annotation of release version ", release_version, " of ", species " is not supported yet.")
+        stop(by, " annotation of release version ", release_version, " of ", species, " is not supported yet.")
       }
 
       TERM2GENE <- anno_info[, c(2:1)] %>% magrittr::set_colnames(c('term', 'gene'))
