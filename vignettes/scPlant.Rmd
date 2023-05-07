@@ -40,7 +40,7 @@ We recommend **CellFunTopic** package to perform data pre-processing (quality co
 
 ### [Pseudotime trajectory inference](pseudotime.html)
 
-**scPlant** offers convenient implementation of pseudotime trajectory inference by incorporating two public tools, Monocle and Slingshot.
+**scPlant** offers convenient implementation of pseudotime trajectory inference by incorporating 4 public tools: Monolce2, Monolce3, Slingshot and CytoTRACE.
 
 ### [Explore in Built-in Shiny APP](shiny_app.html)
 

@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 options(width = 80)
 ```
 
-Gene regulatory networks (GRNs), consisting of the interaction between transcription factors (TFs) and their target genes, orchestrate cell-specific gene expression patterns and in turn determine the function of the cell. To construct cell-type specific GRNs using single-cell data, we have incorporated the widely used single-cell GRN analysis tool SCENIC ([Aibar et al., 2017](https://www.nature.com/articles/nmeth.4463)) and a plant specific GRN inference tool MINI-EX ([Ferrari et al., 2022](https://doi.org/10.1016/j.molp.2022.10.016)) into the **scPlant** pipeline.
+Gene regulatory networks (GRNs), consisting of the interaction between transcription factors (TFs) and their target genes, orchestrate cell-specific gene expression patterns and in turn determine the function of the cell. To construct cell-type specific GRNs using single-cell data, we have incorporated a widely used single-cell GRN analysis tool SCENIC ([Aibar et al., 2017](https://www.nature.com/articles/nmeth.4463)) and a plant specific GRN inference tool MINI-EX ([Ferrari et al., 2022](https://doi.org/10.1016/j.molp.2022.10.016)) into the **scPlant** pipeline.
 
 
 ## Construct GRNs using SCENIC
@@ -114,7 +114,7 @@ ls output
 ```
 
 ```{bash, eval = FALSE}
-# finally output files
+# final output files
 pyscenicOutput.loom  # loom file containing the original expression matrix and the calculated AUC values
 AUCell.txt  # Regulon activity score (RAS) matrix
 rasMat.rds # Regulon activity score (RAS) matrix, R object file

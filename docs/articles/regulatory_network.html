@@ -93,7 +93,7 @@
 between transcription factors (TFs) and their target genes, orchestrate
 cell-specific gene expression patterns and in turn determine the
 function of the cell. To construct cell-type specific GRNs using
-single-cell data, we have incorporated the widely used single-cell GRN
+single-cell data, we have incorporated a widely used single-cell GRN
 analysis tool SCENIC (<a href="https://www.nature.com/articles/nmeth.4463" class="external-link">Aibar et al.,
 2017</a>) and a plant specific GRN inference tool MINI-EX (<a href="https://doi.org/10.1016/j.molp.2022.10.016" class="external-link">Ferrari et al.,
 2022</a>) into the <strong>scPlant</strong> pipeline.</p>
@@ -170,7 +170,7 @@ you have not installed them, start “R” and enter:</p>
 the output directory. You can ignore most of the output files, because
 only several ones of them are needed for visualization.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> output</span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># finally output files</span></span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># final output files</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pyscenicOutput.loom</span>  <span class="co"># loom file containing the original expression matrix and the calculated AUC values</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">AUCell.txt</span>  <span class="co"># Regulon activity score (RAS) matrix</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ex">rasMat.rds</span> <span class="co"># Regulon activity score (RAS) matrix, R object file</span></span>

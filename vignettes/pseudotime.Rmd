@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 options(width = 80)
 ```
 
-**scPlant** offers convenient implementation of pseudotime trajectory inference by incorporating two public tools, Monocle and Slingshot.
+**scPlant** offers convenient implementation of pseudotime trajectory inference by incorporating 4 public tools: Monolce2, Monolce3, Slingshot and CytoTRACE.
 
 
 ```{r}
