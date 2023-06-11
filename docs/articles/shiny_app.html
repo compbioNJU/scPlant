@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">scPlant</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,7 +81,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Explore in Built-in Shiny APP</h1>
             
-            <h4 data-toc-skip class="date">2023-01-11</h4>
+            <h4 data-toc-skip class="date">2023-06-11</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/compbioNJU/scPlant/blob/HEAD/vignettes/shiny_app.Rmd" class="external-link"><code>vignettes/shiny_app.Rmd</code></a></small>
       <div class="d-none name"><code>shiny_app.Rmd</code></div>
@@ -96,11 +96,10 @@ construction</a>.</p>
 <p>The gene regulatory network, differentially expressed genes, and
 functional annotation can be explored interactively in the built-in
 Shiny web application.</p>
-<p>We provide a true scRNA-seq data of Arabidopsis thaliana (<a href="https://www.sciencedirect.com/science/article/pii/S1674205219301339" class="external-link">Zhang
+<p>We provide a real scRNA-seq data of Arabidopsis thaliana (<a href="https://www.sciencedirect.com/science/article/pii/S1674205219301339" class="external-link">Zhang
 et al., 2019</a>) as example data to show how to explore in built-in
-Shiny APP, download <a href="https://biobigdata.nju.edu.cn/scPlantDB/exampleData.zip" class="external-link">here</a></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://biobigdata.nju.edu.cn/scPlantDB/exampleData.zip</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span> exampleData.zip</span></code></pre></div>
+Shiny APP, download <a href="https://figshare.com/articles/dataset/Auxiliary_data_and_codes_for_scPlant/23498402" class="external-link">here</a></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span> exampleData.zip</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">SeuratObj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"exampleData/SeuratObj.rds"</span><span class="op">)</span></span>
 <span><span class="va">rssMat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"exampleData/rssMat.rds"</span><span class="op">)</span></span>

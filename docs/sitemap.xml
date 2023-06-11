@@ -64,6 +64,9 @@
     <loc>/reference/AutoAnnotate_SingleR.html</loc>
   </url>
   <url>
+    <loc>/reference/BordaRank_MINIEX.html</loc>
+  </url>
+  <url>
     <loc>/reference/constellationPlot.html</loc>
   </url>
   <url>
@@ -71,6 +74,12 @@
   </url>
   <url>
     <loc>/reference/decomposeBulk.html</loc>
+  </url>
+  <url>
+    <loc>/reference/enrich_exp_hmp.html</loc>
+  </url>
+  <url>
+    <loc>/reference/enrich_exp_scatter.html</loc>
   </url>
   <url>
     <loc>/reference/example_Ath.html</loc>
@@ -85,7 +94,28 @@
     <loc>/reference/fractionHmp.html</loc>
   </url>
   <url>
+    <loc>/reference/GO_rice_IRGSP_1_0.html</loc>
+  </url>
+  <url>
+    <loc>/reference/GO_rice_V7.html</loc>
+  </url>
+  <url>
+    <loc>/reference/GO_zeamays_NAM_5.html</loc>
+  </url>
+  <url>
+    <loc>/reference/GO_zeamays_V4.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/KEGG_rice_V7.html</loc>
+  </url>
+  <url>
+    <loc>/reference/KEGG_zeamays_NAM_5.html</loc>
+  </url>
+  <url>
+    <loc>/reference/KEGG_zeamays_V4.html</loc>
   </url>
   <url>
     <loc>/reference/load_shinyApp.html</loc>
@@ -121,7 +151,7 @@
     <loc>/reference/ras_exp_scatter.html</loc>
   </url>
   <url>
-    <loc>/reference/runCIBERSORT.html</loc>
+    <loc>/reference/RunCytoTRACE.html</loc>
   </url>
   <url>
     <loc>/reference/RunGSEA_plant.html</loc>
@@ -133,6 +163,9 @@
     <loc>/reference/RunMonocle2.html</loc>
   </url>
   <url>
+    <loc>/reference/RunMonocle3.html</loc>
+  </url>
+  <url>
     <loc>/reference/RunSlingshot.html</loc>
   </url>
   <url>
@@ -142,10 +175,16 @@
     <loc>/reference/SpecificityRank.html</loc>
   </url>
   <url>
+    <loc>/reference/targets_MINIEX.html</loc>
+  </url>
+  <url>
     <loc>/reference/topPairsNet.html</loc>
   </url>
   <url>
     <loc>/reference/topRegulons.html</loc>
+  </url>
+  <url>
+    <loc>/reference/topRegulons_MINIEX.html</loc>
   </url>
   <url>
     <loc>/reference/toptargets.html</loc>

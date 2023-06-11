@@ -2,7 +2,7 @@
 % Please edit documentation in R/RunGSEA_plant.R
 \name{RunGSEA_plant}
 \alias{RunGSEA_plant}
-\title{Perform Gene Set Enrichment Analysis (GSEA) on Seurat object}
+\title{Perform Gene Set Enrichment Analysis (GSEA) on plant single-cell data.}
 \usage{
 RunGSEA_plant(
   SeuratObj,
@@ -16,14 +16,14 @@ RunGSEA_plant(
 \arguments{
 \item{SeuratObj}{Seurat object}
 
-\item{by}{GO KEGG. Will be ignored if parameter "TERM2GENE" is not NULL.}
+\item{by}{GO, KEGG. Will be ignored if parameter "TERM2GENE" is not NULL.}
 
 \item{TERM2GENE}{Customized terms. Annotation of TERM TO GENE mapping, a data.frame of 2 column with term and gene. NULL by default. If not NULL, parameter "by" will be ignored.}
 
 \item{GeneIDtype}{Gene ID type in Seurat object. \code{TAIR} for \code{Arabidopsis thaliana}, for example.
 This parameter only works when \code{SeuratObj@misc$species == 'Arabidopsis thaliana'}.}
 
-\item{minpct}{minimum expression percent in each cluster, parameter used to filter Differential expression genes to run GSEA. 0 as default.}
+\item{minpct}{Minimum expressed percent in each cluster, used to filter differentially expressed genes to run GSEA. 0 as default.}
 
 \item{release_version}{Release version of genome annotation. 'IRGSP-1.0' or 'v7.0' for Oryza sativa.
 'Zm-B73-REFERENCE-NAM-5.0' or 'RefGen_V4' for Zea mays. This parameter will be ignored if \code{SeuratObj@misc$species == 'Arabidopsis thaliana'}.}

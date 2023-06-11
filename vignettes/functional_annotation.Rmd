@@ -23,7 +23,7 @@ options(width = 80)
 
 **scPlant** provides methods for Gene Set Enrichment Analysis (GSEA) in model plants. We recommend [CellFunTopic](https://github.com/compbioNJU/CellFunTopic) package to visualize the GSEA result and perform topic modelling, revealing cellular programs shared across cell types or exclusive to a particular cell type.
 
-We provide a true scRNA-seq data of Arabidopsis thaliana ([Zhang et al., 2019](https://www.sciencedirect.com/science/article/pii/S1674205219301339)) as example data, download [here](https://biobigdata.nju.edu.cn/scPlantDB/SeuratObj.rds)
+We provide a real scRNA-seq data of Arabidopsis thaliana ([Zhang et al., 2019](https://www.sciencedirect.com/science/article/pii/S1674205219301339)) as example data, download [here](https://figshare.com/articles/dataset/Auxiliary_data_and_codes_for_scPlant/23498402)
 
 
 ```{r, echo = FALSE}

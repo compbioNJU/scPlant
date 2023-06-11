@@ -29,11 +29,10 @@ We have incorporated the widely used single-cell GRN analysis tool SCENIC ([Aiba
 
 ### Download databases and scripts
 
-The required cisTarget databases and scripts to construct gene regulatory network can be downloaded [here](https://biobigdata.nju.edu.cn/scPlantDB/scPlantData.zip).
+The required cisTarget databases and scripts to construct gene regulatory network can be downloaded [here](https://figshare.com/articles/dataset/Auxiliary_data_and_codes_for_scPlant/23498402).
 
 ```{bash, eval = FALSE}
-# Download in linux system:
-wget https://biobigdata.nju.edu.cn/scPlantDB/scPlantData.zip
+# In linux system:
 unzip scPlantData.zip
 cd scPlantData
 ```
@@ -51,11 +50,7 @@ cd scPlantData
   Users can build their own cisTarget databases based on other genome version by following the protocol [create_cisTarget_databases](https://github.com/aertslab/create_cisTarget_databases).
 </details>
 
-We also provide a true scRNA-seq data of Arabidopsis thaliana ([Zhang et al., 2019](https://www.sciencedirect.com/science/article/pii/S1674205219301339)) as example data, download [here](https://biobigdata.nju.edu.cn/scPlantDB/SeuratObj.rds)
-
-```{bash, eval = FALSE}
-wget https://biobigdata.nju.edu.cn/scPlantDB/SeuratObj.rds
-```
+We also provide a real scRNA-seq data of Arabidopsis thaliana ([Zhang et al., 2019](https://www.sciencedirect.com/science/article/pii/S1674205219301339)) as example data, download [here](https://figshare.com/articles/dataset/Auxiliary_data_and_codes_for_scPlant/23498402).
 
 
 ### Installation
@@ -210,15 +205,11 @@ To make MINI-EX work properly, [Nextflow](https://www.nextflow.io/) and [Singula
 
 Second, we need to produce the input files for MINI-EX.
 
-We provided a true scRNA-seq data of Arabidopsis thaliana ([Zhang et al., 2019](https://www.sciencedirect.com/science/article/pii/S1674205219301339)) as example data, download [here](https://biobigdata.nju.edu.cn/scPlantDB/SeuratObj.rds)
+We provided a script used to produce the input files for MINI-EX, download [here](https://figshare.com/articles/dataset/Auxiliary_data_and_codes_for_scPlant/23498402).
+
+We provided a real scRNA-seq data of Arabidopsis thaliana ([Zhang et al., 2019](https://www.sciencedirect.com/science/article/pii/S1674205219301339)) as example data, download [here](https://figshare.com/articles/dataset/Auxiliary_data_and_codes_for_scPlant/23498402).
 
 ```{bash, eval = FALSE}
-wget https://biobigdata.nju.edu.cn/scPlantDB/SeuratObj.rds
-```
-
-```{bash, eval = FALSE}
-# We have provided a script used to produce the input files for MINI-EX:
-wget https://biobigdata.nju.edu.cn/scPlantDB/scPlantData.zip
 unzip scPlantData.zip
 Rscript scPlantData/MINIEX_preprocess.R --seuratObj SeuratObj.rds --cluster seurat_clusters --celltype celltype -o INPUTS
 ```

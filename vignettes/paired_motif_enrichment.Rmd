@@ -26,11 +26,10 @@ options(width = 80)
 
 ### Download databases and scripts
 
-The required databases and scripts to perform Paired Motif Enrichment analysis can be downloaded [here](https://biobigdata.nju.edu.cn/scPlantDB/scPlantData.zip).
+The required databases and scripts to perform Paired Motif Enrichment analysis can be downloaded [here](https://figshare.com/articles/dataset/Auxiliary_data_and_codes_for_scPlant/23498402).
 
 ```{bash, eval = FALSE}
-# Download in linux system:
-wget https://biobigdata.nju.edu.cn/scPlantDB/scPlantData.zip
+# In linux system:
 unzip scPlantData.zip
 cd scPlantData
 ```
@@ -88,7 +87,7 @@ Perform Paired Motif Enrichment Test.
 
 #### Prepare gene input file
 
-Take a true scRNA-seq data of Arabidopsis thaliana ([Zhang et al., 2019](https://www.sciencedirect.com/science/article/pii/S1674205219301339)) as example data (download [here](https://biobigdata.nju.edu.cn/scPlantDB/SeuratObj.rds)), you can use the R codes below to prepare gene input file:
+Take a real scRNA-seq data of Arabidopsis thaliana ([Zhang et al., 2019](https://www.sciencedirect.com/science/article/pii/S1674205219301339)) as example data (download [here](https://figshare.com/articles/dataset/Auxiliary_data_and_codes_for_scPlant/23498402)), you can use the R codes below to prepare gene input file:
 
 ```{r, eval = FALSE}
 library(dplyr)

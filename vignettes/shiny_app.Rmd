@@ -12,10 +12,9 @@ First, please make sure that you have previously performed the pre-processing, f
 
 The gene regulatory network, differentially expressed genes, and functional annotation can be explored interactively in the built-in Shiny web application.
 
-We provide a true scRNA-seq data of Arabidopsis thaliana ([Zhang et al., 2019](https://www.sciencedirect.com/science/article/pii/S1674205219301339)) as example data to show how to explore in built-in Shiny APP, download [here](https://biobigdata.nju.edu.cn/scPlantDB/exampleData.zip)
+We provide a real scRNA-seq data of Arabidopsis thaliana ([Zhang et al., 2019](https://www.sciencedirect.com/science/article/pii/S1674205219301339)) as example data to show how to explore in built-in Shiny APP, download [here](https://figshare.com/articles/dataset/Auxiliary_data_and_codes_for_scPlant/23498402)
 
 ```{bash, eval = FALSE}
-wget https://biobigdata.nju.edu.cn/scPlantDB/exampleData.zip
 unzip exampleData.zip
 ```
 

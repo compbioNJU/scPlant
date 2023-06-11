@@ -1,15 +1,15 @@
 
-#' Perform Gene Set Enrichment Analysis (GSEA) on Seurat object
+#' Perform Gene Set Enrichment Analysis (GSEA) on plant single-cell data.
 #'
 #' Perform Gene Set Enrichment Analysis (GSEA) on Seurat object. GSEA is implemented using \code{clusterProfiler} package.
 #' This function is only for three plant species: \code{Arabidopsis thaliana} or \code{Oryza sativa} or \code{Zea mays}.
 #'
 #' @param SeuratObj Seurat object
-#' @param by GO KEGG. Will be ignored if parameter "TERM2GENE" is not NULL.
+#' @param by GO, KEGG. Will be ignored if parameter "TERM2GENE" is not NULL.
 #' @param TERM2GENE Customized terms. Annotation of TERM TO GENE mapping, a data.frame of 2 column with term and gene. NULL by default. If not NULL, parameter "by" will be ignored.
 #' @param GeneIDtype Gene ID type in Seurat object. \code{TAIR} for \code{Arabidopsis thaliana}, for example.
 #' This parameter only works when \code{SeuratObj@misc$species == 'Arabidopsis thaliana'}.
-#' @param minpct minimum expression percent in each cluster, parameter used to filter Differential expression genes to run GSEA. 0 as default.
+#' @param minpct Minimum expressed percent in each cluster, used to filter differentially expressed genes to run GSEA. 0 as default.
 #' @param release_version Release version of genome annotation. 'IRGSP-1.0' or 'v7.0' for Oryza sativa.
 #' 'Zm-B73-REFERENCE-NAM-5.0' or 'RefGen_V4' for Zea mays. This parameter will be ignored if \code{SeuratObj@misc$species == 'Arabidopsis thaliana'}.
 #'
