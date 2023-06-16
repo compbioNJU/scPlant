@@ -81,7 +81,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Automatic cell-type annotation</h1>
             
-            <h4 data-toc-skip class="date">2023-06-11</h4>
+            <h4 data-toc-skip class="date">2023-06-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/compbioNJU/scPlant/blob/HEAD/vignettes/auto-annotation.Rmd" class="external-link"><code>vignettes/auto-annotation.Rmd</code></a></small>
       <div class="d-none name"><code>auto-annotation.Rmd</code></div>
@@ -101,12 +101,41 @@ and <a href="https://doi.org/10.1038/s41592-019-0529-1" class="external-link">Ce
 <p><code>SingleR</code>, <code>Celaref</code> and
 <code>CellFunTopic</code> need reference data to perform automatic
 cell-type annotation.</p>
+<p>Please see the following examples. Take <code>seuratObj_ref</code> as
+the reference scRNA-seq data, and take <code>SeuratObj</code> as the
+query un-annotated scRNA-seq data.</p>
+<div class="section level4">
+<h4 id="using-singler">Using SingleR<a class="anchor" aria-label="anchor" href="#using-singler"></a>
+</h4>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">SeuratObj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutoAnnotate_SingleR.html">AutoAnnotate_SingleR</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">ref</span>, ref_type <span class="op">=</span> <span class="st">"single-cell"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">seuratObj_ref</span><span class="op">$</span><span class="va">label</span> <span class="op">&lt;-</span> <span class="va">seuratObj_ref</span><span class="op">$</span><span class="va">cell_type</span></span>
+<span><span class="va">SCE_ref</span> <span class="op">&lt;-</span> <span class="fu">Seurat</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/as.SingleCellExperiment.html" class="external-link">as.SingleCellExperiment</a></span><span class="op">(</span><span class="va">seuratObj_ref</span><span class="op">)</span></span>
+<span><span class="va">SeuratObj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutoAnnotate_SingleR.html">AutoAnnotate_SingleR</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">SCE_ref</span>, ref_type <span class="op">=</span> <span class="st">"single-cell"</span><span class="op">)</span></span>
+<span><span class="co"># The predicted cell type label is stored in SeuratObj$predicted_label.</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="using-celaref">Using Celaref<a class="anchor" aria-label="anchor" href="#using-celaref"></a>
+</h4>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutoAnnotate_Celaref.html">AutoAnnotate_Celaref</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">counts_ref</span>, <span class="va">cellinfo_ref</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">cellinfo_ref</span> <span class="op">&lt;-</span> <span class="va">seuratObj_ref</span><span class="op">$</span><span class="va">cell_type</span> <span class="op">%&gt;%</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/enframe.html" class="external-link">enframe</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"CellId"</span>, value <span class="op">=</span> <span class="st">"Cluster"</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">as.data.frame</span></span>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutoAnnotate_Celaref.html">AutoAnnotate_Celaref</a></span><span class="op">(</span><span class="va">SeuratObj</span>, counts_ref <span class="op">=</span> <span class="va">seuratObj_ref</span><span class="op">@</span><span class="va">assays</span><span class="op">$</span><span class="va">RNA</span><span class="op">@</span><span class="va">data</span>, </span>
+<span>                               cellinfo_ref <span class="op">=</span> <span class="va">cellinfo_ref</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="using-cellfuntopic">Using CellFunTopic<a class="anchor" aria-label="anchor" href="#using-cellfuntopic"></a>
+</h4>
+<p>We suggest performing GSEA analysis on the reference dataset before
+transferring annotation to query dataset using CellFunTopic.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">CellFunTopic</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/CellFunTopic/man/predictFun.html" class="external-link">predictFun</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">reference_SeuratObj</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">seuratObj_ref</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RunGSEA_plant.html">RunGSEA_plant</a></span><span class="op">(</span><span class="va">seuratObj_ref</span>, by <span class="op">=</span> <span class="st">'GO'</span>, GeneIDtype <span class="op">=</span> <span class="st">'TAIR'</span><span class="op">)</span></span>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">CellFunTopic</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/CellFunTopic/man/predictFun.html" class="external-link">predictFun</a></span><span class="op">(</span></span>
+<span>  query_SeuratObj <span class="op">=</span>  <span class="va">SeuratObj</span>,</span>
+<span>  <span class="va">seuratObj_ref</span>,</span>
+<span>  group_by <span class="op">=</span> <span class="st">"cell_type"</span>,</span>
+<span>  cluster_by <span class="op">=</span> <span class="st">"seurat_clusters"</span>,</span>
+<span>  species <span class="op">=</span> <span class="st">"Arabidopsis thaliana"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="marker-based-tools">Marker based tools<a class="anchor" aria-label="anchor" href="#marker-based-tools"></a>
@@ -114,14 +143,60 @@ cell-type annotation.</p>
 <p><code>scCATCH</code>, <code>Garnett</code> and
 <code>CellAssign</code> need marker genes to perform automatic cell-type
 annotation.</p>
-<p>Please view the help document of these functions for the required
-format of marker genes, such as <code><a href="../reference/AutoAnnotate_scCATCH.html">?AutoAnnotate_scCATCH</a></code>.</p>
+<div class="section level4">
+<h4 id="using-sccatch">Using scCATCH<a class="anchor" aria-label="anchor" href="#using-sccatch"></a>
+</h4>
+<p>First, we need to build a data frame of marker genes with the
+required format.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutoAnnotate_scCATCH.html">AutoAnnotate_scCATCH</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">marker_custom</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># marker_custom is a data frame with two columns (celltype, gene), containing the markers of each cell type.</span></span>
+<span><span class="co"># Specify the species and tissue as you want</span></span>
+<span><span class="va">marker_custom</span><span class="op">$</span><span class="va">species</span> <span class="op">&lt;-</span> <span class="st">'Arabidopsis thaliana'</span></span>
+<span><span class="va">marker_custom</span><span class="op">$</span><span class="va">tissue</span> <span class="op">&lt;-</span> <span class="st">'root'</span></span>
+<span><span class="va">marker_custom</span> <span class="op">&lt;-</span> <span class="va">marker_custom</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'species'</span>, <span class="st">'tissue'</span>, <span class="st">'celltype'</span>, <span class="st">'gene'</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">marker_custom</span><span class="op">$</span><span class="va">pmid</span> <span class="op">&lt;-</span> <span class="fl">11111111</span></span>
+<span><span class="va">marker_custom</span><span class="op">$</span><span class="va">subtype1</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
+<span><span class="va">marker_custom</span><span class="op">$</span><span class="va">subtype2</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
+<span><span class="va">marker_custom</span><span class="op">$</span><span class="va">subtype3</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span></code></pre></div>
+<p>Then, you can perform automatic annotation with scCATCH.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">SeuratObj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutoAnnotate_Garnett.html">AutoAnnotate_Garnett</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">marker_file_path</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutoAnnotate_scCATCH.html">AutoAnnotate_scCATCH</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">marker_custom</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="using-garnett">Using Garnett<a class="anchor" aria-label="anchor" href="#using-garnett"></a>
+</h4>
+<p>You can build a marker file by referring to the <a href="https://cole-trapnell-lab.github.io/garnett/docs/" class="external-link">document</a>,
+or just run the following code.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">SeuratObj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutoAnnotate_CellAssign.html">AutoAnnotate_CellAssign</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">marker_list</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># markerDF is a data frame with two columns (celltype, gene), containing the markers of each cell type.</span></span>
+<span><span class="va">markerDF</span> <span class="op">&lt;-</span> <span class="va">markerDF</span><span class="op">[</span><span class="va">markerDF</span><span class="op">$</span><span class="va">gene</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">SeuratObj</span><span class="op">)</span>, <span class="op">]</span></span>
+<span><span class="va">marker_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/split.html" class="external-link">split</a></span><span class="op">(</span><span class="va">markerDF</span><span class="op">$</span><span class="va">gene</span>, <span class="va">markerDF</span><span class="op">$</span><span class="va">celltype</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sink.html" class="external-link">sink</a></span><span class="op">(</span><span class="st">"markers.txt"</span><span class="op">)</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">x</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">marker_list</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"&gt;"</span>, <span class="va">x</span>, <span class="st">"\n"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"expressed: "</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">marker_list</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">", "</span><span class="op">)</span>, <span class="st">"\n"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"\n"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sink.html" class="external-link">sink</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>Then, you can perform automatic annotation with Garnett.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">SeuratObj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutoAnnotate_Garnett.html">AutoAnnotate_Garnett</a></span><span class="op">(</span><span class="va">SeuratObj</span>, marker_file_path <span class="op">=</span> <span class="st">"markers.txt"</span><span class="op">)</span></span>
+<span><span class="co"># The predicted cell type label is stored in SeuratObj$predicted_label.</span></span></code></pre></div>
+<p>You may run into some errors prompting format problem of the marker
+file while running Garnett. If so, we recommend checking the format of
+the marker file using <a href="https://cole-trapnell-lab.github.io/garnett/docs/" class="external-link">check_markers
+function</a> and modify the format beforehand, which will reduce useless
+effort and save time.</p>
+</div>
+<div class="section level4">
+<h4 id="using-cellassign">Using CellAssign<a class="anchor" aria-label="anchor" href="#using-cellassign"></a>
+</h4>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># markerDF is a data frame with two columns (celltype, gene), containing the markers of each cell type.</span></span>
+<span><span class="va">marker_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/split.html" class="external-link">split</a></span><span class="op">(</span><span class="va">markerDF</span><span class="op">$</span><span class="va">gene</span>, <span class="va">markerDF</span><span class="op">$</span><span class="va">celltype</span><span class="op">)</span></span>
+<span><span class="va">SeuratObj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/AutoAnnotate_CellAssign.html">AutoAnnotate_CellAssign</a></span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">marker_list</span><span class="op">)</span></span>
+<span><span class="co"># The predicted cell type label is stored in SeuratObj$predicted_label.</span></span></code></pre></div>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

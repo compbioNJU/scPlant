@@ -32,7 +32,7 @@ devtools::install_github("compbioNJU/scPlant")
 Please see website: https://compbioNJU.github.io/scPlant
 
 
-## Citation
+### Please cite:
 
 Cao, S., He, Z., Chen, R., Luo, Y., Fu, L.-Y., Zhou, X., He, C., Yan, W.,
 Zhang, C.-Y., Chen, D., scPlant: a versatile framework for single-cell transcriptomic data analysis in
