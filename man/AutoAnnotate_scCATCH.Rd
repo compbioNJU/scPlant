@@ -9,7 +9,8 @@ AutoAnnotate_scCATCH(SeuratObj, marker_custom)
 \arguments{
 \item{SeuratObj}{Seurat object to annotate}
 
-\item{marker_custom}{Please refer to \url{https://raw.githack.com/ZJUFanLab/scCATCH/master/vignettes/tutorial.html} to build a marker data.frame}
+\item{marker_custom}{Please refer to \url{https://raw.githack.com/ZJUFanLab/scCATCH/master/vignettes/tutorial.html} to
+build a marker data frame. Or use \code{get_marker_scCATCH()} to generate the data frame.}
 }
 \value{
 data frame of prediction result

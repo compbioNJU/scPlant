@@ -69,21 +69,15 @@ result <- CellFunTopic::predictFun(
 
 `scCATCH`, `Garnett` and `CellAssign` need marker genes to perform automatic cell-type annotation.
 
+To run the following codes, a data frame with two columns (`celltype`, `gene`) is needed, containing the markers of each cell type. It is named `markerDF` here.
+
 
 #### Using scCATCH
 
 First, we need to build a data frame of marker genes with the required format.
 
 ```{r}
-# marker_custom is a data frame with two columns (celltype, gene), containing the markers of each cell type.
-# Specify the species and tissue as you want
-marker_custom$species <- 'Arabidopsis thaliana'
-marker_custom$tissue <- 'root'
-marker_custom <- marker_custom[, c('species', 'tissue', 'celltype', 'gene')]
-marker_custom$pmid <- 11111111
-marker_custom$subtype1 <- NA
-marker_custom$subtype2 <- NA
-marker_custom$subtype3 <- NA
+marker_custom <- get_marker_scCATCH(markerDF, species = 'Arabidopsis thaliana', tissue = 'root')
 ```
 
 Then, you can perform automatic annotation with scCATCH.
@@ -97,16 +91,8 @@ result <- AutoAnnotate_scCATCH(SeuratObj, marker_custom)
 You can build a marker file by referring to the [document](https://cole-trapnell-lab.github.io/garnett/docs/), or just run the following code. 
 
 ```{r}
-# markerDF is a data frame with two columns (celltype, gene), containing the markers of each cell type.
-markerDF <- markerDF[markerDF$gene %in% rownames(SeuratObj), ]
-marker_list <- split(markerDF$gene, markerDF$celltype)
-sink("markers.txt")
-for (x in names(marker_list)) {
-  cat(">", x, "\n", sep = "")
-  cat("expressed: ", paste(unique(marker_list[[x]]), collapse = ", "), "\n", sep = "")
-  cat("\n")
-}
-sink()
+get_marker_file(markerDF, SeuratObj, file = "markers.txt")
+# A marker file named markers.txt will be generated in your working directory.
 ```
 
 Then, you can perform automatic annotation with Garnett.
@@ -122,9 +108,7 @@ You may run into some errors prompting format problem of the marker file while r
 #### Using CellAssign
 
 ```{r}
-# markerDF is a data frame with two columns (celltype, gene), containing the markers of each cell type.
-marker_list <- split(markerDF$gene, markerDF$celltype)
-SeuratObj <- AutoAnnotate_CellAssign(SeuratObj, marker_list)
+SeuratObj <- AutoAnnotate_CellAssign(SeuratObj, markerDF)
 # The predicted cell type label is stored in SeuratObj$predicted_label.
 ```
 

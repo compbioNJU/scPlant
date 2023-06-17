@@ -38,13 +38,13 @@ AutoAnnotate_SingleR <- function(SeuratObj, ref, ref_type = c("bulk", "single-ce
 #' Automatic annotation of Seurat object using CellAssign package.
 #'
 #' @param SeuratObj Seurat object to annotate
-#' @param marker_list a named list, where the names are the cell types and
-#' the entries are marker genes (not necessarily mutually exclusive) for each cell type
+#' @param markerDF A data frame with two columns (celltype, gene), containing the markers of each cell type.
 #'
 #' @return Seurat object. The predicted cell type label is stored in \code{SeuratObj$predicted_label}.
 #' @export
 #'
-AutoAnnotate_CellAssign <- function(SeuratObj, marker_list) {
+AutoAnnotate_CellAssign <- function(SeuratObj, markerDF) {
+  marker_list <- split(markerDF$gene, markerDF$celltype)
   # turn marker list into the binary marker by cell type matrix
   marker_mat <- cellassign::marker_list_to_mat(marker_list)
 
@@ -144,11 +144,34 @@ AutoAnnotate_Garnett <- function(SeuratObj,
 }
 
 
+#' Generate a marker file to run Garnett.
+#'
+#' @param markerDF A data frame with two columns (celltype, gene), containing the markers of each cell type.
+#' @param SeuratObj The Seurat object that you going to annotate using Garnett.
+#' @param file Path to the marker file to be generated. Default is "./markers.txt".
+#'
+#' @return None, marker file is written to \code{file} parameter location.
+#' @export
+#'
+get_marker_file <- function(markerDF, SeuratObj, file = "./markers.txt") {
+  markerDF <- markerDF[markerDF$gene %in% rownames(SeuratObj), ]
+  sink(file)
+  for (x in unique(markerDF$celltype)) {
+    name <- gsub("\\(|\\)|:|>|,|#", ".", x)
+    cat(">", name, "\n", sep = "")
+    cat("expressed: ", paste(unique(markerDF$gene[markerDF$celltype == x]), collapse = ", "), "\n", sep = "")
+    cat("\n")
+  }
+  sink()
+}
+
+
 
 #' Automatic annotation of Seurat object using scCATCH package.
 #'
 #' @param SeuratObj Seurat object to annotate
-#' @param marker_custom Please refer to \url{https://raw.githack.com/ZJUFanLab/scCATCH/master/vignettes/tutorial.html} to build a marker data.frame
+#' @param marker_custom Please refer to \url{https://raw.githack.com/ZJUFanLab/scCATCH/master/vignettes/tutorial.html} to
+#' build a marker data frame. Or use \code{get_marker_scCATCH()} to generate the data frame.
 #'
 #' @return data frame of prediction result
 #' @export
@@ -164,6 +187,25 @@ AutoAnnotate_scCATCH <- function(SeuratObj, marker_custom) {
 }
 
 
+#' Generate a data frame of marker genes with the required format to run scCATCH.
+#'
+#' @param markerDF A data frame with two columns (celltype, gene), containing the markers of each cell type.
+#' @param species species.
+#' @param tissue tissue.
+#'
+#' @return A data frame containing the markers of each cell type.
+#' @export
+#'
+get_marker_scCATCH <- function(markerDF, species, tissue) {
+  markerDF$species <- species
+  markerDF$tissue <- tissue
+  markerDF <- markerDF[, c('species', 'tissue', 'celltype', 'gene')]
+  markerDF$pmid <- 11111111
+  markerDF$subtype1 <- NA
+  markerDF$subtype2 <- NA
+  markerDF$subtype3 <- NA
+  return(markerDF)
+}
 
 
 

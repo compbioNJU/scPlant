@@ -4,13 +4,12 @@
 \alias{AutoAnnotate_CellAssign}
 \title{Automatic annotation of Seurat object using CellAssign package.}
 \usage{
-AutoAnnotate_CellAssign(SeuratObj, marker_list)
+AutoAnnotate_CellAssign(SeuratObj, markerDF)
 }
 \arguments{
 \item{SeuratObj}{Seurat object to annotate}
 
-\item{marker_list}{a named list, where the names are the cell types and
-the entries are marker genes (not necessarily mutually exclusive) for each cell type}
+\item{markerDF}{A data frame with two columns (celltype, gene), containing the markers of each cell type.}
 }
 \value{
 Seurat object. The predicted cell type label is stored in \code{SeuratObj$predicted_label}.

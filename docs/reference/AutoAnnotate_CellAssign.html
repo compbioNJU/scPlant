@@ -65,7 +65,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">AutoAnnotate_CellAssign</span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">marker_list</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">AutoAnnotate_CellAssign</span><span class="op">(</span><span class="va">SeuratObj</span>, <span class="va">markerDF</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -74,9 +74,8 @@
 <dd><p>Seurat object to annotate</p></dd>
 
 
-<dt>marker_list</dt>
-<dd><p>a named list, where the names are the cell types and
-the entries are marker genes (not necessarily mutually exclusive) for each cell type</p></dd>
+<dt>markerDF</dt>
+<dd><p>A data frame with two columns (celltype, gene), containing the markers of each cell type.</p></dd>
 
 </dl></div>
     <div class="section level2">

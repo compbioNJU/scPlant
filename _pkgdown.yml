@@ -36,6 +36,8 @@ reference:
   - AutoAnnotate_scCATCH
   - AutoAnnotate_Garnett
   - AutoAnnotate_CellAssign
+  - get_marker_file
+  - get_marker_scCATCH
 - title: Cell type decomposition of bulk samples
 - contents:
   - decomposeBulk
