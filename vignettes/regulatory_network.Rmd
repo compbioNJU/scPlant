@@ -38,8 +38,9 @@ cd scPlantData
 ```
 
 <details>
-  <summary>**Supported genome version**</summary>
-  Provided cisTarget databases were built based on the following genome version:
+  <summary>**For other species and genome version**</summary>
+  
+  Provided cisTarget databases were built based on the following species and genome version:
   
   Arabidopsis thaliana: **TAIR10**
   
@@ -47,8 +48,35 @@ cd scPlantData
   
   Zea mays: **Zm-B73-REFERENCE-NAM-5.0**
   
-  Users can build their own cisTarget databases based on other genome version by following the protocol [create_cisTarget_databases](https://github.com/aertslab/create_cisTarget_databases).
+  For other species and genome version, users can build their own cisTarget databases by following the protocol [create_cisTarget_databases](https://github.com/aertslab/create_cisTarget_databases).
+  
+  <details>
+  <summary>**Create tbl file for other species**</summary>
+  
+  For other species, users can create their own motif2TF.tbl file by creating a data frame with the information of the motifs and their corresponding TFs, which is the most important information in tbl files and can be downloaded from some databases such as [JASPAR](http://jaspar.genereg.net) and [PlantTFDB](http://planttfdb.gao-lab.org/). 
+  
+  Here is the code to create a motif2TF.tbl file:
+  
+```{r, eval = FALSE}
+# Assuming motif2TF is a three-column data frame with the information of motifs and their corresponding TFs like this:
+# motif TF source
+# MP00120	AT1G01250	PlantTFDB
+# MP00100	AT1G01260	PlantTFDB
+
+# Then use the code:
+motif2TF <- motif2TF %>% dplyr::transmute(`#motif_id`=motif, motif_name=motif, motif_description=TF,
+                                          source_name=source, source_version=1.1, gene_name=TF,
+                                          motif_similarity_qvalue=0.000000, similar_motif_id="None", 
+                                          similar_motif_description="None", orthologous_identity=1.000000,
+                                          orthologous_gene_name="None", orthologous_species="None", 
+                                          description="gene is directly annotated")
+write.table(motif2TF, file = "motif2TF.tbl", sep = "\t", row.names = F, quote = F)
+```
+  
+  </details>
+  
 </details>
+
 
 We also provide a real scRNA-seq data of Arabidopsis thaliana ([Zhang et al., 2019](https://www.sciencedirect.com/science/article/pii/S1674205219301339)) as example data, download [here](https://figshare.com/articles/dataset/Auxiliary_data_and_codes_for_scPlant/23498402).
 
