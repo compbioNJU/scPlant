@@ -27,14 +27,19 @@ Then, install scPlant:
 devtools::install_github("compbioNJU/scPlant")
 ```
 
-## Example
+## Usage
 
 Please see website: https://compbioNJU.github.io/scPlant
 
 
-### Please cite:
+## Citation:
 
 Cao, S., He, Z., Chen, R., Luo, Y., Fu, L.-Y., Zhou, X., He, C., Yan, W.,
 Zhang, C.-Y., Chen, D., scPlant: a versatile framework for single-cell transcriptomic data analysis in
 plants, PLANT COMMUNICATIONS (2023), doi: https://doi.org/10.1016/j.xplc.2023.100631.
+
+
+---
+
+Please note that [MINI-EX](https://github.com/VIB-PSB/MINI-EX) uses a [dual license](https://github.com/VIB-PSB/MINI-EX/blob/main/LICENSE) to offer the distribution of the software under a proprietary model as well as an open source model.
 
