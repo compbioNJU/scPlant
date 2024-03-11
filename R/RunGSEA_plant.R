@@ -134,14 +134,14 @@ RunGSEA_plant <- function(SeuratObj,
         stop(by, " annotation of release version ", release_version, " of ", species, " is not supported yet.")
       }
 
-      TERM2GENE <- anno_info[, c(2:1)] %>% magrittr::set_colnames(c('term', 'gene'))
-      TERM2NAME <- anno_info[, c(2:3)] %>% magrittr::set_colnames(c('term', 'name'))
+      term2gene <- anno_info[, c(2:1)] %>% magrittr::set_colnames(c('term', 'gene'))
+      term2name <- anno_info[, c(2:3)] %>% magrittr::set_colnames(c('term', 'name'))
       out <- foreach(cls=unique(Allmarkers$cluster)) %do% {
         submarkers <- Allmarkers %>% dplyr::filter(cluster==cls & pct.1 >= minpct)
         geneList <- sort(setNames(submarkers$avg_log2FC, submarkers$gene), decreasing = T)
         res <- GSEA(geneList     = geneList,
-                    TERM2GENE    = TERM2GENE,
-                    TERM2NAME    = TERM2NAME,
+                    TERM2GENE    = term2gene,
+                    TERM2NAME    = term2name,
                     pvalueCutoff = 1,
                     verbose      = FALSE)
         df <- cbind(res@result, cluster=cls)
